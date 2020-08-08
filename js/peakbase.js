@@ -17,20 +17,23 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
 function extractPeaks(xmlDoc) {
 
     var peaks = [];
-
+    
+    wpt_tag = xmlDoc.getElementsByTagName("wpt")
     ele_tag = xmlDoc.getElementsByTagName("ele")
     name_tag = xmlDoc.getElementsByTagName("name")
     link_tag = xmlDoc.getElementsByTagName("link")
     sym_tag = xmlDoc.getElementsByTagName("sym")
 
     for (let i = 0; i < xmlDoc.getElementsByTagName("wpt").length; i++) {
+    // for (let i = 0; i < 3; i++) {
         
         var peak = new Object();
         peak.ele = parseInt(ele_tag[i].childNodes[0].nodeValue);
         peak.name = name_tag[i].childNodes[0].nodeValue.trim();
-        // FIXME: Get link from link tag.
-        // peak.link = link_tag[i].getAttributeValue("href"); 
+        peak.link = link_tag[i].getAttribute("href"); 
         peak.sym = sym_tag[i].childNodes[0].nodeValue.trim();
+        peak.lat = wpt_tag[i].getAttribute("lat");
+        peak.lon = wpt_tag[i].getAttribute("lon");
 
         peaks.push(peak);
 
@@ -43,8 +46,8 @@ function extractPeaks(xmlDoc) {
 
 function plotPeak(peak) {
 
-    L.marker([51.5, -0.09]).addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+    L.marker([peak.lat, peak.lon]).addTo(map)
+        .bindPopup(peak.name + ' ' + peak.ele)
         .openPopup();
 
 }
@@ -59,18 +62,15 @@ document.getElementById('import').onclick = function () {
     for (let i = 0; i < files.length; i++) {
         var reader = new FileReader();
 
-        // var div = document.createElement("div");
-        // div.id = "plot" + i.toString();
-        // document.getElementById("dataPlots").appendChild(div);
-
         reader.onload = function (e) {
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
             var peaks = extractPeaks(xmlDoc);
 
-            // for (let i = 0; i < peaks.length; i++) {
-            //     plotPeak(peaks[i
-            // }
+            for (let i = 0; i < peaks.length; i++) {
+            // for (let i = 0; i < 3; i++) {
+                plotPeak(peaks[i]);
+            }
 
         }
         reader.readAsText(files.item(i));
