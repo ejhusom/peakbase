@@ -1,0 +1,92 @@
+var L = L || require('leaflet');
+
+const fileSelector = document.getElementById("file-selector");
+fileSelector.addEventListener("change", (event) => {
+    const fileList = event.target.files;
+    console.log(fileList);
+});
+
+var map = L.map('map').setView([41.9, 12.5], 12);
+L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+}).addTo(map);
+
+var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
+
+function extractPeaks(xmlDoc) {
+
+    var peaks = new Object();
+
+    peaks.ele = [];
+    peaks.name = [];
+    peaks.link = [];
+    peaks.sym = [];
+
+    // peaks.ele = xmlDoc.getElementsByTagName("ele").childNodes;
+    // peaks.name = xmlDoc.getElementsByTagName("name").childNodes;
+    // peaks.link = xmlDoc.getElementsByTagName("link").childNodes;
+    // peaks.sym = xmlDoc.getElementsByTagName("sym").childNodes;
+
+    // console.log(xmlDoc);
+    // console.log(peaks.ele[0].nodeValue);
+
+    for (let i = 0; i < xmlDoc.getElementsByTagName("ele").length; i++) {
+        peaks.ele.push(xmlDoc.getElementsByTagName("ele")[i].childNodes[0].nodeValue);
+        // console.log(xmlDoc.getElementsByTagName("ele")[i].childNodes[0].nodeValue);
+
+    };
+
+    console.log(peaks.ele);
+
+
+    return peaks;
+}
+
+function plotPeak(peak) {
+
+    L.marker([51.5, -0.09]).addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
+
+}
+
+
+document.getElementById('import').onclick = function () {
+    var files = document.getElementById('file-selector').files;
+    console.log(files);
+
+    var pathList = [];
+
+    for (let i = 0; i < files.length; i++) {
+        var reader = new FileReader();
+
+        // var div = document.createElement("div");
+        // div.id = "plot" + i.toString();
+        // document.getElementById("dataPlots").appendChild(div);
+
+        reader.onload = function (e) {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+            var peaks = extractPeaks(xmlDoc);
+
+            // var result = JSON.parse(e.target.result);
+            // var samples = result.RIDE.SAMPLES;
+            // var data = extractPeaks(samples);
+
+            // plotData(data, "plot");
+            // plotPath(data.latlon);
+
+        }
+        reader.readAsText(files.item(i));
+    }
+
+    // plotMap(pathList);
+
+
+    // console.log(files.length);
+    // for (let i = 0; i < files.length; i++) {
+    //     // const element = files.item(i);
+    //     reader.readAsText(files.item(i));
+
+}
