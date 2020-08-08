@@ -16,42 +16,50 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
 
 function extractPeaks(xmlDoc) {
 
-    var peaks = new Object();
+    var peaks = [];
+    // var peaks = new Object();
 
-    peaks.ele = [];
-    peaks.name = [];
-    peaks.link = [];
-    peaks.sym = [];
+    // peaks.ele = [];
+    // peaks.name = [];
+    // peaks.link = [];
+    // peaks.sym = [];
 
     ele_tag = xmlDoc.getElementsByTagName("ele")
     name_tag = xmlDoc.getElementsByTagName("name")
     link_tag = xmlDoc.getElementsByTagName("link")
     sym_tag = xmlDoc.getElementsByTagName("sym")
 
-    // console.log(xmlDoc);
-    // console.log(peaks.ele[0].nodeValue);
-
     for (let i = 0; i < xmlDoc.getElementsByTagName("wpt").length; i++) {
-        peaks.ele.push(parseInt(
-            // xmlDoc.getElementsByTagName("ele")[i].childNodes[0].nodeValue
-            ele_tag[i].childNodes[0].nodeValue
-        ));
-        peaks.name.push(
-            name_tag[i].childNodes[0].nodeValue.trim()
-        );
-        // FIXME: Get link from link tag.
-        // peaks.link.push(
-        //     link_tag[i].getAttributeValue("href"); 
+        
+        var peak = new Object();
+        peak.ele = parseInt(ele_tag[i].childNodes[0].nodeValue);
+        peak.name = name_tag[i].childNodes[0].nodeValue.trim();
+        peak.sym = sym_tag[i].childNodes[0].nodeValue.trim();
+
+        peaks.push(peak);
+
+        // peaks.ele.push(parseInt(
+        //     // xmlDoc.getElementsByTagName("ele")[i].childNodes[0].nodeValue
+        //     ele_tag[i].childNodes[0].nodeValue
+        // ));
+        // peaks.name.push(
+        //     name_tag[i].childNodes[0].nodeValue.trim()
         // );
-        peaks.sym.push(
-            sym_tag[i].childNodes[0].nodeValue.trim()
-        );
+        // // FIXME: Get link from link tag.
+        // // peaks.link.push(
+        // //     link_tag[i].getAttributeValue("href"); 
+        // // );
+        // peaks.sym.push(
+        //     sym_tag[i].childNodes[0].nodeValue.trim()
+        // );
     };
 
-    console.log(peaks.ele);
-    console.log(peaks.name);
-    console.log(peaks.link);
-    console.log(peaks.sym);
+    console.log(peaks[0]);
+
+    // console.log(peaks.ele);
+    // console.log(peaks.name);
+    // console.log(peaks.link);
+    // console.log(peaks.sym);
 
     return peaks;
 }
@@ -83,12 +91,9 @@ document.getElementById('import').onclick = function () {
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
             var peaks = extractPeaks(xmlDoc);
 
-            // var result = JSON.parse(e.target.result);
-            // var samples = result.RIDE.SAMPLES;
-            // var data = extractPeaks(samples);
-
-            // plotData(data, "plot");
-            // plotPath(data.latlon);
+            // for (let i = 0; i < peaks.length; i++) {
+            //     plotPeak(peaks[i
+            // }
 
         }
         reader.readAsText(files.item(i));
