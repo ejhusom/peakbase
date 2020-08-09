@@ -41,6 +41,7 @@ function extractPeaks(xmlDoc) {
         var peak = new Object();
         var wpt = wpts[i];
 
+        // Save infor about peak.
         peak.ele = parseInt(
             wpt.getElementsByTagName("ele")[0].firstChild.nodeValue
         );
@@ -54,15 +55,21 @@ function extractPeaks(xmlDoc) {
         peak.lat = parseFloat(wpt.getAttribute("lat"));
         peak.lon = parseFloat(wpt.getAttribute("lon"));
 
+        // Try to find the "cmt"-tag for the waypoint, otherwise set attribute
+        // to zero.
         try {
             peak.cmt = wpt.getElementsByTagName("cmt")[0].firstChild.nodeValue.trim();
-            peaks_visited.push(peak);
         } catch {
             peak.cmt = null;
         }
 
-        peaks.push(peak);
-
+        // If the "cmt"-tag indicates that the peak has been visited, save it
+        // in a separate list.
+        if (peak.cmt === "visited") {
+            peaks_visited.push(peak);
+        } else {
+            peaks.push(peak);
+        }
     };
 
     console.log("Peaks extracted!");
