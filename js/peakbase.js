@@ -8,7 +8,8 @@ fileSelector.addEventListener("change", (event) => {
 
 var map = L.map('map').setView([60.9, 9.5], 7);
 L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
-preferCanvas: true,
+    minZoom: 6,
+    preferCanvas: true,
     attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
 }).addTo(map);
 
@@ -55,7 +56,7 @@ function extractPeaks(xmlDoc) {
 
 function plotPeak(peak) {
 
-    L.circleMarker(
+     var marker = L.circleMarker(
     // var myIcon = L.divIcon({className: 'my-div-icon'});
     // L.marker(
         [peak.lat, peak.lon], {
@@ -64,7 +65,10 @@ function plotPeak(peak) {
         }
     // ).bindTooltip(
     //     peak.name + ' ' + peak.ele
-    ).addTo(map);
+    // ).addTo(map);
+    );
+
+    markers.addLayer(marker);
 
 }
 
@@ -91,6 +95,8 @@ document.getElementById('import').onclick = function () {
 
             console.log("Plotting peaks...");
 
+            var markers = L.markerClusterGroup();
+
             for (let i = 0; i < peaks.length; i++) {
             // for (let i = 0; i < 3000; i++) {
                 // if (peaks[i].lat > centerLat - latDiff
@@ -98,9 +104,25 @@ document.getElementById('import').onclick = function () {
                 //         && peaks[i].lon > centerLon - lonDiff
                 //         && peaks[i].lon < centerLon + lonDiff) 
                 // {
-                    plotPeak(peaks[i]);
+                    // plotPeak(peaks[i]);
                 // }
+                var peak = peaks[i];
+                var marker = L.circleMarker(
+                // var myIcon = L.divIcon({className: 'my-div-icon'});
+                // L.marker(
+                    [peak.lat, peak.lon], {
+                        // icon: myIcon
+                        radius: 1
+                    }
+                // ).bindTooltip(
+                //     peak.name + ' ' + peak.ele
+                // ).addTo(map);
+                );
+
+                markers.addLayer(marker);
             }
+
+            map.addLayer(markers);
 
             console.log("Peaks plotted!");
 
