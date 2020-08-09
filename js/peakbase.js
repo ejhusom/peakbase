@@ -6,11 +6,18 @@ fileSelector.addEventListener("change", (event) => {
     console.log(fileList);
 });
 
-var map = L.map('map').setView([41.9, 12.5], 12);
-L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
-    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+var map = L.map('map').setView([60.9, 9.5], 7);
+L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+preferCanvas: true,
+    attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
 }).addTo(map);
+
+// var map = L.map('map').setView([60.9, 9.5], 7);
+// L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 17,
+//     preferCanvas: true,
+//     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+// }).addTo(map);
 
 var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
 
@@ -24,6 +31,8 @@ function extractPeaks(xmlDoc) {
     link_tag = xmlDoc.getElementsByTagName("link")
     sym_tag = xmlDoc.getElementsByTagName("sym")
 
+    console.log("Extracting peaks...");
+
     for (let i = 0; i < xmlDoc.getElementsByTagName("wpt").length; i++) {
     // for (let i = 0; i < 3; i++) {
         
@@ -32,23 +41,30 @@ function extractPeaks(xmlDoc) {
         peak.name = name_tag[i].childNodes[0].nodeValue.trim();
         peak.link = link_tag[i].getAttribute("href"); 
         peak.sym = sym_tag[i].childNodes[0].nodeValue.trim();
-        peak.lat = wpt_tag[i].getAttribute("lat");
-        peak.lon = wpt_tag[i].getAttribute("lon");
+        peak.lat = parseFloat(wpt_tag[i].getAttribute("lat"));
+        peak.lon = parseFloat(wpt_tag[i].getAttribute("lon"));
 
         peaks.push(peak);
 
     };
 
-    console.log(peaks[0]);
+    console.log("Peaks extracted!");
 
     return peaks;
 }
 
 function plotPeak(peak) {
 
-    L.marker([peak.lat, peak.lon]).addTo(map)
-        .bindPopup(peak.name + ' ' + peak.ele)
-        .openPopup();
+    L.circleMarker(
+    // var myIcon = L.divIcon({className: 'my-div-icon'});
+    // L.marker(
+        [peak.lat, peak.lon], {
+            // icon: myIcon
+            radius: 1
+        }
+    // ).bindTooltip(
+    //     peak.name + ' ' + peak.ele
+    ).addTo(map);
 
 }
 
@@ -67,10 +83,26 @@ document.getElementById('import').onclick = function () {
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
             var peaks = extractPeaks(xmlDoc);
 
+            var centerLat = 60;
+            var centerLon = 9;
+
+            var latDiff = 0.1;
+            var lonDiff = 1.0;
+
+            console.log("Plotting peaks...");
+
             for (let i = 0; i < peaks.length; i++) {
-            // for (let i = 0; i < 3; i++) {
-                plotPeak(peaks[i]);
+            // for (let i = 0; i < 3000; i++) {
+                // if (peaks[i].lat > centerLat - latDiff
+                //         && peaks[i].lat < centerLat + latDiff
+                //         && peaks[i].lon > centerLon - lonDiff
+                //         && peaks[i].lon < centerLon + lonDiff) 
+                // {
+                    plotPeak(peaks[i]);
+                // }
             }
+
+            console.log("Peaks plotted!");
 
         }
         reader.readAsText(files.item(i));
