@@ -6,9 +6,8 @@ fileSelector.addEventListener("change", (event) => {
     console.log(fileList);
 });
 
-var map = L.map('map').setView([60.9, 9.5], 7);
+var map = L.map('map').setView([65, 14], 5);
 L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
-    minZoom: 6,
     preferCanvas: true,
     attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
 }).addTo(map);
@@ -22,28 +21,45 @@ L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=top
 
 var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
 
+/**
+ * Extract informatino about peaks (or other points of interest) from an
+ * uploaded gpx-file.
+ * @param {} xmlDoc XML-docuemnt to parse.
+ */
 function extractPeaks(xmlDoc) {
 
     var peaks = [];
+    var peaks_visited = [];
     
-    wpt_tag = xmlDoc.getElementsByTagName("wpt")
-    ele_tag = xmlDoc.getElementsByTagName("ele")
-    name_tag = xmlDoc.getElementsByTagName("name")
-    link_tag = xmlDoc.getElementsByTagName("link")
-    sym_tag = xmlDoc.getElementsByTagName("sym")
+    var wpts = xmlDoc.getElementsByTagName("wpt");
 
     console.log("Extracting peaks...");
 
-    for (let i = 0; i < xmlDoc.getElementsByTagName("wpt").length; i++) {
-    // for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < wpts.length; i++) {
+    // for (let i = 0; i < 5; i++) {
         
         var peak = new Object();
-        peak.ele = parseInt(ele_tag[i].childNodes[0].nodeValue);
-        peak.name = name_tag[i].childNodes[0].nodeValue.trim();
-        peak.link = link_tag[i].getAttribute("href"); 
-        peak.sym = sym_tag[i].childNodes[0].nodeValue.trim();
-        peak.lat = parseFloat(wpt_tag[i].getAttribute("lat"));
-        peak.lon = parseFloat(wpt_tag[i].getAttribute("lon"));
+        var wpt = wpts[i];
+
+        peak.ele = parseInt(
+            wpt.getElementsByTagName("ele")[0].firstChild.nodeValue
+        );
+        peak.name = (
+            wpt.getElementsByTagName("name")[0].firstChild.nodeValue.trim()
+        );
+        peak.link = wpt.getElementsByTagName("link")[0].getAttribute("href");
+        peak.sym = (
+            wpt.getElementsByTagName("sym")[0].firstChild.nodeValue.trim()
+        );
+        peak.lat = parseFloat(wpt.getAttribute("lat"));
+        peak.lon = parseFloat(wpt.getAttribute("lon"));
+
+        try {
+            peak.cmt = wpt.getElementsByTagName("cmt")[0].firstChild.nodeValue.trim();
+            peaks_visited.push(peak);
+        } catch {
+            peak.cmt = null;
+        }
 
         peaks.push(peak);
 
@@ -51,25 +67,57 @@ function extractPeaks(xmlDoc) {
 
     console.log("Peaks extracted!");
 
-    return peaks;
+    return [peaks, peaks_visited];
 }
 
-function plotPeak(peak) {
+function plotPeaks(peaks, markerColor="#ffffff") {
+    
+    console.log("Plotting peaks...");
 
-     var marker = L.circleMarker(
-    // var myIcon = L.divIcon({className: 'my-div-icon'});
-    // L.marker(
-        [peak.lat, peak.lon], {
-            // icon: myIcon
-            radius: 1
-        }
-    // ).bindTooltip(
-    //     peak.name + ' ' + peak.ele
-    // ).addTo(map);
-    );
+    // Create marker cluster in order to make the number of markers
+    // managable for the browser.
+    var markers = L.markerClusterGroup({
+        // maxClusterRadius affects how large the clusters will be.
+        // Default is 80, decreasing makes smaller clusters.
+        maxClusterRadius: 80,
+        // This property set the minimum zoom level for where every
+        // marker will be displayed, even though they would normally be
+        // clustered.
+        disableClusteringAtZoom: 11,
+        // Disable spiderfyOnMaxZoom when using
+        // disableClusteringAtZoom, since the desired behaviour is to
+        // zoom to get all points, not only the points under a specific
+        // cluster.
+        spiderfyOnMaxZoom: false,
+        // chunkedLoading splits addLayers processing to avoid page
+        // freeze.
+        chunkedLoading: true
+    });
 
-    markers.addLayer(marker);
+    for (let i = 0; i < peaks.length; i++) {
+        var peak = peaks[i];
+        var markerRadius = 3;
 
+        // if (peak.cmt === "visited") {
+        //     var markerColor = "#FFFFFF";
+        //     var markerRadius = 3;
+        // }
+
+        var marker = L.circleMarker(
+            [peak.lat, peak.lon], {
+                radius: markerRadius,
+                color: markerColor
+            }
+        ).bindTooltip(
+            peak.name + ' ' + peak.ele
+        );
+
+        markers.addLayer(marker);
+    }
+
+    map.addLayer(markers);
+
+    console.log("Peaks plotted!");
 }
 
 
@@ -83,48 +131,15 @@ document.getElementById('import').onclick = function () {
         var reader = new FileReader();
 
         reader.onload = function (e) {
+
+            // Parse gpx file.
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
             var peaks = extractPeaks(xmlDoc);
 
-            var centerLat = 60;
-            var centerLon = 9;
-
-            var latDiff = 0.1;
-            var lonDiff = 1.0;
-
-            console.log("Plotting peaks...");
-
-            var markers = L.markerClusterGroup();
-
-            for (let i = 0; i < peaks.length; i++) {
-            // for (let i = 0; i < 3000; i++) {
-                // if (peaks[i].lat > centerLat - latDiff
-                //         && peaks[i].lat < centerLat + latDiff
-                //         && peaks[i].lon > centerLon - lonDiff
-                //         && peaks[i].lon < centerLon + lonDiff) 
-                // {
-                    // plotPeak(peaks[i]);
-                // }
-                var peak = peaks[i];
-                var marker = L.circleMarker(
-                // var myIcon = L.divIcon({className: 'my-div-icon'});
-                // L.marker(
-                    [peak.lat, peak.lon], {
-                        // icon: myIcon
-                        radius: 1
-                    }
-                // ).bindTooltip(
-                //     peak.name + ' ' + peak.ele
-                // ).addTo(map);
-                );
-
-                markers.addLayer(marker);
-            }
-
-            map.addLayer(markers);
-
-            console.log("Peaks plotted!");
+            console.log(peaks[1]);
+            plotPeaks(peaks[0]);
+            plotPeaks(peaks[1], "#008000");
 
         }
         reader.readAsText(files.item(i));
