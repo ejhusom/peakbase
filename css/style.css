@@ -1,10 +1,287 @@
-body {
-    width: 100%;
+/* File:        skeleton.css
+ * Author:      Erik Johannes Husom
+ * Description: Skeleton for CSS files.
+ */
+
+:root {
+    --main-font-color: rgb(57, 56, 56);
+    --secondary-font-color: rgb(142, 142, 142);
+    --max-body-width: 120em;
 }
+
+/*Body{{{*/
+body {
+    /* text-rendering: optimizeLegibility; */
+    font-family: "Arial", sans-serif;
+    font-size: 90%;
+    /* font-family: 'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace; */
+    /* font-family: monospace; */
+    color: var(--main-font-color);
+    box-sizing: border-box;
+    max-width: var(--max-body-width);
+    margin: auto;
+    padding-left: 13%;
+    padding-right: 13%;
+}
+/*}}}*/
+
+/*Header{{{*/
+header {
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+header h1 {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.subheading {
+  color: var(--secondary-font-color);
+  text-transform: lowercase;
+  padding-bottom: 1em;
+  font-size: 0.9em;
+}
+/*}}}*/
+
+/*Nav{{{*/
+nav {
+  font-weight: 600;
+  color: var(--secondary-font-color);
+  text-transform: lowercase;
+  padding-bottom: 1em;
+}
+
+nav.main-nav {
+  text-align: center;
+  display: block;
+  font-size: 0.8em;
+}
+
+nav.main-nav a {
+  padding-right: 1em;
+  padding-top: 0.15em;
+}
+/*}}}*/
+
+/*Headers{{{*/
+h1, h2, h3 {
+  /* display: inline; */
+  /* font-size: 16px; */
+  /* font-weight: 600; */
+  text-transform: lowercase;
+}
+
+h2 {
+    color: var(--main-font-color);
+    font-size: 1.2em;
+}
+
+/*}}}*/
+
+/*Hr (line){{{*/
+hr {
+  border: 0.1rem solid rgb(233, 233, 233);
+}
+/*}}}*/
+
+/*Lists{{{*/
+ul {
+  /* list-style-type: none; */
+  /* padding-left: 0; */
+}
+
+li {
+  padding-top: 0.1rem;
+  list-style-type: none;
+}
+/*}}}*/
+
+/*Links{{{*/
+a:link, a:visited {
+  color:  var(--secondary-font-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(17, 131, 185);
+}
+
+a.ghost:link, a.ghost:visited, a.ghost:hover {
+  color: var(--main-font-color);
+  text-decoration: none;
+}
+/*}}}*/
+
+/*Image{{{*/
+img {
+  width: 100%;
+}
+
+figcaption {
+  padding: 0.5em 0em 2.5em 0em;
+  text-align: center;
+}
+
+img.summary-image {
+  /* width: 90%; */
+  height: 15em;
+  width: auto;
+  /* To center image: */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*}}}*/
+
+/*Webcam{{{*/
+.webcam {
+    width: 100%;
+    display: block;
+    padding-bottom: 1em;    
+}    
+/*}}}*/
+
+/*Map style{{{*/
+/* #map { */
+/*     width: 50%; */
+/*     height: 70vh; */
+/* } */ 
+/*}}}*/
+
+/*Tablets and mobile devices{{{*/
+@media screen and (max-width: 992px) {
+  body {
+      max-width: none;
+  }
+  .webcam {
+      width: 100%;
+      height: 100%;
+  }
+  #map {
+      width: 100%;
+      height: 70vh;
+  }
+  nav a {
+    display: block;
+  }
+  img.summary-image {
+    width: 100%;
+    height: auto;
+  }
+}
+/* ======== Tablets ========= */
+/* @media screen and (min-width: 481px) and (max-width: 991px) { */
+/*     .imagemasonry4 { */
+/*         column-count: 2; */
+/*     } */
+/* } */
+/*}}}*/
+
+/*Laptops and large screens{{{*/
+@media screen and (min-width: 992px) {
+
+}
+/*}}}*/
+
+/*Footer{{{*/
+footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+footer article {
+  font-size: 0.7rem;
+}
+/*}}}*/
+
+/*Defintion/description{{{*/
+dl {
+    background: white;
+}
+
+dd {
+    display: none;
+}
+
+dt:active + dd{
+    display: block;
+}
+
+dt:hover + dd{
+    display: block;
+}
+/*}}}*/
+
+/* Back to top{{{ */
+#backToTop {
+    position: fixed;
+    bottom: 10px;
+    /* float: right; */
+    right: 18.5%;
+    /* left: 77.25%; */
+    /* max-width: 30px; */
+    /* width: 100%; */
+    /* font-size: 12px; */
+    /* border-color: rgba(85, 85, 85, 0.2); */
+    background-color: #ffffff;
+    padding: .5px;
+    border-radius: 4px;
+}
+/* }}} */
+
+/* {{{Video */
+video {
+  width: 100%;
+}
+/* }}} */
+
+/* Blockquote{{{ */
+blockquote {
+  font-style: italic;
+  border-left: 2px solid #ccc;
+  padding-left: 15px;
+}
+/* }}} */
+
+/* Content{{{ */
+#content {
+  line-height: 1.4;
+  font-size: 15px;
+}
+#content li {
+  list-style-type: disc;
+}
+#content h1 {
+  text-transform: none;
+}
+#content p a {
+  text-decoration: underline;
+}
+#content ul a {
+  text-decoration: underline;
+}
+#content p {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+/* }}} */
 
 #map {
     height: 700px;
     width: 70%;
     margin: auto;
     margin-top: 2em;
+}
+
+#upload-box {
+    text-align: center;
 }

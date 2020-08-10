@@ -13,13 +13,21 @@
     </head>
 
     <header>
+        <nav class="main-nav">
+            <a href="https://erikjohannes.no">erikjohannes.no</a>
+            <!-- <a href="https://github.com/ejhusom/peakbase">source code</a> -->
+        </nav>
         <h1>Peakbase</h1>
-        A minimalistic tool for peak baggers
+        <span class="subheading">A minimalistic tool for peak baggers</span>
+        <!-- A minimalistic tool for peak baggers -->
     </header>
     
     <body>
-        <input type="file" id="file-selector" multiple>
-        <button id="import">Import</button>
+        <div id="upload-box">
+            <p>Upload your GPX-file here (currently only working with files with certain properties):</p>
+            <input type="file" id="file-selector" multiple>
+            <button id="import">Import</button>
+        </div>
         <div id="map"></div>
 
         <!-- <article> -->
