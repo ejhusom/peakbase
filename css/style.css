@@ -64,7 +64,7 @@ nav.main-nav {
 
 nav.main-nav a {
   padding-right: 1em;
-  padding-top: 0.15em;
+  padding-top: 1.15em;
 }
 /*}}}*/
 
@@ -77,8 +77,10 @@ h1, h2, h3 {
 }
 
 h2 {
+    padding-top: 1.0em;
     color: var(--main-font-color);
     font-size: 1.2em;
+    text-align: center;
 }
 
 /*}}}*/
@@ -96,8 +98,11 @@ ul {
 }
 
 li {
-  padding-top: 0.1rem;
-  list-style-type: none;
+    padding-top: 0.1rem;
+}
+
+ul li {
+    list-style-type: none;
 }
 /*}}}*/
 
@@ -285,3 +290,7 @@ blockquote {
 #upload-box {
     text-align: center;
 }
+
+/* article { */
+/*     max-width: 50em; */
+/* } */
