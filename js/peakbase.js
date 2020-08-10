@@ -25,6 +25,8 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
  * Extract informatino about peaks (or other points of interest) from an
  * uploaded gpx-file.
  * @param {} xmlDoc XML-docuemnt to parse.
+ * TODO: Make function read files that do not contain all tags. Only
+ * coordinates should be required.
  */
 function extractPeaks(xmlDoc) {
 
@@ -42,18 +44,33 @@ function extractPeaks(xmlDoc) {
         var wpt = wpts[i];
 
         // Save infor about peak.
-        peak.ele = parseInt(
-            wpt.getElementsByTagName("ele")[0].firstChild.nodeValue
-        );
-        peak.name = (
-            wpt.getElementsByTagName("name")[0].firstChild.nodeValue.trim()
-        );
-        peak.link = wpt.getElementsByTagName("link")[0].getAttribute("href");
-        peak.sym = (
-            wpt.getElementsByTagName("sym")[0].firstChild.nodeValue.trim()
-        );
-        peak.lat = parseFloat(wpt.getAttribute("lat"));
-        peak.lon = parseFloat(wpt.getAttribute("lon"));
+        try {
+            peak.ele = parseInt(
+                wpt.getElementsByTagName("ele")[0].firstChild.nodeValue
+            );
+        } catch {
+            peak.ele = null;
+        }
+        try {
+            peak.name = (
+                wpt.getElementsByTagName("name")[0].firstChild.nodeValue.trim()
+            );
+        } catch {
+            peak.name = "Unknown name";
+        }
+        try {
+            peak.link = wpt.getElementsByTagName("link")[0].getAttribute("href");
+        } catch {
+            peak.link = null;
+        }
+        try {
+            peak.sym = (
+                wpt.getElementsByTagName("sym")[0].firstChild.nodeValue.trim()
+            );
+        } catch {
+            peak.sym = null;
+        }
+
 
         // Try to find the "cmt"-tag for the waypoint, otherwise set attribute
         // to zero.
@@ -63,12 +80,20 @@ function extractPeaks(xmlDoc) {
             peak.cmt = null;
         }
 
-        // If the "cmt"-tag indicates that the peak has been visited, save it
-        // in a separate list.
-        if (peak.cmt === "visited") {
-            peaks_visited.push(peak);
-        } else {
-            peaks.push(peak);
+        try {
+            peak.lat = parseFloat(wpt.getAttribute("lat"));
+            peak.lon = parseFloat(wpt.getAttribute("lon"));
+            
+            // If the "cmt"-tag indicates that the peak has been visited, save it
+            // in a separate list.
+            if (peak.cmt === "visited") {
+                peaks_visited.push(peak);
+            } else {
+                peaks.push(peak);
+            }
+
+        } catch {
+            console.log("Could not find coordinates of waypoint.");
         }
     };
 
@@ -77,7 +102,9 @@ function extractPeaks(xmlDoc) {
     return [peaks, peaks_visited];
 }
 
-function plotPeaks(peaks, markerColor="#ffffff") {
+// TODO: Choose another color than white for unvisited peaks. Too difficult to
+// see, and can vanish on snow etc.
+function plotPeaks(peaks, markerColor="#d9534f") {
     
     console.log("Plotting peaks...");
 
@@ -116,7 +143,7 @@ function plotPeaks(peaks, markerColor="#ffffff") {
                 color: markerColor
             }
         ).bindTooltip(
-            peak.name + ' ' + peak.ele
+            peak.name + ', ' + peak.ele + ' masl'
         );
 
         markers.addLayer(marker);
@@ -146,7 +173,7 @@ document.getElementById('import').onclick = function () {
 
             console.log(peaks[1]);
             plotPeaks(peaks[0]);
-            plotPeaks(peaks[1], "#008000");
+            plotPeaks(peaks[1], "#428bca");
 
         }
         reader.readAsText(files.item(i));
