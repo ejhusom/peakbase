@@ -124,8 +124,6 @@ function extractPeaks(xmlDoc) {
     return [peaks, peaks_visited];
 }
 
-// TODO: Choose another color than white for unvisited peaks. Too difficult to
-// see, and can vanish on snow etc.
 function plotPeaks(peaks, markerColor="#d9534f") {
     
     console.log("Plotting peaks...");
@@ -139,7 +137,7 @@ function plotPeaks(peaks, markerColor="#d9534f") {
         // This property set the minimum zoom level for where every
         // marker will be displayed, even though they would normally be
         // clustered.
-        disableClusteringAtZoom: 11,
+        disableClusteringAtZoom: 10,
         // Disable spiderfyOnMaxZoom when using
         // disableClusteringAtZoom, since the desired behaviour is to
         // zoom to get all points, not only the points under a specific
@@ -152,7 +150,7 @@ function plotPeaks(peaks, markerColor="#d9534f") {
 
     for (let i = 0; i < peaks.length; i++) {
         var peak = peaks[i];
-        var markerRadius = 3;
+        var markerRadius = 5;
 
         // if (peak.cmt === "visited") {
         //     var markerColor = "#FFFFFF";
@@ -176,12 +174,92 @@ function plotPeaks(peaks, markerColor="#d9534f") {
     console.log("Peaks plotted!");
 }
 
+function createXMLElement(tag, string) {
+
+    startTag = "<" + tag + ">"
+    endTag = "</" + tag + ">"
+
+    return startTag + string + endTag;
+
+}
+
+function createPeakWpt(peak) {
+
+    var wpt = "";
+
+    wpt += "<wpt lon='" + peak.lon + "' lat='" + peak.lat + "'>";
+
+    try {
+        wpt += createXMLElement("ele", peak.ele.toString());
+    } catch {
+        console.log("Element not found.");
+    }
+
+    try {
+        wpt += createXMLElement("name", peak.name)
+    } catch {
+        console.log("Element not found.");
+    }
+
+    try {
+        wpt += createXMLElement("src", peak.src)
+    } catch {
+        console.log("Element not found.");
+    }
+
+    try {
+        wpt += "<link href='" + peak.link + "'/>";
+    } catch {
+        console.log("Element not found.");
+    }
+
+    try {
+        wpt += createXMLElement("sym", peak.sym)
+    } catch {
+        console.log("Element not found.");
+    }
+
+    wpt += "</wpt>";
+
+    return wpt;
+}
+
+function writePeaksToGPX(peaks) {
+
+    console.log("Writing peaks to gpx-file...");
+
+    var t = new Date();
+    var timestamp = t.getFullYear() + String(t.getMonth()+1).padStart(2, '0') 
+        + String(t.getDate()).padStart(2, '0') 
+        + "-" 
+        + String(t.getHours()).padStart(2, '0') 
+        + String(t.getMinutes()).padStart(2, '0');
+
+    var peaks = peaks[0].concat(peaks[1]);
+    var gpxText = "<gpx>";
+
+    for (let i = 0; i < peaks.length; i++) {
+        peakWpt = createPeakWpt(peaks[i]);
+        gpxText += peakWpt;
+    }
+
+    gpxText += "</gpx>";
+
+    var filename = "peaks-" + timestamp + ".gpx";
+
+    const blob = new Blob([gpxText], {type: "text/plain"});
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    link.remove();
+
+
+}
 
 document.getElementById('import').onclick = function () {
     var files = document.getElementById('file-selector').files;
     console.log(files);
-
-    var pathList = [];
 
     for (let i = 0; i < files.length; i++) {
         var reader = new FileReader();
@@ -191,7 +269,7 @@ document.getElementById('import').onclick = function () {
             // Parse gpx file.
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
-            var peaks = extractPeaks(xmlDoc);
+            peaks = extractPeaks(xmlDoc);
 
             console.log(peaks[1]);
             plotPeaks(peaks[0]);
@@ -201,12 +279,16 @@ document.getElementById('import').onclick = function () {
         reader.readAsText(files.item(i));
     }
 
-    // plotMap(pathList);
-
-
-    // console.log(files.length);
-    // for (let i = 0; i < files.length; i++) {
-    //     // const element = files.item(i);
-    //     reader.readAsText(files.item(i));
 
 }
+
+function onMapClick(e) {
+    L.popup()
+        .setLatLng(e.latlng)
+        .setContent("Coordinates: " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on("click", onMapClick);
+// document.querySelector("#download").addEventListener('click', writePeaksToGPX(peaks));
+
