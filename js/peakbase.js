@@ -6,18 +6,40 @@ fileSelector.addEventListener("change", (event) => {
     console.log(fileList);
 });
 
-var map = L.map('map').setView([65, 14], 5);
-L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
-    preferCanvas: true,
-    attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
-}).addTo(map);
-
+// var map = L.map('map').setView([65, 14], 5);
+// L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+//     preferCanvas: true,
+//     attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
+// }).addTo(map);
 // var map = L.map('map').setView([60.9, 9.5], 7);
 // L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 //     maxZoom: 17,
 //     preferCanvas: true,
 //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 // }).addTo(map);
+
+var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+    preferCanvas: true,
+    attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
+});
+
+var opentopomap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    preferCanvas: true,
+    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+var map = L.map('map', {
+    center: [65, 14],
+    zoom: 5,
+    layers: [norgeskart, opentopomap]
+});
+
+var baseMaps = {
+    "Norgeskart": norgeskart,
+    "OpenTopoMap": opentopomap
+}
+
+L.control.layers(baseMaps).addTo(map);
 
 var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
 
