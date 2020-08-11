@@ -6,7 +6,7 @@
 :root {
     --main-font-color: rgb(57, 56, 56);
     --secondary-font-color: rgb(142, 142, 142);
-    --max-body-width: 120em;
+    /* --max-body-width: 120em; */
 }
 
 /*Body{{{*/
@@ -18,10 +18,10 @@ body {
     /* font-family: monospace; */
     color: var(--main-font-color);
     box-sizing: border-box;
-    max-width: var(--max-body-width);
+    /* max-width: var(--max-body-width); */
     margin: auto;
-    padding-left: 13%;
-    padding-right: 13%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 /*}}}*/
 
@@ -282,7 +282,7 @@ blockquote {
 
 #map {
     height: 700px;
-    width: 70%;
+    /* width: 70%; */
     margin: auto;
     margin-top: 2em;
 }
