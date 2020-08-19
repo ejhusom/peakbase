@@ -1,7 +1,10 @@
 var L = L || require('leaflet');
 
-var peaks = [];
+var peaks_unvisited = [];
 var peaks_visited = [];
+
+var unvisitedMarkers;
+var visitedMarkers;
 
 const fileSelector = document.getElementById("file-selector");
 fileSelector.addEventListener("change", (event) => {
@@ -54,9 +57,6 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
  */
 function extractPeaks(xmlDoc) {
 
-    // var peaks = [];
-    // var peaks_visited = [];
-    
     var wpts = xmlDoc.getElementsByTagName("wpt");
 
     console.log("Extracting peaks...");
@@ -113,7 +113,7 @@ function extractPeaks(xmlDoc) {
             if (peak.cmt === "visited") {
                 peaks_visited.push(peak);
             } else {
-                peaks.push(peak);
+                peaks_unvisited.push(peak);
             }
 
         } catch {
@@ -123,7 +123,7 @@ function extractPeaks(xmlDoc) {
 
     console.log("Peaks extracted!");
 
-    return [peaks, peaks_visited];
+    return [peaks_unvisited, peaks_visited];
 }
 
 function plotPeaks(peaks, className="peaks") {
@@ -165,11 +165,6 @@ function plotPeaks(peaks, className="peaks") {
         var peak = peaks[i];
         var markerRadius = 5;
 
-        // if (peak.cmt === "visited") {
-        //     var markerColor = "#FFFFFF";
-        //     var markerRadius = 3;
-        // }
-
         var marker = L.circleMarker(
             [peak.lat, peak.lon], {
                 radius: markerRadius,
@@ -179,12 +174,51 @@ function plotPeaks(peaks, className="peaks") {
             peak.name + ', ' + peak.ele + ' masl'
         );
 
+        // marker.on("click", function (e) {
+        //     // Check if the peak clicked on is unvisited
+        //     if (className != "peaks-visited") {
+        //         var visited = confirm("Visited?");
+        //         // If user confirms that the peak is visited, move it to the
+        //         // visited peaks list
+        //         if (visited === true) {
+        //             // Add peak to peaks_visited
+        //             console.log(peaks_visited.length);
+        //             peaks_visited.push(peak);
+        //             console.log(peaks_visited.length);
+        //             // Remove peak for peaks unvisited
+        //             console.log(peaks_unvisited.length);
+        //             console.log("Removing " + peak.name);
+        //             var idx = peaks_unvisited.indexOf(peak.name);
+        //             peaks_unvisited.splice(idx, 1);
+        //             console.log(peaks_unvisited.length);
+        //             // Change color of marker
+        //             // marker.setStyle({color: "#428bca"});
+        //             // console.log(marker);
+
+        //             // markers.removeLayer(marker);
+        //             // markers.addLayer(marker);
+        //             // map.removeLayer(markers);
+        //             // map.addLayer(markers);
+        //             drawPeaks(peaks_unvisited, peaks_visited);
+        //         }
+        //     }
+        //     // } else {
+        //         // var notVisited = confirm("Not visited?");
+        //         // if (notVisited === true) {
+        //         //     peaks.push(peak);
+        //         // }
+        //     // }
+        // });
+
         markers.addLayer(marker);
+        
     }
 
     map.addLayer(markers);
 
+    // TODO: Add loading indicator whilst plotting
     console.log("Peaks plotted!");
+    return markers;
 }
 
 function createXMLElement(tag, string) {
@@ -214,12 +248,6 @@ function createPeakWpt(peak) {
     } catch {
         wpt += createXMLElement("name", "null");
     }
-
-    // try {
-    //     wpt += createXMLElement("src", peak.src)
-    // } catch {
-    //     wpt += createXMLElement("src", "null");
-    // }
 
     try {
         wpt += "<link href='" + peak.link + "'/>";
@@ -280,6 +308,57 @@ function writePeaksToGPX(peaks) {
 
 }
 
+function drawPeaks (peaks_unvisited, peaks_visited) {
+
+    // if (unvisitedMarkers != undefined) {
+    //     unvisitedMarkers.clearLayers();
+    //     visitedMarkers.clearLayers();
+    // }
+
+    unvisitedMarkers = plotPeaks(peaks_unvisited);
+    visitedMarkers = plotPeaks(peaks_visited, "peaks-visited");
+
+    // unvisitedMarkers.on("click", function (e) {
+    //     var clickedMarker = e.layer;
+
+    //     // Check if the peak clicked on is unvisited
+    //     if (clickedMarker.options.color === "#d9534f") {
+    //         var visited = confirm("Visited?");
+    //         // If user confirms that the peak is visited, move it to the
+    //         // visited peaks list
+    //         if (visited === true) {
+    //             // Add peak to peaks_visited
+    //             console.log(peaks_visited.length);
+    //             peaks_visited.push(peak);
+    //             console.log(peaks_visited.length);
+    //             // Remove peak for peaks unvisited
+    //             console.log(peaks_unvisited.length);
+    //             console.log("Removing " + peak.name);
+    //             var idx = peaks_unvisited.indexOf(peak.name);
+    //             peaks_unvisited.splice(idx, 1);
+    //             console.log(peaks_unvisited.length);
+                // Change color of marker
+                // marker.setStyle({color: "#428bca"});
+                // console.log(marker);
+
+                // markers.removeLayer(marker);
+                // markers.addLayer(marker);
+                // map.removeLayer(markers);
+                // map.addLayer(markers);
+                // drawPeaks(peaks_unvisited, peaks_visited);
+            // }
+        // }
+         // } else {
+          // var notVisited = confirm("Not visited?");
+          // if (notVisited === true) {
+          //     peaks.push(peak);
+          // }
+         // }
+    // });
+
+
+}
+
 document.getElementById('import').onclick = function () {
     var files = document.getElementById('file-selector').files;
     console.log(files);
@@ -293,10 +372,11 @@ document.getElementById('import').onclick = function () {
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(e.target.result, "text/xml");
             peaks = extractPeaks(xmlDoc);
+            peaks_unvisited = peaks[0];
+            peaks_visited = peaks[1];
 
-            console.log(peaks[1]);
-            plotPeaks(peaks[0]);
-            plotPeaks(peaks[1], "peaks-visited");
+            drawPeaks(peaks_unvisited, peaks_visited);
+
 
         }
         reader.readAsText(files.item(i));
@@ -305,7 +385,9 @@ document.getElementById('import').onclick = function () {
 
 }
 
+
 function onMapClick(e) {
+
     L.popup()
         .setLatLng(e.latlng)
         .setContent("Coordinates: " + e.latlng.toString())
@@ -341,7 +423,7 @@ function onMapClick(e) {
             peak.cmt = "visited";
             peaks_visited.push(peak);
         } else {
-            peaks.push(peak);
+            peaks_unvisited.push(peak);
         }
     }
     console.log(peaks_visited.length);
@@ -370,6 +452,14 @@ function onMapClick(e) {
 
 }
 
+
+
+function onMapDblClick(e) {
+    console.log("Double click registered.");
+}
+
 map.on("click", onMapClick);
+map.on("dblclick", onMapDblClick);
 // document.querySelector("#download").addEventListener('click', writePeaksToGPX(peaks));
+
 
