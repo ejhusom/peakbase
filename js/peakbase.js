@@ -18,14 +18,15 @@ fileSelector.addEventListener("change", (event) => {
 //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 // }).addTo(map);
 
-var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
-    preferCanvas: true,
-    attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
-});
 
 var opentopomap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     preferCanvas: true,
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+    preferCanvas: true,
+    attribution: '<a href="http://www.kartverket.no/">Kartverket</a>'
 });
 
 var map = L.map('map', {
@@ -47,8 +48,6 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
  * Extract informatino about peaks (or other points of interest) from an
  * uploaded gpx-file.
  * @param {} xmlDoc XML-docuemnt to parse.
- * TODO: Make function read files that do not contain all tags. Only
- * coordinates should be required.
  */
 function extractPeaks(xmlDoc) {
 
@@ -124,9 +123,15 @@ function extractPeaks(xmlDoc) {
     return [peaks, peaks_visited];
 }
 
-function plotPeaks(peaks, markerColor="#d9534f") {
+function plotPeaks(peaks, className="peaks") {
     
     console.log("Plotting peaks...");
+
+    if (className === "peaks-visited") {
+        var markerColor = "#428bca";
+    } else {
+        var markerColor = "#d9534f";
+    }
 
     // Create marker cluster in order to make the number of markers
     // managable for the browser.
@@ -145,7 +150,12 @@ function plotPeaks(peaks, markerColor="#d9534f") {
         spiderfyOnMaxZoom: false,
         // chunkedLoading splits addLayers processing to avoid page
         // freeze.
-        chunkedLoading: true
+        chunkedLoading: true,
+        iconCreateFunction: function (cluster) {
+            var icon = markers._defaultIconCreateFunction(cluster);
+            icon.options.className = className;
+            return icon;
+        }
     });
 
     for (let i = 0; i < peaks.length; i++) {
@@ -283,7 +293,7 @@ document.getElementById('import').onclick = function () {
 
             console.log(peaks[1]);
             plotPeaks(peaks[0]);
-            plotPeaks(peaks[1], "#428bca");
+            plotPeaks(peaks[1], "peaks-visited");
 
         }
         reader.readAsText(files.item(i));
@@ -297,6 +307,31 @@ function onMapClick(e) {
         .setLatLng(e.latlng)
         .setContent("Coordinates: " + e.latlng.toString())
         .openOn(map);
+
+    var peak = new Object();
+    peak.lat = e.latlng.lat;
+    peak.lon = e.latlng.lon;
+    peak.sym = "Summit";
+    peak.name = "unknown";
+    peak.ele = "0";
+    peak.link = "";
+    peak.cmt = "";
+
+    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
+        + peak.lat + "," + peak.lon;
+    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
+
+    // const request = new Request(eleUrl);
+
+    fetch(eleUrl, {
+        method: "GET",
+        mode: "cors"
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+    console.log("yp");
+
 }
 
 map.on("click", onMapClick);
