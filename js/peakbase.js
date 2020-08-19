@@ -36,8 +36,8 @@ var map = L.map('map', {
 });
 
 var baseMaps = {
+    "OpenTopoMap": opentopomap,
     "Norgeskart": norgeskart,
-    "OpenTopoMap": opentopomap
 }
 
 L.control.layers(baseMaps).addTo(map);
@@ -317,23 +317,25 @@ function onMapClick(e) {
     peak.link = "";
     peak.cmt = "";
 
-    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
-        + peak.lat + "," + peak.lon;
+    peak.name = prompt("Name of peak");
+
+    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
+        // + peak.lat + "," + peak.lon;
     // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
 
     // const request = new Request(eleUrl);
-    console.log("Trying to get elevation...");
+    // console.log("Trying to get elevation...");
 
-    fetch(eleUrl, {
-        // headers: {
-        //     "Access-Control-Allow-Origin"
-        // }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => {
-        console.log("Could not fetch elevation.")
-    });
+    // fetch(eleUrl, {
+    //     // headers: {
+    //     //     "Access-Control-Allow-Origin"
+    //     // }
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .catch(err => {
+    //     console.log("Could not fetch elevation.")
+    // });
 
 
 }
