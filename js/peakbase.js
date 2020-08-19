@@ -1,5 +1,8 @@
 var L = L || require('leaflet');
 
+var peaks = [];
+var peaks_visited = [];
+
 const fileSelector = document.getElementById("file-selector");
 fileSelector.addEventListener("change", (event) => {
     const fileList = event.target.files;
@@ -51,8 +54,8 @@ var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purp
  */
 function extractPeaks(xmlDoc) {
 
-    var peaks = [];
-    var peaks_visited = [];
+    // var peaks = [];
+    // var peaks_visited = [];
     
     var wpts = xmlDoc.getElementsByTagName("wpt");
 
@@ -310,14 +313,41 @@ function onMapClick(e) {
 
     var peak = new Object();
     peak.lat = e.latlng.lat;
-    peak.lon = e.latlng.lon;
+    peak.lon = e.latlng.lng;
     peak.sym = "Summit";
     peak.name = "unknown";
     peak.ele = "0";
     peak.link = "";
     peak.cmt = "";
 
-    peak.name = prompt("Name of peak");
+    peak.name = prompt("Name of peak", "");
+
+    if (peak.name === null) {
+        return;
+    }
+
+    peak.ele = prompt("Elevation of peak", "");
+
+    if (peak.ele === null) {
+        return;
+    }
+
+    var visited = confirm("Visited?");
+    var save = confirm("Save peak?");
+
+    console.log(peaks_visited.length);
+    if (save === true) {
+        if (visited == true) {
+            peak.cmt = "visited";
+            peaks_visited.push(peak);
+        } else {
+            peaks.push(peak);
+        }
+    }
+    console.log(peaks_visited.length);
+    
+    console.log(save);
+    console.log("Peak created: " + peak.name);
 
     // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
         // + peak.lat + "," + peak.lon;
