@@ -177,7 +177,7 @@ function plotPeaks(peaks, markerColor="#d9534f") {
 function createXMLElement(tag, string) {
 
     startTag = "<" + tag + ">"
-    endTag = "</" + tag + ">"
+    endTag = "</" + tag + ">\n"
 
     return startTag + string + endTag;
 
@@ -188,38 +188,47 @@ function createPeakWpt(peak) {
     var wpt = "";
 
     wpt += "<wpt lon='" + peak.lon + "' lat='" + peak.lat + "'>";
+    wpt += "\n";
 
     try {
         wpt += createXMLElement("ele", peak.ele.toString());
     } catch {
-        console.log("Element not found.");
+        wpt += createXMLElement("ele", "null");
     }
 
     try {
         wpt += createXMLElement("name", peak.name)
     } catch {
-        console.log("Element not found.");
+        wpt += createXMLElement("name", "null");
     }
 
-    try {
-        wpt += createXMLElement("src", peak.src)
-    } catch {
-        console.log("Element not found.");
-    }
+    // try {
+    //     wpt += createXMLElement("src", peak.src)
+    // } catch {
+    //     wpt += createXMLElement("src", "null");
+    // }
 
     try {
         wpt += "<link href='" + peak.link + "'/>";
+        wpt += "\n";
     } catch {
-        console.log("Element not found.");
+        wpt += "<link href=''/>";
+        wpt += "\n";
     }
 
     try {
         wpt += createXMLElement("sym", peak.sym)
     } catch {
-        console.log("Element not found.");
+        wpt += createXMLElement("sym", "Summit");
     }
 
-    wpt += "</wpt>";
+    try {
+        wpt += createXMLElement("cmt", peak.cmt)
+    } catch {
+        console.log("Comment not found.");
+    }
+
+    wpt += "</wpt>\n";
 
     return wpt;
 }
@@ -237,6 +246,7 @@ function writePeaksToGPX(peaks) {
 
     var peaks = peaks[0].concat(peaks[1]);
     var gpxText = "<gpx>";
+    gpxText += "\n";
 
     for (let i = 0; i < peaks.length; i++) {
         peakWpt = createPeakWpt(peaks[i]);
