@@ -319,18 +319,22 @@ function onMapClick(e) {
 
     var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
         + peak.lat + "," + peak.lon;
-    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
+    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
 
     // const request = new Request(eleUrl);
+    console.log("Trying to get elevation...");
 
     fetch(eleUrl, {
-        method: "GET",
-        mode: "cors"
+        // headers: {
+        //     "Access-Control-Allow-Origin"
+        // }
     })
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(data))
+    .catch(err => {
+        console.log("Could not fetch elevation.")
+    });
 
-    console.log("yp");
 
 }
 
