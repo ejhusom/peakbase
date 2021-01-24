@@ -164,6 +164,8 @@ function plotPeaks(peaks, className="peaks") {
         }
     });
 
+
+
     for (let i = 0; i < peaks.length; i++) {
         var peak = peaks[i];
         var markerRadius = 5;
@@ -177,47 +179,62 @@ function plotPeaks(peaks, className="peaks") {
             peak.name + ', ' + peak.ele + ' masl'
         );
 
-        /* TRY TO FIX ONCLICK */
-        marker.on("click", function(e) {
-            // e.target.setStyle({color: unvisitedColor});
-            console.log("You clicked me!");
+        marker.on("click", function (e) {
+            // Check if the peak clicked on is unvisited
+            if (e.target.className != "peaks-visited") {
+                var visited = confirm("Visited?");
+                // If user confirms that the peak is visited, move it to the
+                // visited peaks list
+                if (visited === true) {
+                    // Find peak
+                    var peak;
+                    var lat = e.target._latlng.lat;
+                    var lon = e.target._latlng.lng;
+                    var decimalPlaces = 3;
+                    console.log(typeof lat);
+                    console.log("Lat: " + lat + ", lon: " + lon);
+
+                    for (let i = 0; i < peaks_unvisited.length; i++) {
+                        if (lat.toFixed(decimalPlaces) === peaks_unvisited[i].lat.toFixed(decimalPlaces)) {
+                            if (lon.toFixed(decimalPlaces) === peaks_unvisited[i].lon.toFixed(decimalPlaces)) {
+                                peak = peaks_unvisited[i];
+                                console.log("Peak found!");
+                            }
+                        }
+                    }
+                    // Add peak to peaks_visited
+                    console.log(peaks_visited.length);
+                    console.log("Peak: " + peak.name);
+                    peak.cmt = "visited";
+                    peaks_visited.push(peak);
+                    console.log(peaks_visited.length);
+                    // Remove peak for peaks unvisited
+                    console.log(peaks_unvisited.length);
+                    console.log("Removing " + peak.name);
+                    var idx = peaks_unvisited.indexOf(peak);
+                    console.log("Idx: " + idx);
+                    peaks_unvisited.splice(idx, 1);
+                    console.log(peaks_unvisited.length);
+                    // Change color of marker
+                    // marker.setStyle({color: "#428bca"});
+                    // console.log(marker);
+
+                    // markers.removeLayer(marker);
+                    // markers.addLayer(marker);
+                    // map.removeLayer(markers);
+                    // map.addLayer(markers);
+                    drawPeaks(peaks_unvisited, peaks_visited);
+                    console.log(peaks_unvisited);
+                    console.log(peaks_visited);
+                }
+            }
+            // } else {
+                // var notVisited = confirm("Not visited?");
+                // if (notVisited === true) {
+                //     peaks.push(peak);
+                // }
+            // }
         });
-
-        // marker.on("click", function (e) {
-        //     // Check if the peak clicked on is unvisited
-        //     if (className != "peaks-visited") {
-        //         var visited = confirm("Visited?");
-        //         // If user confirms that the peak is visited, move it to the
-        //         // visited peaks list
-        //         if (visited === true) {
-        //             // Add peak to peaks_visited
-        //             console.log(peaks_visited.length);
-        //             peaks_visited.push(peak);
-        //             console.log(peaks_visited.length);
-        //             // Remove peak for peaks unvisited
-        //             console.log(peaks_unvisited.length);
-        //             console.log("Removing " + peak.name);
-        //             var idx = peaks_unvisited.indexOf(peak.name);
-        //             peaks_unvisited.splice(idx, 1);
-        //             console.log(peaks_unvisited.length);
-        //             // Change color of marker
-        //             // marker.setStyle({color: "#428bca"});
-        //             // console.log(marker);
-
-        //             // markers.removeLayer(marker);
-        //             // markers.addLayer(marker);
-        //             // map.removeLayer(markers);
-        //             // map.addLayer(markers);
-        //             drawPeaks(peaks_unvisited, peaks_visited);
-        //         }
-        //     }
-        //     // } else {
-        //         // var notVisited = confirm("Not visited?");
-        //         // if (notVisited === true) {
-        //         //     peaks.push(peak);
-        //         // }
-        //     // }
-        // });
 
         markers.addLayer(marker);
         
