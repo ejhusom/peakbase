@@ -224,6 +224,7 @@ function plotPeaks(peaks, className="peaks") {
                     // map.removeLayer(markers);
                     // map.addLayer(markers);
                     drawPeaks(peaks_unvisited, peaks_visited);
+                    updatePeakCounts();
                     console.log(peaks_unvisited);
                     console.log(peaks_visited);
                 }
@@ -381,9 +382,9 @@ function drawPeaks (peaks_unvisited, peaks_visited) {
           // }
          // }
     // });
-
-
 }
+
+
 
 document.getElementById('import').onclick = function () {
     var files = document.getElementById('file-selector').files;
@@ -401,8 +402,7 @@ document.getElementById('import').onclick = function () {
             peaks_unvisited = peaks[0];
             peaks_visited = peaks[1];
 
-            // console.log("Peaks unvisited:" + peaks_unvisited.length);
-            // console.log("Peaks visited:" + peaks_visited.length);
+            updatePeakCounts();
 
             drawPeaks(peaks_unvisited, peaks_visited);
 
@@ -414,6 +414,10 @@ document.getElementById('import').onclick = function () {
 
 }
 
+function updatePeakCounts () {
+    document.getElementById("numVisitedPeaks").innerHTML = "Number of visited peaks: " + peaks_visited.length;
+    document.getElementById("numUnvisitedPeaks").innerHTML = "Number of unvisited peaks: " + peaks_unvisited.length;
+}
 
 function onMapDblClick(e) {
 
@@ -459,6 +463,8 @@ function onMapDblClick(e) {
     
     console.log(save);
     console.log("Peak created: " + peak.name);
+    updatePeakCounts();
+    drawPeaks(peaks_unvisited, peaks_visited);
 
     // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
         // + peak.lat + "," + peak.lon;
