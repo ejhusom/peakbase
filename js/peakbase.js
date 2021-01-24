@@ -130,6 +130,9 @@ function plotPeaks(peaks, className="peaks") {
     
     console.log("Plotting peaks...");
 
+    var visitedColor = "#428bca";
+    var unvisitedColor = "#d9534f";
+
     if (className === "peaks-visited") {
         var markerColor = "#428bca";
     } else {
@@ -168,11 +171,17 @@ function plotPeaks(peaks, className="peaks") {
         var marker = L.circleMarker(
             [peak.lat, peak.lon], {
                 radius: markerRadius,
-                color: markerColor
+                color: markerColor,
             }
         ).bindTooltip(
             peak.name + ', ' + peak.ele + ' masl'
         );
+
+        /* TRY TO FIX ONCLICK */
+        marker.on("click", function(e) {
+            // e.target.setStyle({color: unvisitedColor});
+            console.log("You clicked me!");
+        });
 
         // marker.on("click", function (e) {
         //     // Check if the peak clicked on is unvisited
@@ -375,6 +384,9 @@ document.getElementById('import').onclick = function () {
             peaks_unvisited = peaks[0];
             peaks_visited = peaks[1];
 
+            // console.log("Peaks unvisited:" + peaks_unvisited.length);
+            // console.log("Peaks visited:" + peaks_visited.length);
+
             drawPeaks(peaks_unvisited, peaks_visited);
 
 
@@ -386,7 +398,7 @@ document.getElementById('import').onclick = function () {
 }
 
 
-function onMapClick(e) {
+function onMapDblClick(e) {
 
     L.popup()
         .setLatLng(e.latlng)
@@ -454,11 +466,11 @@ function onMapClick(e) {
 
 
 
-function onMapDblClick(e) {
-    console.log("Double click registered.");
-}
+// function onMapDblClick(e) {
+//     console.log("Double click registered.");
+// }
 
-map.on("click", onMapClick);
+// map.on("click", onMapClick);
 map.on("dblclick", onMapDblClick);
 // document.querySelector("#download").addEventListener('click', writePeaksToGPX(peaks));
 
