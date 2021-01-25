@@ -37,7 +37,11 @@
             <button id="import">Import</button>
         </div>
         <div id="download-box">
-            <button id="download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])">Download GPX (beta)</button>
+            <button id="download" onclick="writePeaksToGPX([peaks_unvisited,
+                                  peaks_visited])">Download GPX</button>
+            <button id="downloadJSON"
+                    onclick="writePeaksToJSON([peaks_unvisited,
+                    peaks_visited])">Download JSON (beta)</button>
             <!-- <a href="#" onclick="writePeaksToGPX(peaks)" download="file.xml">Download</a> -->
         </div>
 
@@ -49,6 +53,18 @@
         </div>
 
         <div id="map"></div>
+
+        <!-- <table> -->
+        <!--     <tbody id="peaktable"></tbody> -->
+        <!-- <table> -->
+
+        <h2>Selected peak</h2>
+        <div id="peakInfo">
+            Name:
+            <span id="peakName"></span>
+            Elevation:
+            <span id="peakEle"></span>
+        </div>
 
         <article>
             <h2 id="instructions">Instructions</h2>
