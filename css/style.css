@@ -281,8 +281,8 @@ blockquote {
 /* }}} */
 
 #map {
-    height: 700px;
-    /* width: 70%; */
+    height: 650px;
+    width: 80%;
     margin: auto;
     margin-top: 2em;
 }
@@ -312,4 +312,18 @@ blockquote {
     background-color: rgba(66, 139, 202, 0.9);
     text-align: center;
     vertical-align: middle;
+}
+
+.form-popup {
+    display: none;
+    /* position: fixed; */
+    /* bottom: 0; */
+    /* right: 15px; */
+    border: 1px solid;
+    /* z-index 9; */
+    background-color: white;
+}
+
+.form-container {
+    background-color: white;
 }

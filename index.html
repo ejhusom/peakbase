@@ -33,7 +33,7 @@
     <body>
         <div id="upload-box">
             <p>Upload your GPX-file here (currently only working with files with certain properties):</p>
-            <input type="file" id="file-selector" multiple>
+            <input type="file" id="file-selector">
             <button id="import">Import</button>
         </div>
         <div id="download-box">
@@ -54,16 +54,36 @@
 
         <div id="map"></div>
 
+        <div class="form-popup" id="newPeakForm">
+            <!-- <form class="form-container"> -->
+                <h3>New peak</h3>
+                <label for="name">Name of peak</label>
+                <input type="text" placeholder="Enter peak name" id="peakName"
+                                   name="peakName" required>
+                <label for="elevation">Elevation of peak</label>
+                <input type="text" placeholder="Enter peak elevation"
+                                   id="peakElevation" required>
+                <input id="peakLat" required>
+                <input id="peakLon" required>
+
+                <button class="btn" onclick="saveNewPeak()">Save</button>
+                <button class="btn-cancel"
+                                      onclick="changeFormDisplay('newPeakForm',
+                                               'none'">Cancel</button>
+            <!-- </form> -->
+        </div>
+
+
         <!-- <table> -->
         <!--     <tbody id="peaktable"></tbody> -->
         <!-- <table> -->
 
-        <h2>Selected peak</h2>
+        <h3>Selected peak</h3>
         <div id="peakInfo">
             Name:
-            <span id="peakName"></span>
+            <div id="peakName"></div>
             Elevation:
-            <span id="peakEle"></span>
+            <div id="peakEle"></div>
         </div>
 
         <article>
@@ -75,8 +95,20 @@
 
             <p>
                 <ol>
-                    <li>Create a GPX-file containing waypoints that mark your peaks. This can be done using for example the <a href="https://www.gpsvisualizer.com/draw/">GPSVisualizer freehand drawing utility</a>, where it is possible to mark waypoints ("wpt") using the menu on the right.</li>
-                    <li>The following steps will be filled in later.</li>
+                    <li>Double click on points in the map corresponding to the
+                    peak you want to register, and add the name and elevation
+                    of the peak. Popup boxes will ask whether you have visited
+                    the peak or not, and lastly whether you want to save it.</li>
+                    <li>Your Peakbase-list can contain both peaks you have
+                        visited (blue colour) and peaks you haven't visited
+                        (red colour).</li>
+                    <li>When you are done registering your peaks, download the
+                        GPX-file containing all your peaks, which you later can
+                        upload for further editing. The concept of Peakbase is
+                        that you store your data (your GPX-file) wherever you
+                        like, and import it into Peakbase when you want to edit
+                        it. This way you don't have to make a user account or
+                        trust anyone elses server.
             </p>
 
 

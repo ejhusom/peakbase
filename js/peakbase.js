@@ -169,26 +169,14 @@ function plotPeaks(peaks, className="peaks") {
             // Check if the peak clicked on is unvisited
             console.log(e.target);
             if (e.target.options.color === unvisitedColor) {
+                var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
+                document.getElementById("peakName").innerHTML = peak.name;
+                document.getElementById("peakEle").innerHTML = peak.ele;
                 var visited = confirm("Visited?");
                 // If user confirms that the peak is visited, move it to the
                 // visited peaks list
                 if (visited === true) {
-                    // Find peak
-                    var peak;
-                    var lat = e.target._latlng.lat;
-                    var lon = e.target._latlng.lng;
-                    var decimalPlaces = 3;
-                    console.log(typeof lat);
-                    console.log("Lat: " + lat + ", lon: " + lon);
 
-                    for (let i = 0; i < peaks_unvisited.length; i++) {
-                        if (lat.toFixed(decimalPlaces) === peaks_unvisited[i].lat.toFixed(decimalPlaces)) {
-                            if (lon.toFixed(decimalPlaces) === peaks_unvisited[i].lon.toFixed(decimalPlaces)) {
-                                peak = peaks_unvisited[i];
-                                console.log("Peak found!");
-                            }
-                        }
-                    }
                     // Add peak to peaks_visited
                     console.log(peaks_visited.length);
                     console.log("Peak: " + peak.name);
@@ -383,12 +371,20 @@ function updatePeakCounts () {
 
 document.getElementById('import').onclick = function () {
     var files = document.getElementById('file-selector').files;
-    console.log(files);
+    var importedFileName = files[0].name;
+    console.log(importedFileName);
+    var re = /(?:\.([^.]+))?$/;
+    var ext = re.exec(importedFileName)[1];
 
-    for (let i = 0; i < files.length; i++) {
-        var reader = new FileReader();
+    var reader = new FileReader();
 
-        reader.onload = function (e) {
+    reader.onload = function (e) {
+
+        // Reset arrays in case user clicks "Import" multiple times
+        peaks_visited = [];
+        peaks_unvisited = [];
+
+        if (ext === "gpx") {
 
             // Parse gpx file.
             var parser = new DOMParser();
@@ -398,13 +394,29 @@ document.getElementById('import').onclick = function () {
             peaks_visited = peaks[1];
 
             updatePeakCounts();
-
             drawPeaks(peaks_unvisited, peaks_visited);
 
+        } else if (ext === "json") {
 
+            var jsonFile = JSON.parse(e.target.result);
+
+            for (let i=0; i<jsonFile.length; i++) {
+                var p = jsonFile[i];
+                if (p.cmt === "visited") {
+                    peaks_visited.push(p);
+                } else {
+                    peaks_unvisited.push(p);
+                }
+            }
+            updatePeakCounts();
+            drawPeaks(peaks_unvisited, peaks_visited);
+        } else {
+            window.alert("File most be .gpx or .json.");
         }
-        reader.readAsText(files.item(i));
+
+
     }
+    reader.readAsText(files.item(0));
 
 
 }
@@ -416,48 +428,55 @@ function onMapDblClick(e) {
         .setContent("Coordinates: " + e.latlng.toString())
         .openOn(map);
 
-    var peak = new Object();
-    peak.lat = e.latlng.lat;
-    peak.lon = e.latlng.lng;
-    peak.sym = "Summit";
-    peak.name = "unknown";
-    peak.ele = "0";
-    peak.link = "";
-    peak.cmt = "";
+    changeFormDisplay("newPeakForm", "block");
 
-    peak.name = prompt("Name of peak", "");
+    document.getElementById("peakLat").value = e.latlng.lat;
+    document.getElementById("peakLon").value = e.latlng.lng;
 
-    if (peak.name === null) {
-        return;
-    }
+    /* Old way of creating peak */
+    // var peak = new Object();
+    // peak.lat = e.latlng.lat;
+    // peak.lon = e.latlng.lng;
+    // peak.sym = "Summit";
+    // peak.name = "unknown";
+    // peak.ele = "";
+    // peak.link = "";
+    // peak.cmt = "";
 
-    peak.ele = prompt("Elevation of peak", "");
+    // peak.name = prompt("Name of peak", "");
 
-    if (peak.ele === null) {
-        return;
-    }
+    // if (peak.name === null) {
+    //     return;
+    // }
 
-    var visited = confirm("Visited?");
-    var save = confirm("Save peak?");
+    // peak.ele = prompt("Elevation of peak", "");
 
-    console.log(peaks_visited.length);
-    if (save === true) {
-        if (visited == true) {
-            peak.cmt = "visited";
-            peaks_visited.push(peak);
-        } else {
-            peaks_unvisited.push(peak);
-        }
-    }
-    console.log(peaks_visited.length);
+    // if (peak.ele === null) {
+    //     return;
+    // }
+
+    // var visited = confirm("Visited?");
+    // var save = confirm("Save peak?");
+
+    // console.log(peaks_visited.length);
+    // if (save === true) {
+    //     if (visited == true) {
+    //         peak.cmt = "visited";
+    //         peaks_visited.push(peak);
+    //     } else {
+    //         peaks_unvisited.push(peak);
+    //     }
+    // }
+    // console.log(peaks_visited.length);
     
-    console.log(save);
-    console.log("Peak created: " + peak.name);
-    updatePeakCounts();
-    drawPeaks(peaks_unvisited, peaks_visited);
+    // console.log(save);
+    // console.log("Peak created: " + peak.name);
+    // updatePeakCounts();
+    // drawPeaks(peaks_unvisited, peaks_visited);
 
+    /* TODO: Getting elevation automatically, does not work yet */
     // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
-        // + peak.lat + "," + peak.lon;
+    //     + peak.lat + "," + peak.lon;
     // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
 
     // const request = new Request(eleUrl);
@@ -476,5 +495,26 @@ function onMapDblClick(e) {
 
 
 }
+
+function changeFormDisplay(formId, display) {
+    document.getElementById(formId).style.display = display;
+}
+
+function saveNewPeak() {
+    var peak = new Object();
+    peak.lat = parseFloat(document.getElementById("peakLat").value);
+    peak.lon = parseFloat(document.getElementById("peakLon").value);
+    peak.sym = "Summit";
+    peak.name = document.getElementById("peakName").value;
+    peak.ele = document.getElementById("peakElevation").value;
+    peak.link = "";
+    peak.cmt = "";
+    console.log("Peak created: " + peak.name);
+    peaks_unvisited.push(peak);
+    updatePeakCounts();
+    drawPeaks(peaks_unvisited, peaks_visited);
+    changeFormDisplay("newPeakForm", "none");
+}
+
 
 map.on("dblclick", onMapDblClick);
