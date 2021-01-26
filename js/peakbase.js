@@ -168,42 +168,30 @@ function plotPeaks(peaks, className="peaks") {
         marker.on("click", function (e) {
             // Check if the peak clicked on is unvisited
             console.log(e.target);
+            changeFormDisplay("newPeakForm", "none");
             if (e.target.options.color === unvisitedColor) {
+                changeFormDisplay("newAscentForm", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
-                document.getElementById("peakName").innerHTML = peak.name;
-                document.getElementById("peakEle").innerHTML = peak.ele;
+                updateSelectedPeakInfo(peak);
                 var visited = confirm("Visited?");
                 // If user confirms that the peak is visited, move it to the
                 // visited peaks list
                 if (visited === true) {
 
                     // Add peak to peaks_visited
-                    console.log(peaks_visited.length);
-                    console.log("Peak: " + peak.name);
                     peak.cmt = "visited";
                     peaks_visited.push(peak);
-                    console.log(peaks_visited.length);
                     // Remove peak for peaks unvisited
-                    console.log(peaks_unvisited.length);
-                    console.log("Removing " + peak.name);
                     var idx = peaks_unvisited.indexOf(peak);
-                    console.log("Idx: " + idx);
                     peaks_unvisited.splice(idx, 1);
-                    console.log(peaks_unvisited.length);
+                    // Update plot and count
                     drawPeaks(peaks_unvisited, peaks_visited);
                     updatePeakCounts();
-                    console.log(peaks_unvisited);
-                    console.log(peaks_visited);
                 }
             } else {
-                // var tbody = document.getElementById("peaktable");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_visited);
-                // for (var i = 0; i < Object.keys(peak).length; i++) {
-                //     var tr = "<tr>";
-                // }
-
-                document.getElementById("peakName").innerHTML = peak.name;
-                document.getElementById("peakEle").innerHTML = peak.ele;
+                updateSelectedPeakInfo(peak);
+                changeFormDisplay("newAscentForm", "block");
 
             }
         });
@@ -221,7 +209,7 @@ function plotPeaks(peaks, className="peaks") {
 
 function findPeak (lat, lon, peakArray) {
     var peak;
-    var decimalPlaces = 3;
+    var decimalPlaces = 4;
 
     for (let i = 0; i < peakArray.length; i++) {
         if (lat.toFixed(decimalPlaces) === peakArray[i].lat.toFixed(decimalPlaces)) {
@@ -422,6 +410,9 @@ document.getElementById('import').onclick = function () {
 }
 
 function onMapDblClick(e) {
+    
+    changeFormDisplay("newAscentForm", "none");
+    emptySelectedPeakInfo();
 
     L.popup()
         .setLatLng(e.latlng)
@@ -430,8 +421,8 @@ function onMapDblClick(e) {
 
     changeFormDisplay("newPeakForm", "block");
 
-    document.getElementById("peakLat").value = e.latlng.lat;
-    document.getElementById("peakLon").value = e.latlng.lng;
+    document.getElementById("newPeakLat").value = e.latlng.lat;
+    document.getElementById("newPeakLon").value = e.latlng.lng;
 
     /* Old way of creating peak */
     // var peak = new Object();
@@ -500,13 +491,40 @@ function changeFormDisplay(formId, display) {
     document.getElementById(formId).style.display = display;
 }
 
+function updateSelectedPeakInfo(peak) {
+    document.getElementById("selectedPeakName").innerHTML = peak.name;
+    document.getElementById("selectedPeakEle").innerHTML = peak.ele;
+    document.getElementById("selectedPeakLat").innerHTML = peak.lat;
+    document.getElementById("selectedPeakLon").innerHTML = peak.lon;
+
+    if (peak.ascents !== undefined) {
+        
+        var ascentsString = "<ol>";
+        for (let i=0; i<peak.ascents.length; i++) {
+            ascentsString += "<li>" + peak.ascents[i] + "</li>";
+        }
+        ascentsString += "</ol>";
+        document.getElementById("selectedPeakAscents").innerHTML = ascentsString;
+    } else {
+        document.getElementById("selectedPeakAscents").innerHTML = "";
+    }
+}
+
+function emptySelectedPeakInfo() {
+    document.getElementById("selectedPeakName").innerHTML = "";
+    document.getElementById("selectedPeakEle").innerHTML = "";
+    document.getElementById("selectedPeakLat").innerHTML = "";
+    document.getElementById("selectedPeakLon").innerHTML = "";
+    document.getElementById("selectedPeakAscents").innerHTML = "";
+}
+
 function saveNewPeak() {
     var peak = new Object();
-    peak.lat = parseFloat(document.getElementById("peakLat").value);
-    peak.lon = parseFloat(document.getElementById("peakLon").value);
+    peak.lat = parseFloat(document.getElementById("newPeakLat").value);
+    peak.lon = parseFloat(document.getElementById("newPeakLon").value);
     peak.sym = "Summit";
-    peak.name = document.getElementById("peakName").value;
-    peak.ele = document.getElementById("peakElevation").value;
+    peak.name = document.getElementById("newPeakName").value;
+    peak.ele = document.getElementById("newPeakEle").value;
     peak.link = "";
     peak.cmt = "";
     console.log("Peak created: " + peak.name);
@@ -516,5 +534,36 @@ function saveNewPeak() {
     changeFormDisplay("newPeakForm", "none");
 }
 
+function saveNewAscent() {
+
+    var lat = parseFloat(document.getElementById("selectedPeakLat").innerHTML);
+    var lon = parseFloat(document.getElementById("selectedPeakLon").innerHTML);
+    var peak = findPeak(lat, lon, peaks_visited);
+    var idx = peaks_visited.indexOf(peak);
+    console.log(peaks_visited[idx]);
+
+    peak = peaks_visited[idx];
+
+    // Create array for ascents if it is not already defined
+    if (peak.ascents === undefined) {
+        peak.ascents = []
+    }
+
+    peak.ascents.push(document.getElementById("ascentDate").value);
+    peak.ascents.sort();
+
+    console.log(peaks_visited[idx]);
+
+    // changeFormDisplay("newAscentForm", "none");
+    updateSelectedPeakInfo(peak);
+}
+
 
 map.on("dblclick", onMapDblClick);
+
+var field = document.querySelector('#ascentDate');
+var date = new Date();
+
+// Set the date
+field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
+    '-' + date.getDate().toString().padStart(2, 0);

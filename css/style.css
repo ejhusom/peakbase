@@ -83,6 +83,11 @@ h2 {
     text-align: center;
 }
 
+h4 {
+    padding: 0.1em;
+    margin: 0.2em;
+}
+
 /*}}}*/
 
 /*Hr (line){{{*/
@@ -93,16 +98,12 @@ hr {
 
 /*Lists{{{*/
 ul {
-  /* list-style-type: none; */
+  list-style-type: none;
   /* padding-left: 0; */
 }
 
 li {
     padding-top: 0.1rem;
-}
-
-ul li {
-    list-style-type: none;
 }
 /*}}}*/
 
@@ -163,9 +164,10 @@ img.summary-image {
     body {
       max-width: none;
     }
-    .webcam {
-      width: 100%;
-      height: 100%;
+    .mapEditContainer {
+        display: block;
+    }
+    #editContainer {
     }
     #map {
       width: 100%;
@@ -174,26 +176,24 @@ img.summary-image {
     nav a {
         display: block;
     }
-    img.summary-image {
-        width: 100%;
-        height: auto;
-    }
-    .mapEditContainer {
-        display: block;
-    }
-    #editContainer {
-    }
 }
 /* ======== Tablets ========= */
 /* @media screen and (min-width: 481px) and (max-width: 991px) { */
-/*     .imagemasonry4 { */
-/*         column-count: 2; */
-/*     } */
 /* } */
 /*}}}*/
 
 /*Laptops and large screens{{{*/
 @media screen and (min-width: 992px) {
+    .mapEditContainer {
+        display: flex;
+    }
+    #editContainer {
+        flex: 1;
+    }
+    #map {
+        width: 75%;
+        flex: 3;
+    }
 }
 /*}}}*/
 
@@ -285,13 +285,13 @@ blockquote {
 /* }}} */
 
 .mapEditContainer {
-    display: flex;
+    border: 2px solid;
 }
 
 #map {
     height: 650px;
-    width: 75%;
-    flex: 3;
+    /* width: 75%; */
+    /* flex: 3; */
 }
 
 #upload-box {
@@ -300,6 +300,7 @@ blockquote {
 
 #download-box {
     text-align: center;
+    font-size: 80%;
 }
 
 .peaks {
@@ -318,14 +319,15 @@ blockquote {
 }
 
 #editContainer {
+    border: 1px solid;
     display: block;
-    flex: 1;
+    /* flex: 1; */
 }
 
 #peakInfo {
     padding: 0.5em;
     margin: 0.5em;
-    border: 1px solid;
+    /* border: 1px solid; */
     background-color: white;
 }
 
@@ -333,7 +335,7 @@ blockquote {
     display: none;
     padding: 0.5em;
     margin: 0.5em;
-    border: 1px solid;
+    /* border: 1px solid; */
     background-color: white;
 }
 
