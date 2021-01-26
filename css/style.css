@@ -240,3 +240,12 @@ article {
     width: 60%;
     margin: auto;
 }
+
+#bugreport {
+    width: 60%;
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+    border: 1px solid;
+    background-color: #FFBF00;
+}
