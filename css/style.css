@@ -32,39 +32,49 @@ header {
     left: 0;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    text-align: center;
 }
 
 header h1 {
-  text-align: center;
-  /* padding-top: 1em; */
+    margin-bottom: 0;
+    /* display: inline; */
 }
 
 .subheading {
-  color: var(--secondary-font-color);
-  text-transform: lowercase;
-  padding-bottom: 1em;
-  font-size: 0.9em;
+    /* display: inline; */
+    color: var(--secondary-font-color);
+    text-transform: lowercase;
+    /* padding-bottom: 1em; */
+    /* padding-left: 1em; */
+    /* vertical-align: middle; */
+    /* font-size: 0.9em; */
+}
+
+#title {
+    display: inline;
 }
 /*}}}*/
 
+
+
 /*Nav{{{*/
 nav {
-  font-weight: 600;
-  color: var(--secondary-font-color);
-  text-transform: lowercase;
-  padding-bottom: 1em;
+    display: inline;
+    font-weight: 600;
+    color: var(--secondary-font-color);
+    text-transform: lowercase;
+    padding: 1em;
 }
 
 nav.main-nav {
-  text-align: center;
-  display: block;
-  font-size: 0.8em;
+    /* text-align: center; */
+    /* display: inline; */
+    font-size: 1.5em;
+    float: right;
+    /* vertical-align: middle; */
 }
 
-nav.main-nav a {
-  padding-right: 1em;
-  /* padding-top: 1.15em; */
+nav a {
+    padding-left: 0.5em;
 }
 /*}}}*/
 
@@ -72,8 +82,6 @@ nav.main-nav a {
 h2 {
     padding-top: 1.0em;
     color: var(--main-font-color);
-    /* font-size: 1.2em; */
-    /* text-align: center; */
 }
 
 h4 {
@@ -81,6 +89,21 @@ h4 {
     margin: 0.2em;
 }
 
+article h2, h3, h4 {
+    /* font-family: Impact; */
+}
+
+article h2 {
+    font-size: 2.5em;
+}
+
+article h3 {
+    font-size: 2.0em;
+}
+
+article h4 {
+    font-size: 1.5em;;
+}
 /*}}}*/
 
 /*Hr (line){{{*/
@@ -115,7 +138,6 @@ a.ghost:link, a.ghost:visited, a.ghost:hover {
   text-decoration: none;
 }
 /*}}}*/
-
 
 /*Tablets and mobile devices{{{*/
 @media screen and (max-width: 992px) {
