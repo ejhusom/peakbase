@@ -32,7 +32,7 @@
     
     <body>
         <div id="upload-box">
-            <p>Upload your GPX-file here (currently only working with files with certain properties):</p>
+            <p>Upload your GPX- or JSON-file here:</p>
             <input type="file" id="file-selector">
             <button id="import">Import</button>
         </div>
@@ -52,39 +52,39 @@
             Number of peaks not visited:
         </div>
 
-        <div id="map"></div>
+        <div class="mapEditContainer">
+            <div id="map"></div>
 
-        <div class="form-popup" id="newPeakForm">
-            <!-- <form class="form-container"> -->
-                <h3>New peak</h3>
-                <label for="name">Name of peak</label>
-                <input type="text" placeholder="Enter peak name" id="peakName"
-                                   name="peakName" required>
-                <label for="elevation">Elevation of peak</label>
-                <input type="text" placeholder="Enter peak elevation"
-                                   id="peakElevation" required>
-                <input id="peakLat" required>
-                <input id="peakLon" required>
+            <div id="editContainer">
+                <div id="peakInfo">
+                    <h3>Selected peak</h3>
+                    Name:
+                    <div id="peakName"></div>
+                    Elevation:
+                    <div id="peakEle"></div>
+                </div>
+                <div class="form-popup" id="newPeakForm">
+                    <h3>New peak</h3>
+                    <label for="name">Name of peak</label>
+                    <input class="block" type="text" placeholder="Enter peak name" id="peakName"
+                                       name="peakName" required>
+                    <label for="elevation">Elevation of peak</label>
+                    <input class="block" type="text" placeholder="Enter peak elevation"
+                                       id="peakElevation" required>
+                    <label>Lat</label>
+                    <input class="block" id="peakLat" required>
+                    <label>Lon</label>
+                    <input class="block" id="peakLon" required>
 
-                <button class="btn" onclick="saveNewPeak()">Save</button>
-                <button class="btn-cancel"
-                                      onclick="changeFormDisplay('newPeakForm',
-                                               'none'">Cancel</button>
-            <!-- </form> -->
+                    <button class="btn" onclick="saveNewPeak()">Save</button>
+                    <button class="btn-cancel"
+                                          onclick="changeFormDisplay('newPeakForm',
+                                                   'none')">Cancel</button>
+                </div>
+            </div>
         </div>
 
 
-        <!-- <table> -->
-        <!--     <tbody id="peaktable"></tbody> -->
-        <!-- <table> -->
-
-        <h3>Selected peak</h3>
-        <div id="peakInfo">
-            Name:
-            <div id="peakName"></div>
-            Elevation:
-            <div id="peakEle"></div>
-        </div>
 
         <article>
             <h2 id="instructions">Instructions</h2>
