@@ -30,14 +30,14 @@ header {
     top: 0;
     right: 0;
     left: 0;
-    padding-top: 5rem;
-    padding-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     text-align: center;
 }
 
 header h1 {
   text-align: center;
-  padding-top: 1em;
+  /* padding-top: 1em; */
 }
 
 .subheading {
@@ -64,23 +64,16 @@ nav.main-nav {
 
 nav.main-nav a {
   padding-right: 1em;
-  padding-top: 1.15em;
+  /* padding-top: 1.15em; */
 }
 /*}}}*/
 
 /*Headers{{{*/
-h1, h2, h3 {
-  /* display: inline; */
-  /* font-size: 16px; */
-  /* font-weight: 600; */
-  text-transform: lowercase;
-}
-
 h2 {
     padding-top: 1.0em;
     color: var(--main-font-color);
-    font-size: 1.2em;
-    text-align: center;
+    /* font-size: 1.2em; */
+    /* text-align: center; */
 }
 
 h4 {
@@ -98,7 +91,7 @@ hr {
 
 /*Lists{{{*/
 ul {
-  list-style-type: none;
+  /* list-style-type: none; */
   /* padding-left: 0; */
 }
 
@@ -123,41 +116,6 @@ a.ghost:link, a.ghost:visited, a.ghost:hover {
 }
 /*}}}*/
 
-/*Image{{{*/
-img {
-  width: 100%;
-}
-
-figcaption {
-  padding: 0.5em 0em 2.5em 0em;
-  text-align: center;
-}
-
-img.summary-image {
-  /* width: 90%; */
-  height: 15em;
-  width: auto;
-  /* To center image: */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-/*}}}*/
-
-/*Webcam{{{*/
-.webcam {
-    width: 100%;
-    display: block;
-    padding-bottom: 1em;    
-}    
-/*}}}*/
-
-/*Map style{{{*/
-/* #map { */
-/*     width: 50%; */
-/*     height: 70vh; */
-/* } */ 
-/*}}}*/
 
 /*Tablets and mobile devices{{{*/
 @media screen and (max-width: 992px) {
@@ -175,6 +133,9 @@ img.summary-image {
     }
     nav a {
         display: block;
+    }
+    article {
+        width: 100%;
     }
 }
 /* ======== Tablets ========= */
@@ -211,78 +172,6 @@ footer article {
   font-size: 0.7rem;
 }
 /*}}}*/
-
-/*Defintion/description{{{*/
-dl {
-    background: white;
-}
-
-dd {
-    display: none;
-}
-
-dt:active + dd{
-    display: block;
-}
-
-dt:hover + dd{
-    display: block;
-}
-/*}}}*/
-
-/* Back to top{{{ */
-#backToTop {
-    position: fixed;
-    bottom: 10px;
-    /* float: right; */
-    right: 18.5%;
-    /* left: 77.25%; */
-    /* max-width: 30px; */
-    /* width: 100%; */
-    /* font-size: 12px; */
-    /* border-color: rgba(85, 85, 85, 0.2); */
-    background-color: #ffffff;
-    padding: .5px;
-    border-radius: 4px;
-}
-/* }}} */
-
-/* {{{Video */
-video {
-  width: 100%;
-}
-/* }}} */
-
-/* Blockquote{{{ */
-blockquote {
-  font-style: italic;
-  border-left: 2px solid #ccc;
-  padding-left: 15px;
-}
-/* }}} */
-
-/* Content{{{ */
-#content {
-  line-height: 1.4;
-  font-size: 15px;
-}
-#content li {
-  list-style-type: disc;
-}
-#content h1 {
-  text-transform: none;
-}
-#content p a {
-  text-decoration: underline;
-}
-#content ul a {
-  text-decoration: underline;
-}
-#content p {
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-}
-/* }}} */
 
 .mapEditContainer {
     border: 2px solid;
@@ -345,4 +234,9 @@ input.block {
 
 label {
     display: block;
+}
+
+article {
+    width: 60%;
+    margin: auto;
 }
