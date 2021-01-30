@@ -9,7 +9,8 @@
  * TODO: Dra rektangel over område, og markere alle som besøkt
  */
 
-var L = L || require('leaflet');
+var L = L || require('leaflet')
+// var L = L || require('leaflet') || require("Leaflet.draw")
 
 var peaks_unvisited = [];
 var peaks_visited = [];
@@ -34,9 +35,10 @@ var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.ope
 });
 
 var map = L.map('map', {
+    // drawControl: true,
     center: [65, 14],
     zoom: 5,
-    layers: [norgeskart, opentopomap]
+    layers: [norgeskart, opentopomap],
 });
 
 var baseMaps = {
@@ -44,9 +46,55 @@ var baseMaps = {
     "Norgeskart": norgeskart,
 }
 
+var drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems);
+// var drawControl = new L.Control.Draw({
+//     edit: {
+//         featureGroup: drawnItems
+//     }
+// });
+
+const drawControl = new L.Control.Draw({
+    draw: {
+        marker   : false,
+        polygon  : false,
+        polyline : false,
+        rectangle: true,
+        circle   : {
+            metric: 'metric'
+        }
+    },
+    edit: false
+});
+
+map.addControl(drawControl);
+
+
 L.control.layers(baseMaps).addTo(map);
 
 var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
+
+L.Rectangle.include({
+    contains: function(latLng) {
+        return this.getBounds().contains(latLng);
+    }
+});
+
+L.Circle.include({
+    contains: function(latLng) {
+        return this.getLatLng().distanceTo(latLng) < this.getRadius();
+    }
+});
+
+map.on(L.Draw.Event.CREATED, function (e) {
+    unvisitedMarkers.eachLayer(function (marker) {
+        if (!e.layer.contains(marker.getLatLng())) {
+            marker.remove();
+        }
+    });
+});
+
+
 
 /**
  * Extract informatino about peaks (or other points of interest) from an
@@ -189,12 +237,14 @@ function plotPeaks(peaks, className="peaks") {
                 // visited peaks list
                 if (visited === true) {
 
-                    // Add peak to peaks_visited
-                    peak.cmt = "visited";
-                    peaks_visited.push(peak);
-                    // Remove peak for peaks unvisited
-                    var idx = peaks_unvisited.indexOf(peak);
-                    peaks_unvisited.splice(idx, 1);
+                    // // Add peak to peaks_visited
+                    // peak.cmt = "visited";
+                    // peaks_visited.push(peak);
+                    // // Remove peak for peaks unvisited
+                    // var idx = peaks_unvisited.indexOf(peak);
+                    // peaks_unvisited.splice(idx, 1);
+                    markPeakAsVisited(peak);
+
                     // Update plot and count
                     drawPeaks(peaks_unvisited, peaks_visited);
                     updatePeakCounts();
@@ -216,6 +266,15 @@ function plotPeaks(peaks, className="peaks") {
     // TODO: Add loading indicator whilst plotting
     console.log("Peaks plotted!");
     return markers;
+}
+
+function markPeakAsVisited (peak) {
+    peak.cmt = "visited"
+    peaks_visited.push(peak);
+
+    var idx = peaks_unvisited.indexOf(peak);
+    peaks_unvisited.splice(idx, 1);
+
 }
 
 function findPeak (lat, lon, peakArray) {
