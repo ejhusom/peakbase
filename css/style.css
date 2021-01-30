@@ -185,7 +185,7 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  margin-top: 2rem;
+  margin-top: 0.7rem;
   padding: 0.5rem;
   text-align: center;
 }
@@ -276,11 +276,16 @@ article {
 
 }
 
+#import {
+
+}
+
 button.download {
     background-color: #4caf50;
     border: 1px solid black;
     color: white;
     width: 70%;
+    max-width: 250px;
     /* font-size: 16px; */
     margin: 1em;
     cursor: pointer;

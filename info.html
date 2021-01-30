@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Peakbase - visualize your visited peaks!</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <meta name="author" content="Erik Johannes Husom">
+        <meta name="description" content="A minimalistic tool for peak baggers.">
+
+        <link href="css/style.css" rel="stylesheet" type="text/css" title="Stylesheet">
+        <link rel="stylesheet" href="js/leaflet/leaflet.css" />
+        <link rel="stylesheet" href="js/markercluster/MarkerCluster.css" />
+        <link rel="stylesheet" href="js/markercluster/MarkerCluster.Default.css" />
+
+        <script src="js/leaflet/leaflet.js"></script>
+        <script src="js/markercluster/leaflet.markercluster.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <nav class="main-nav">
+                <a href="info.html">Info</a>
+                <!-- <a href="https://erikjohannes.no">erikjohannes.no</a> -->
+                <!-- <a href="#instructions">Instructions</a> -->
+                <!-- <a href="https://github.com/ejhusom/peakbase">source code</a> -->
+            </nav>
+            <div id="title">
+                <h1><a href="https://erikjohannes.no/peakbase" class=ghost>Peakbase</a></h1>
+                <span class="subheading">A minimalistic tool for peak baggers</span>
+            </div>
+        </header>
+        <div id="bugreport">Peakbase is in active development. Please submit bug
+            reports, feature requests etc to 
+            <a
+                href="https://github.com/ejhusom/peakbase/issues">https://github.com/ejhusom/peakbase/issues</a>
+        </div>
+
+
+            <article>
+                <h2 id="usage">General concept</h2>
+                <ol>
+                    <li>Upload your peakbase-file, or a gpx-file containing
+                        locations of peaks (skip this step if you are
+                        starting from scratch).</li>
+                    <li>Add peaks and ascents.</li>
+                    <li>Download your peakbase-file after you are finished
+                        editing.</li>
+                    <li>Start from the top the next time you want to register
+                        new peaks and ascents.</li>
+                </ol>
+                <p>Peakbase is designed to avoid the need for a user account
+                and a backend server. Instead of logging in, you just upload
+                your peakbase-file, and when you are done, you just download
+                the updated version of the file.</p>
+                <hr>
+                <h3>Detailed usage</h3>
+                <h4>Map legend</h4>
+                <ul>
+                    <li>Red markers: Peaks not visited.</li>
+                    <li>Blue markers: Peaks visitied.</li>
+                </ul>
+                <h4>Add peaks to your peakbase-file</h4>
+                <ul>
+                    <li>
+                        Double click on map to add a point.
+                        <ul>
+                            <li>Enter name and elevation of point.</li>
+                            <li>Click "Save" to save peak.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>Register peak as visited</h4>
+                <ul>
+                    <li>Click on red markers (unvisited peaks) and confirm to
+                        mark them as visited. This will turn the marker blue.</li>
+                </ul>
+                <h4>Register ascent with date</h4>
+                <ul>
+                    <li>After you have registered a peak as visited, you may
+                        also register the dates of your ascent(s). Do this by
+                        clicking the blue marker, and enter the date in the
+                        menu to the right.</li>
+
+                </ul>
+                <h4>Download your peakbase-file</h4>
+                <ul>
+                    <li>When you are done with registering peaks, download your
+                    peakbase-file as .gpx or .json with the buttons in the top
+                    right corner beside the map.</li>
+                    <ul>
+                        <li><b>IMPORTANT:</b> Only the JSON-version of the peakbase-file will contain the
+                            dates of your ascents. The gpx-file only contains the peaks
+                            and whether they are visited or not.</li>
+                        <li>The downloaded file has a timestamp in the filename, in
+                            order to easily see when you last updated the
+                            peakbase.</li>
+                    </ul>
+                </ul>
+                <h4>General tips</h4>
+                <ul>
+                    <li>While JSON is the preferred format for Peakbase (since
+                    this is more flexible, and allows storing for example
+                    ascent dates), the tool also accepts GPX-files. This is
+                    useful, since you can import files downloaded from for
+                    example <a href="https://peakbook.org">peakbook.org</a>.
+                    GPX-files can also be easily plotted in a range of other online
+                and offline software tools, so it might be useful to keep both a
+                GPX- and a JSON-version of your peakbase.</li>
+
+                </ul>
+                <hr>
+                <h2 id="about">About</h2>
+
+                <p>Peakbase is a minimalistic tool for peak baggers (those who
+                collect ascents of peaks). The functionality consists of:
+
+                <ul>
+                    <li>Collect and visualize peaks you have not visited yet.</li>
+                    <li>Collect and visualize peaks you have visited.</li>
+                    <li>Register how many times you have visited a peak, and on
+                        which dates.</li>
+                </ul>
+
+                The tool is designed with the following things in mind:
+
+                <ul>
+                    <li><b>You control your own data, and everything the tool does
+                        happens locally in your browser (except loading the
+                        background map).</b> This means that you don't have to
+                    create a user account, or keep your personal data on anyone
+                    elses server. It also means that you can download this tool and
+                    keep it stored offline, and it will be usable forever, totally
+                    independent of whether the developer of Peakbase keeps the tool
+                    online or not.</li>
+                </ul>
+
+                Other things to keep in mind:
+
+                <ul>
+                    <li>Peakbase can also be used to register other points of
+                        interest as well. Example of locations to collect:
+                        <ul>
+                            <li>Camp sites</li>
+                            <li>Bouldering sites</li>
+                            <li>Geocaches</li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+
+        
+
+        <footer>
+            <p>
+            Homepage of developer:
+                <a href="https://erikjohannes.no">erikjohannes.no</a>
+            </p>
+            <p>
+            Source code:
+                <a href="https://github.com/ejhusom/peakbase">https://github.com/ejhusom/peakbase</a>
+            </p>
+        </footer>
+
+    </body>
+    <script type="text/javascript" src="js/peakbase.js"></script>
+
+</html>
