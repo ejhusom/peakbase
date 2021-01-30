@@ -87,11 +87,35 @@ L.Circle.include({
 });
 
 map.on(L.Draw.Event.CREATED, function (e) {
+    var selectedMarkers = [];
+    var markerList = "";
     unvisitedMarkers.eachLayer(function (marker) {
-        if (!e.layer.contains(marker.getLatLng())) {
-            marker.remove();
+        if (e.layer.contains(marker.getLatLng())) {
+            // marker.remove();
+            selectedMarkers.push(marker);
+            markerList = markerList + marker._tooltip._content + "\n";
         }
+        console.log(selectedMarkers);
+        console.log(markerList);
+
     });
+    var visited = confirm("Mark these peaks as visited?\n" + markerList);
+
+    if (visited === true) {
+
+        for (let i = 0; i < selectedMarkers.length; i++) {
+            peak = findPeak(
+                selectedMarkers[i]._latlng.lat,
+                selectedMarkers[i]._latlng.lng,
+                peaks_unvisited
+            );
+            markPeakAsVisited(peak);
+        }
+
+    }
+    // // Update plot and count
+    drawPeaks(peaks_unvisited, peaks_visited);
+    updatePeakCounts();
 });
 
 
