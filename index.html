@@ -48,13 +48,14 @@
 
             <div id="editContainer">
                 <div id="download-box">
-                    <p>When you are done, download your Peakbase:</p>
-                    <button id="downloadJSON"
+                    <p>When you are done, save your peaks:</p>
+                    <button class=download id="downloadJSON"
                             onclick="writePeaksToJSON([peaks_unvisited,
-                            peaks_visited])">Download JSON</button>
-                    <button id="download" onclick="writePeaksToGPX([peaks_unvisited,
-                                          peaks_visited])">Download GPX (ascent
-                    dates not included)</button>
+                            peaks_visited])"><h4>Save</h4><p>(JSON-file)</p></button>
+                    <p id="or">...or...</p>
+                    <button class=download id="downloadGPX" onclick="writePeaksToGPX([peaks_unvisited,
+                                                                                                 peaks_visited])"><h4>Save</h4><p>(GPX-file,
+                                                                                                 ascent dates not included)</p></button>
                 </div>
                 <hr>
                 <div id="peaksStatistics">

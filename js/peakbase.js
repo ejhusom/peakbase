@@ -1,3 +1,14 @@
+/*
+ * TODO: Ta vekk dialogboks med koordinater
+ * TODO: Marker radius slightly bigger
+ * TODO: Nye topper blir mulig å legge til andre
+ * TODO: Mulig å lage kommentarer?
+ * TODO: Ta vekk default values etter at en topp er fylt inn
+ * TODO: "Unregister" peak if you pressed the wrong one
+ * TODO: Dialogboks bør komme rett ved der du klikker
+ * TODO: Dra rektangel over område, og markere alle som besøkt
+ */
+
 var L = L || require('leaflet');
 
 var peaks_unvisited = [];
@@ -414,10 +425,10 @@ function onMapDblClick(e) {
     changeFormDisplay("newAscentForm", "none");
     emptySelectedPeakInfo();
 
-    L.popup()
-        .setLatLng(e.latlng)
-        .setContent("Coordinates: " + e.latlng.toString())
-        .openOn(map);
+    // L.popup()
+    //     .setLatLng(e.latlng)
+    //     .setContent("Coordinates: " + e.latlng.toString())
+    //     .openOn(map);
 
     changeFormDisplay("newPeakForm", "block");
 
