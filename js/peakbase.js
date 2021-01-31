@@ -1,12 +1,12 @@
 /*
- * TODO: Ta vekk dialogboks med koordinater
- * TODO: Marker radius slightly bigger
  * TODO: Nye topper blir mulig å legge til andre
  * TODO: Mulig å lage kommentarer?
  * TODO: Ta vekk default values etter at en topp er fylt inn
  * TODO: "Unregister" peak if you pressed the wrong one
  * TODO: Dialogboks bør komme rett ved der du klikker
  * TODO: Dra rektangel over område, og markere alle som besøkt
+ * TODO: Sjekke for duplikater. Fjerne duplikater, eventuelt spar på den som
+ * har visited
  */
 
 var L = L || require('leaflet')
@@ -237,7 +237,7 @@ function plotPeaks(peaks, className="peaks") {
 
     for (let i = 0; i < peaks.length; i++) {
         var peak = peaks[i];
-        var markerRadius = 5;
+        var markerRadius = 6;
 
         var marker = L.circleMarker(
             [peak.lat, peak.lon], {
