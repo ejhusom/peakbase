@@ -197,6 +197,7 @@ footer article {
 
 .mapEditContainer {
     border: 2px solid;
+    /* height: 650px; */
 }
 
 #map {

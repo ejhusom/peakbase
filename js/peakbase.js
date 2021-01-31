@@ -1,4 +1,5 @@
 /*
+ * TODO: Lage grønn marker der man lager new peak
  * TODO: Nye topper blir mulig å legge til andre
  * TODO: Mulig å lage kommentarer?
  * TODO: Ta vekk default values etter at en topp er fylt inn
@@ -6,6 +7,7 @@
  * TODO: Dialogboks bør komme rett ved der du klikker
  * TODO: Dra rektangel over område, og markere alle som besøkt
  * TODO: Sjekke for duplikater. Fjerne duplikater, eventuelt spar på den som
+ * TODO: Vis summen av topper også
  * har visited
  */
 
@@ -372,6 +374,8 @@ function createPeakWpt(peak) {
 function writePeaksToGPX(peaks) {
 
     console.log("Writing peaks to gpx-file...");
+    peaks_visited.sort(dynamicSort("name"));
+    peaks_unvisited.sort(dynamicSort("name"));
 
     var t = new Date();
     var timestamp = t.getFullYear() + String(t.getMonth()+1).padStart(2, '0') 
@@ -405,6 +409,8 @@ function writePeaksToGPX(peaks) {
 
 function writePeaksToJSON(peaks) {
     console.log("Writing peaks to json-file...");
+    peaks_visited.sort(dynamicSort("name"));
+    peaks_unvisited.sort(dynamicSort("name"));
 
     var t = new Date();
     var timestamp = t.getFullYear() + String(t.getMonth()+1).padStart(2, '0') 
@@ -480,10 +486,13 @@ document.getElementById('import').onclick = function () {
 
         } else if (ext === "json") {
 
+            var peaksInRead = []
+
             var jsonFile = JSON.parse(e.target.result);
 
             for (let i=0; i<jsonFile.length; i++) {
                 var p = jsonFile[i];
+                
                 if (p.cmt === "visited") {
                     peaks_visited.push(p);
                 } else {
@@ -495,7 +504,29 @@ document.getElementById('import').onclick = function () {
         } else {
             window.alert("File most be .gpx or .json.");
         }
+        // // peaks_visited.sort(dynamicSort("name"));
+        // // peaks_unvisited.sort(dynamicSort("name"));
+        // // peaks_unvisited = checkDuplicates(peaks_unvisited);
+        // // peaks_visited = checkDuplicates(peaks_visited);
 
+        // var peaks = peaks_visited.concat(peaks_unvisited);
+        // peaks.sort(dynamicSort("name"))
+        // peaks = checkDuplicates(peaks);
+
+        // peaks_visited = [];
+        // peaks_unvisited = [];
+
+        // for (let i=0; i<peaks.length; i++) {
+        //     var p = peaks[i];
+            
+        //     if (p.cmt === "visited") {
+        //         peaks_visited.push(p);
+        //     } else {
+        //         peaks_unvisited.push(p);
+        //     }
+        // }
+        // updatePeakCounts();
+        // drawPeaks(peaks_unvisited, peaks_visited);
 
     }
     reader.readAsText(files.item(0));
@@ -650,6 +681,39 @@ function saveNewAscent() {
 
     // changeFormDisplay("newAscentForm", "none");
     updateSelectedPeakInfo(peak);
+}
+
+function dynamicSort(property) {
+
+    return function (a,b) {
+        return a[property].localeCompare(b[property]);
+    }
+}
+
+function checkDuplicates(peaks_array) {
+
+    console.log(peaks_array);
+    var dupIndeces = [];
+
+    for (let j=0; j < peaks_array.length; j++) {
+        console.log(peaks_array[j].name);
+        for (let k=j+1; k < peaks_array.length; k++) {
+            if (peaks_array[j].lat === peaks_array[k].lat && peaks_array[j].lon === peaks_array[k].lon) {
+                dupIndeces.push(k);
+                if (peaks_array[k].cmt === "visited") {
+                    peaks_array[j].cmt = "visited";
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    for (let i = dupIndeces.length-1; i >= 0; i--) {
+        peaks_array.splice(dupIndeces[i], 1);
+    }
+
+    return peaks_array;
 }
 
 
