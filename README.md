@@ -8,4 +8,4 @@ main idea is to keep a database of peaks (hence the name Peakbase) that you have
 visited and/or want to visit.
 
 Read more on the website
-[erikjohannes.no/peakbase](https://erikjohannes.no/peakbase).
+[peakbase.app](https://peakbase.app).
