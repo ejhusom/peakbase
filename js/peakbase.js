@@ -1,11 +1,10 @@
 /*
- * TODO: Lage grønn marker der man lager new peak
+ * TODO: Lage grønn markør der man lager new peak
  * TODO: Nye topper blir mulig å legge til andre
  * TODO: Mulig å lage kommentarer?
  * TODO: Ta vekk default values etter at en topp er fylt inn
  * TODO: "Unregister" peak if you pressed the wrong one
  * TODO: Dialogboks bør komme rett ved der du klikker
- * TODO: Dra rektangel over område, og markere alle som besøkt
  * TODO: Sjekke for duplikater. Fjerne duplikater, eventuelt spar på den som
  * TODO: Vis summen av topper også
  * har visited
@@ -123,7 +122,7 @@ map.on(L.Draw.Event.CREATED, function (e) {
 
 
 /**
- * Extract informatino about peaks (or other points of interest) from an
+ * Extract information about peaks (or other points of interest) from an
  * uploaded gpx-file.
  * @param {} xmlDoc XML-docuemnt to parse.
  */
@@ -486,8 +485,6 @@ document.getElementById('import').onclick = function () {
 
         } else if (ext === "json") {
 
-            var peaksInRead = []
-
             var jsonFile = JSON.parse(e.target.result);
 
             for (let i=0; i<jsonFile.length; i++) {
@@ -531,7 +528,61 @@ document.getElementById('import').onclick = function () {
     }
     reader.readAsText(files.item(0));
 
+}
 
+document.getElementById('load-peak-library').onclick = function () {
+    // fetch("https://peakbase.app/assets/peaks.json")
+    // .then((response) => response.json())
+    // .then((json) => console.log(json));
+    // import peaks from "https://peakbase.app/assets/peaks.json" assert { type: 'json' };
+    // console.log(peaks);
+    // var files = document.getElementById('file-selector').files;
+    // var files = "assets/peaks.json"
+    // var importedFileName = files[0].name;
+    // console.log(importedFileName);
+    // var re = /(?:\.([^.]+))?$/;
+    // var ext = re.exec(importedFileName)[1];
+    fetch("https://peakbase.app/assets/peaks.json")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        // for (let i = 0; i < data.length; i++) {
+        //   console.log(data[i]);
+        // }
+        peaks_visited = [];
+        peaks_unvisited = [];
+
+        for (let i=0; i<data.length; i++) {
+            var p = data[i];
+            peaks_unvisited.push(p);
+        }
+        updatePeakCounts();
+        drawPeaks(peaks_unvisited, peaks_visited);
+      })
+
+    // var jsonFile = JSON.parse();
+    // console.log(jsonFile);
+
+
+    // var reader = new FileReader();
+
+    // reader.onload = function (e) {
+
+    //     // Reset arrays in case user clicks "Import" multiple times
+    //     peaks_visited = [];
+    //     peaks_unvisited = [];
+
+    //     var jsonFile = JSON.parse(e.target.result);
+
+    //     for (let i=0; i<jsonFile.length; i++) {
+    //         var p = jsonFile[i];
+    //         peaks_unvisited.push(p);
+    //     }
+    //     updatePeakCounts();
+    //     drawPeaks(peaks_unvisited, peaks_visited);
+    // }
+    // reader.readAsText(files.item(0));
 }
 
 function onMapDblClick(e) {
