@@ -6,7 +6,6 @@
  * TODO: "Unregister" peak if you pressed the wrong one
  * TODO: Dialogboks bør komme rett ved der du klikker
  * TODO: Sjekke for duplikater. Fjerne duplikater, eventuelt spar på den som
- * TODO: Vis summen av topper også
  * har visited
  */
 

@@ -28,11 +28,8 @@
                 <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1>
                 <span class="subheading">A minimalistic tool for peak baggers</span>
             </div>
-                <!-- <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1> -->
-            <nav class="main-nav">
+            <nav>
                 <!-- <a href="info.html">How it works</a> -->
-                <!-- <a href="https://erikjohannes.no">erikjohannes.no</a> -->
-                <!-- <a href="#instructions">Instructions</a> -->
                 <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
                 <label class="button" for="file-selector">Import existing peakbase</label>
                 <input type="file" id="file-selector" hidden>
@@ -44,9 +41,13 @@
                 <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])">
                     Save as GPX (ascent dates not included)
                 </button>
-                <a href="info.html"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
+                <a href="info.html" target="_blank"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
             </nav>
         </header>
+
+        <!-- <div id="instructionsContainer"> -->
+        <!--     1. Load your peakbase (blue buttons), or double-click on map to create new peaks. 2. Register peak ascents by clicking on red markers. 3. Save your peakbase (green buttons). -->
+        <!-- </div> -->
 
         <div class="mapEditContainer">
 
@@ -59,27 +60,32 @@
                 <hr>
                 <div id="peakInfo">
                     <h3>Selected peak</h3>
+
                     <h4>Name:</h4>
                     <div id="selectedPeakName"></div>
+
                     <h4>Elevation:</h4>
                     <div id="selectedPeakEle"></div>
+
                     <h4 class="coordinateInfo">Lat:</h4>
                     <div class="coordinateInfo" id="selectedPeakLat"></div>
+
                     <h4 class="coordinateInfo">Lon:</h4>
                     <div class="coordinateInfo" id="selectedPeakLon"></div>
+
                     <h4>Ascents:</h4>
                     <div id="selectedPeakAscents"></div>
                 </div>
                 <hr>
                 <div class="form-popup" id="newAscentForm">
                     <h3>New ascent</h3>
+
                     <label for="ascentDate">Date of ascent</label>
-                    <input class="block" type="date" id="ascentDate"
-                                                     placeholder="dd-mm-yyyy" required>
+                    <input class="block" type="date" id="ascentDate" placeholder="dd-mm-yyyy" required>
 
                     <button class="btn" onclick="saveNewAscent()">Save</button>
-                    <button class="btn-cancel"
-                                          onclick="changeFormDisplay('newAscentForm',
+
+                    <button class="btn-cancel" onclick="changeFormDisplay('newAscentForm',
                                                    'none')">Cancel</button>
                 </div>
                 <div class="form-popup" id="newPeakForm">
@@ -106,5 +112,4 @@
 
     </body>
     <script type="text/javascript" src="js/peakbase.js"></script>
-
 </html>

@@ -14,8 +14,6 @@
 body {
     font-family: "Arial", sans-serif;
     color: var(--main-font-color);
-    /* box-sizing: border-box; */
-    margin: auto;
     padding-left: 5%;
     padding-right: 5%;
 }
@@ -23,13 +21,8 @@ body {
 
 /*Header{{{*/
 header {
-    top: 0;
-    right: 0;
-    left: 0;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    text-align: justify;
-    margin-bottom: 0.5em;
+    margin-top: 0.6rem;
+    margin-bottom: 0.8em;
 }
 
 #title {
@@ -50,46 +43,20 @@ header h1 {
 /*Nav{{{*/
 nav {
     display: inline;
-    color: var(--tertiary-font-color);
+    color: var(--secondary-font-color);
     padding: 1em;
     vertical-align: middle;
-    float: right;
+    /* float: right; */
 }
 
 #info_symbol {
     width: 1.5em;
     vertical-align: middle;
-    margin-left: 0.6em;
+    margin: 0.6em;
+    /* margin-left: 0.6em; */
 }
 /*}}}*/
 
-/*Headers{{{*/
-h2 {
-    padding-top: 1.0em;
-    color: var(--main-font-color);
-}
-
-h4 {
-    padding: 0.1em;
-    margin: 0.2em;
-}
-
-article h2, h3, h4 {
-    /* font-family: Impact; */
-}
-
-article h2 {
-    font-size: 2.5em;
-}
-
-article h3 {
-    font-size: 2.0em;
-}
-
-article h4 {
-    font-size: 1.5em;;
-}
-/*}}}*/
 
 /*Hr (line){{{*/
 hr {
@@ -110,7 +77,7 @@ li {
 
 /*Links{{{*/
 a:link, a:visited {
-  color:  var(--tertiary-font-color);
+  color:  var(--secondary-font-color);
   text-decoration: none;
 }
 
@@ -124,7 +91,6 @@ a.ghost:link, a.ghost:visited, a.ghost:hover {
 }
 /*}}}*/
 
-
 /*Footer{{{*/
 footer {
   right: 0;
@@ -136,25 +102,14 @@ footer {
 }
 /*}}}*/
 
-.menubar {
-    margin: 0.5em;
-}
-
-#toolbar {
-}
-
-.peaksStatistics {
-    display: inline;
-    margin-left: 0.3em;
-}
-
+/* Map and edit container{{{ */
 .mapEditContainer {
     border: 2px solid;
     /* height: 650px; */
 }
 
 #map {
-    height: 630px;
+    height: 650px;
     /* width: 75%; */
     /* flex: 3; */
 }
@@ -202,10 +157,13 @@ input.block {
 label {
     display: block;
 }
+/* }}} */
 
 article {
     width: 60%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
 }
 
 #bugreport {
@@ -227,11 +185,13 @@ article {
   cursor: pointer;
   display: inline;
   font-size: 1em;
+  margin: 0.3em;
 }
 
 label.button {
     background-color: #3377ff;
     color: white;
+    width: 20ch;
 }
 
 label.button:hover {
@@ -289,9 +249,6 @@ button.import:hover {
     #map {
       width: 100%;
       height: 70vh;
-    }
-    nav a {
-        display: block;
     }
     article {
         width: 100%;
