@@ -17,7 +17,9 @@
                 <span class="subheading">A minimalistic tool for peak baggers</span>
             </div>
             <nav>
-                <a href="index.html">Back to app</a>
+                <div class="button">
+                    <a href="index.html">Back to app</a>
+                </div>
             </nav>
         </header>
 
@@ -26,8 +28,8 @@
 
                 <ul>
                     <li><a href="#what">What is Peakbase?</a></li>
-                    <li><a href="#how">How do I use it?</a></li>
-                    <li><a href="#why">Why should I use it?</a></li>
+                    <li><a href="#how">How do I use Peakbase?</a></li>
+                    <li><a href="#why">Why should I use Peakbase?</a></li>
                     <li><a href="#about">About Peakbase</a></li>
                 </ul>
 
@@ -36,18 +38,18 @@
                 <p>Peakbase makes it easy to collect peaks, and visualize the ones you haven't yet ascended. With Peakbase, you can also register the dates of your ascents.</p>
 
 
-                <h2 id="how">How do I use it?</h2>
+                <h2 id="how">How do I use Peakbase?</h2>
 
                 <p>To start using Peakbase, you have three options:</p>
 
                 <ol>
-                    <li><strong>Use the default peakbase</strong>): Click "Start new peakbase", which loads a ready-to-use peakbase with over 38 000 peaks in Norway already registered.</li>
-                    <li><strong>Start from scratch</strong>: Double-click on locations in the map to register new peaks.</li>
+                    <li><strong>Use the default peakbase</strong>: Click "Start new peakbase", which loads a ready-to-use peakbase with over 38 000 peaks in Norway already registered.</li>
                     <li><strong>Upload an existing file with locations</strong>: This could be a GPX-file created using another tool, or your existing peakbase.</li>
+                    <li><strong>Start from scratch</strong>: Double-click on locations in the map to register new peaks.</li>
                     <!-- <li>Double-click on locations in the map to register new peaks, and click on the newly registered peaks (red markers) to mark them as ascended.</li> -->
                 </ol>
 
-                <p>Whether you use the pre-existing peakbase (option 1) or start building your own from scratch (option 2), the registered peaks will appear as red markers in the map. To mark peaks as ascended/visited, click on them and confirm, and the markers will turn blue, indicating that you have "bagged" that peak.</p>
+                <p>Whether you use the pre-existing peakbase (option 1 and 2) or start building your own from scratch (option 3), the registered peaks will appear as red markers in the map. To mark peaks as ascended/visited, click on them and confirm, and the markers will turn blue, indicating that you have "bagged" that peak.</p>
 
                 <!-- <ol> -->
                 <!--     <li>Upload your peakbase-file, or a gpx-file containing -->
@@ -60,64 +62,59 @@
                 <!--         new peaks and ascents.</li> -->
                 <!-- </ol> -->
 
-                <h3>Detailed usage</h3>
-                <h4>Map legend</h4>
-                <ul>
-                    <li>Red markers: Peaks not visited.</li>
-                    <li>Blue markers: Peaks visitied.</li>
-                </ul>
-                <h4>Add peaks to your peakbase-file</h4>
+                <p>Next steps:</p>
+
                 <ul>
                     <li>
-                        Double click on map to add a point.
+                        <strong>Add peaks to your peakbase:</strong>
                         <ul>
+                            <li>Double click on map to add a point.</li>
                             <li>Enter name and elevation of point.</li>
                             <li>Click "Save" to save peak.</li>
                         </ul>
                     </li>
-                </ul>
-                <h4>Register peak as visited</h4>
-                <ul>
-                    <li>Click on red markers (unvisited peaks) and confirm to
-                        mark them as visited. This will turn the marker blue.</li>
-                </ul>
-                <h4>Register ascent with date</h4>
-                <ul>
-                    <li>After you have registered a peak as visited, you may
-                        also register the dates of your ascent(s). Do this by
-                        clicking the blue marker, and enter the date in the
-                        menu to the right.</li>
-
-                </ul>
-                <h4>Download your peakbase-file</h4>
-                <ul>
-                    <li>When you are done with registering peaks, download your
-                    peakbase-file as .gpx or .json with the buttons in the top
-                    right corner beside the map.</li>
-                    <ul>
-                        <li><b>IMPORTANT:</b> Only the JSON-version of the peakbase-file will contain the
-                            dates of your ascents. The gpx-file only contains the peaks
-                            and whether they are visited or not.</li>
-                        <li>The downloaded file has a timestamp in the filename, in
-                            order to easily see when you last updated the
-                            peakbase.</li>
-                    </ul>
-                </ul>
-                <h4>General tips</h4>
-                <ul>
-                    <li>While JSON is the preferred format for Peakbase (since
-                    this is more flexible, and allows storing for example
-                    ascent dates), the tool also accepts GPX-files. This is
-                    useful, since you can import files downloaded from for
-                    example <a href="https://peakbook.org">peakbook.org</a>.
-                    GPX-files can also be easily plotted in a range of other online
-                and offline software tools, so it might be useful to keep both a
-                GPX- and a JSON-version of your peakbase.</li>
-
+                    <li>
+                        <strong>Register peak as visited</strong>: Click on red markers (unvisited peaks) and confirm to mark them as visited. This will turn the marker blue.
+                    </li>
+                    <li>
+                        <strong>Register ascent with date</strong>: After you have registered a peak as visited, you may also register the dates of your ascent(s). Do this by clicking the blue marker, and enter the date in the menu to the right.
+                    </li>
+                    <li>
+                        <strong>Download your peakbase</strong>
+                        <ul>
+                            <li>When you are done with registering peaks, download your
+                            peakbase-file as .json or .gpx with the buttons in the top
+                            right corner beside the map.</li>
+                            <ul>
+                                <li>The downloaded file has a timestamp in the filename, in
+                                    order to easily see when you last updated the
+                                    peakbase.</li>
+                                <li><b>IMPORTANT:</b> Only the JSON-version of the peakbase-file will contain the
+                                    dates of your ascents. The gpx-file only contains the peaks
+                                    and whether they are visited or not.</li>
+                                <li>While JSON is the preferred format for Peakbase (since
+                                this is more flexible, and allows storing for example
+                                ascent dates), the tool also accepts GPX-files. This is
+                                useful, since you can import files downloaded from for
+                                example <a href="https://peakbook.org">peakbook.org</a>.
+                                GPX-files can also be easily plotted in a range of other online
+                            and offline software tools, so it might be useful to keep both a
+                            GPX- and a JSON-version of your peakbase.</li>
+                            </ul>
+                        </ul>
+                    </li>
                 </ul>
 
-                <h2 id="why">Why should I use it?</h2>
+                <h4>Map legend</h4>
+                <ul>
+                    <li>Red markers: Peaks not visited.</li>
+                    <li>Blue markers: Peaks visited.</li>
+                </ul>
 
+                <h2 id="why">Why should I use Peakbase?</h2>
+
+                <p>While the simplest way to collect peaks is to write them down in a list, Peakbase enables you to visualize your collection on a map. This makes it easy to see where you have been, and where to plan your next peak bagging trip.</p>
+                <p>Peakbase gives you simple tools to manage your collection, without making things over-complicated. If you want to focus in being outdoors and enjoying the views rather than sitting in front of your computer screen, use Peakbase to collect your peaks!</p>
                 <p>Peakbase is designed to avoid the need for yet another user account. Instead of logging in, you upload your peakbase, and when you are done, you just download the updated version of the file. Store your peakbase wherever you like!</p>
 
                 <h2 id="about">About</h2>
