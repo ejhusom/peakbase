@@ -558,7 +558,7 @@ document.getElementById("start-new-database").onclick = function () {
                 peaks_unvisited.push(p);
             }
             updatePeakCounts();
-            drawPeaks(peaks_unvisited, peaks_visited);
+            drawPeaks(peaks_unvisited, peaks_visited, reset_zoom=true);
           })
     }
 }

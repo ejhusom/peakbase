@@ -1,0 +1,41 @@
+        <div id="bugreport">Peakbase is in active development. Please submit bug
+            reports, feature requests etc to 
+            <a
+                href="https://github.com/ejhusom/peakbase/issues">https://github.com/ejhusom/peakbase/issues</a>
+        </div>
+
+        <div id="start-menu">
+            <div class="start-button">
+                <p>Upload your existing peakbase:</p>
+                <input class="" type="file" id="file-selector"/>
+            </div>
+            <div class="start-button">
+                <button class="import" id="start-new-database">Start new peakbase</button>
+            </div>
+        </div>
+
+        <div class="menubar" id="toolbar">
+                <label class="button" for="file-selector">Import existing peakbase</label>
+                <input type="file" id="file-selector" hidden>
+                <!-- <button class="import" id="import-existing-database">Import existing peakbase</button> -->
+                <button class="button import" id="start-new-database">Start new peakbase</button>
+                <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])">
+                    Save as JSON
+                </button>
+                <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])">
+                    Save as GPX (ascent dates not included)
+                </button>
+                <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
+        </div>
+
+        <div class="menubar" id="statusbar">
+            <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
+        </div>
+
+        <footer>
+            Homepage of developer:
+                <a href="https://erikjohannes.no">erikjohannes.no</a>.
+            Source code:
+                <a href="https://github.com/ejhusom/peakbase">github.com/ejhusom/peakbase</a>
+        </footer>
+

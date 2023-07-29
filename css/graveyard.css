@@ -1,0 +1,13 @@
+.start-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #0e0e0e;
+    border-radius: 8px;
+    width: 15em;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    background: #f0f0f0;
+}
