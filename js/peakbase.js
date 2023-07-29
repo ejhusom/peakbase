@@ -19,6 +19,8 @@ var peaks_visited = [];
 var unvisitedMarkers;
 var visitedMarkers;
 
+var peaksDrawn = false;
+
 const fileSelector = document.getElementById("file-selector");
 fileSelector.addEventListener("change", (event) => {
     const fileList = event.target.files;
@@ -449,14 +451,16 @@ function drawPeaks (peaks_unvisited, peaks_visited) {
     unvisitedMarkers = plotPeaks(peaks_unvisited);
     visitedMarkers = plotPeaks(peaks_visited, "peaks-visited");
 
+    peaksDrawn = true;
+
 }
 
 function updatePeakCounts () {
-    document.getElementById("numVisitedPeaks").innerHTML = "Number of visited peaks: " + peaks_visited.length;
-    document.getElementById("numUnvisitedPeaks").innerHTML = "Number of unvisited peaks: " + peaks_unvisited.length;
+    document.getElementById("numVisitedPeaks").innerHTML = "Peaks ascended: " + peaks_visited.length + " (" + peaks_unvisited.length + " left)";
 }
 
-document.getElementById('import').onclick = function () {
+// document.getElementById('import-existing-database').onclick = function () {
+document.getElementById('file-selector').addEventListener('change', function(e) {
     var files = document.getElementById('file-selector').files;
     var importedFileName = files[0].name;
     console.log(importedFileName);
@@ -528,61 +532,30 @@ document.getElementById('import').onclick = function () {
     }
     reader.readAsText(files.item(0));
 
-}
+});
 
-document.getElementById('load-peak-library').onclick = function () {
-    // fetch("https://peakbase.app/assets/peaks.json")
-    // .then((response) => response.json())
-    // .then((json) => console.log(json));
-    // import peaks from "https://peakbase.app/assets/peaks.json" assert { type: 'json' };
-    // console.log(peaks);
-    // var files = document.getElementById('file-selector').files;
-    // var files = "assets/peaks.json"
-    // var importedFileName = files[0].name;
-    // console.log(importedFileName);
-    // var re = /(?:\.([^.]+))?$/;
-    // var ext = re.exec(importedFileName)[1];
-    fetch("https://peakbase.app/assets/peaks.json")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        // for (let i = 0; i < data.length; i++) {
-        //   console.log(data[i]);
-        // }
-        peaks_visited = [];
-        peaks_unvisited = [];
+document.getElementById("start-new-database").onclick = function () {
 
-        for (let i=0; i<data.length; i++) {
-            var p = data[i];
-            peaks_unvisited.push(p);
-        }
-        updatePeakCounts();
-        drawPeaks(peaks_unvisited, peaks_visited);
-      })
+    var startNewDatabase = confirm("Do you want to start from scratch using the default peakbase? This will wipe the current map for registered ascents.");
 
-    // var jsonFile = JSON.parse();
-    // console.log(jsonFile);
+    if (startNewDatabase === true) {
 
+        fetch("https://peakbase.app/assets/peaks.json")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            peaks_visited = [];
+            peaks_unvisited = [];
 
-    // var reader = new FileReader();
-
-    // reader.onload = function (e) {
-
-    //     // Reset arrays in case user clicks "Import" multiple times
-    //     peaks_visited = [];
-    //     peaks_unvisited = [];
-
-    //     var jsonFile = JSON.parse(e.target.result);
-
-    //     for (let i=0; i<jsonFile.length; i++) {
-    //         var p = jsonFile[i];
-    //         peaks_unvisited.push(p);
-    //     }
-    //     updatePeakCounts();
-    //     drawPeaks(peaks_unvisited, peaks_visited);
-    // }
-    // reader.readAsText(files.item(0));
+            for (let i=0; i<data.length; i++) {
+                var p = data[i];
+                peaks_unvisited.push(p);
+            }
+            updatePeakCounts();
+            drawPeaks(peaks_unvisited, peaks_visited);
+          })
+    }
 }
 
 function onMapDblClick(e) {

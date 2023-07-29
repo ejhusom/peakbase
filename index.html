@@ -24,108 +24,124 @@
 
     <body>
         <header>
-            <nav class="main-nav">
-                <a href="info.html">info</a>
-                <!-- <a href="https://erikjohannes.no">erikjohannes.no</a> -->
-                <!-- <a href="#instructions">Instructions</a> -->
-                <!-- <a href="https://github.com/ejhusom/peakbase">source code</a> -->
-            </nav>
             <div id="title">
                 <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1>
                 <span class="subheading">A minimalistic tool for peak baggers</span>
             </div>
+                <!-- <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1> -->
+            <nav class="main-nav">
+                <!-- <a href="info.html">How it works</a> -->
+                <!-- <a href="https://erikjohannes.no">erikjohannes.no</a> -->
+                <!-- <a href="#instructions">Instructions</a> -->
+                <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
+                <label class="button" for="file-selector">Import existing peakbase</label>
+                <input type="file" id="file-selector" hidden>
+                <!-- <button class="import" id="import-existing-database">Import existing peakbase</button> -->
+                <button class="button import" id="start-new-database">Start new peakbase</button>
+                <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])">
+                    Save as JSON
+                </button>
+                <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])">
+                    Save as GPX (ascent dates not included)
+                </button>
+                <a href="info.html"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
+            </nav>
         </header>
-        <div id="bugreport">Peakbase is in active development. Please submit bug
-            reports, feature requests etc to 
-            <a
-                href="https://github.com/ejhusom/peakbase/issues">https://github.com/ejhusom/peakbase/issues</a>
-        </div>
 
-            <div id="upload-box">
-                <p>Upload your existing Peakbase here (only .gpx or .json):</p>
-                <input type="file" id="file-selector">
-                <button id="import">Import your existing database</button>
-                <button id="load-peak-library">Import a fresh database</button>
-                <p>...or start registering ascents from scratch by double clicking on the
-                map below:</p>
-            </div>
-            <div class="mapEditContainer">
-                <div id="map"></div>
+        <!-- <div id="bugreport">Peakbase is in active development. Please submit bug -->
+        <!--     reports, feature requests etc to --> 
+        <!--     <a -->
+        <!--         href="https://github.com/ejhusom/peakbase/issues">https://github.com/ejhusom/peakbase/issues</a> -->
+        <!-- </div> -->
 
-                <div id="editContainer">
-                    <div id="download-box">
-                        <p style="margin-top:0.3em;">When you are done editing, save your peaks:</p>
-                        <button class=download id="downloadJSON"
-                                onclick="writePeaksToJSON([peaks_unvisited,
-                                peaks_visited])"><h4>Save</h4><p>(JSON-file)</p></button>
-                        <p id="or">...or...</p>
-                        <button class=download id="downloadGPX" onclick="writePeaksToGPX([peaks_unvisited,
-                                                                                                     peaks_visited])"><h4>Save</h4><p>(GPX-file,
-                                                                                                     ascent dates not included)</p></button>
-                    </div>
-                    <hr>
-                    <div id="peaksStatistics">
-                        <h4 id="numVisitedPeaks"> Number of peaks visited: </h4>
-                        <h4 id="numUnvisitedPeaks"> Number of peaks not visited: </h4>
-                    </div>
-                    <hr>
-                    <div id="peakInfo">
-                        <h3>Selected peak</h3>
-                        <h4>Name:</h4>
-                        <div id="selectedPeakName"></div>
-                        <h4>Elevation:</h4>
-                        <div id="selectedPeakEle"></div>
-                        <h4>Lat:</h4>
-                        <div id="selectedPeakLat"></div>
-                        <h4>Lon:</h4>
-                        <div id="selectedPeakLon"></div>
-                        <h4>Ascents:</h4>
-                        <div id="selectedPeakAscents"></div>
-                    </div>
-                    <hr>
-                    <div class="form-popup" id="newAscentForm">
-                        <h3>New ascent</h3>
-                        <label for="ascentDate">Date of ascent</label>
-                        <input class="block" type="date" id="ascentDate"
-                                                         placeholder="dd-mm-yyyy" required>
+        <!-- <div id="start-menu"> -->
+        <!--     <div class="start-button"> -->
+        <!--         <p>Upload your existing peakbase:</p> -->
+        <!--         <input class="" type="file" id="file-selector"/> -->
+        <!--     </div> -->
+        <!--     <div class="start-button"> -->
+        <!--         <button class="import" id="start-new-database">Start new peakbase</button> -->
+        <!--     </div> -->
+        <!-- </div> -->
 
-                        <button class="btn" onclick="saveNewAscent()">Save</button>
-                        <button class="btn-cancel"
-                                              onclick="changeFormDisplay('newAscentForm',
-                                                       'none')">Cancel</button>
-                    </div>
-                    <div class="form-popup" id="newPeakForm">
-                        <h3>New peak</h3>
-                        <label for="newPeakName">Name of peak</label>
-                        <input class="block" type="text" placeholder="Enter peak
-                                      name" id="newPeakName"
-                                            required>
-                        <label for="newPeakEle">Elevation of peak</label>
-                        <input class="block" type="text" placeholder="Enter peak elevation"
-                                           id="newPeakEle" required>
-                        <label for="newPeakLat">Lat</label>
-                        <input class="block" id="newPeakLat" required>
-                        <label for="newPeakLon">Lon</label>
-                        <input class="block" id="newPeakLon" required>
+        <!-- <div class="menubar" id="toolbar"> -->
+        <!--         <label class="button" for="file-selector">Import existing peakbase</label> -->
+        <!--         <input type="file" id="file-selector" hidden> -->
+        <!--         <1!-- <button class="import" id="import-existing-database">Import existing peakbase</button> --1> -->
+        <!--         <button class="button import" id="start-new-database">Start new peakbase</button> -->
+        <!--         <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])"> -->
+        <!--             Save as JSON -->
+        <!--         </button> -->
+        <!--         <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])"> -->
+        <!--             Save as GPX (ascent dates not included) -->
+        <!--         </button> -->
+        <!--         <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p> -->
+        <!-- </div> -->
 
-                        <button class="btn" onclick="saveNewPeak()">Save</button>
-                        <button class="btn-cancel"
-                                              onclick="changeFormDisplay('newPeakForm',
-                                                       'none')">Cancel</button>
-                    </div>
+        <!-- <div class="menubar" id="statusbar"> -->
+        <!--     <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p> -->
+        <!-- </div> -->
+
+        <div class="mapEditContainer">
+
+            <div id="map"></div>
+
+            <div id="editContainer">
+                <div id="peakInfo">
+                    <h3>Selected peak</h3>
+                    <h4>Name:</h4>
+                    <div id="selectedPeakName"></div>
+                    <h4>Elevation:</h4>
+                    <div id="selectedPeakEle"></div>
+                    <h4 class="coordinateInfo">Lat:</h4>
+                    <div class="coordinateInfo" id="selectedPeakLat"></div>
+                    <h4 class="coordinateInfo">Lon:</h4>
+                    <div class="coordinateInfo" id="selectedPeakLon"></div>
+                    <h4>Ascents:</h4>
+                    <div id="selectedPeakAscents"></div>
+                </div>
+                <hr>
+                <div class="form-popup" id="newAscentForm">
+                    <h3>New ascent</h3>
+                    <label for="ascentDate">Date of ascent</label>
+                    <input class="block" type="date" id="ascentDate"
+                                                     placeholder="dd-mm-yyyy" required>
+
+                    <button class="btn" onclick="saveNewAscent()">Save</button>
+                    <button class="btn-cancel"
+                                          onclick="changeFormDisplay('newAscentForm',
+                                                   'none')">Cancel</button>
+                </div>
+                <div class="form-popup" id="newPeakForm">
+                    <h3>New peak</h3>
+                    <label for="newPeakName">Name of peak</label>
+                    <input class="block" type="text" placeholder="Enter peak
+                                  name" id="newPeakName"
+                                        required>
+                    <label for="newPeakEle">Elevation of peak</label>
+                    <input class="block" type="text" placeholder="Enter peak elevation"
+                                       id="newPeakEle" required>
+                    <label for="newPeakLat">Lat</label>
+                    <input class="block" id="newPeakLat" required>
+                    <label for="newPeakLon">Lon</label>
+                    <input class="block" id="newPeakLon" required>
+
+                    <button class="btn" onclick="saveNewPeak()">Save</button>
+                    <button class="btn-cancel"
+                                          onclick="changeFormDisplay('newPeakForm',
+                                                   'none')">Cancel</button>
                 </div>
             </div>
+        </div>
 
-        <footer>
-            Homepage of developer:
-                <a href="https://erikjohannes.no">erikjohannes.no</a>
-            <br>
-            Source code:
-                <a href="https://github.com/ejhusom/peakbase">https://github.com/ejhusom/peakbase</a>
-        </footer>
+        <!-- <footer> -->
+        <!--     Homepage of developer: -->
+        <!--         <a href="https://erikjohannes.no">erikjohannes.no</a>. -->
+        <!--     Source code: -->
+        <!--         <a href="https://github.com/ejhusom/peakbase">github.com/ejhusom/peakbase</a> -->
+        <!-- </footer> -->
 
     </body>
     <script type="text/javascript" src="js/peakbase.js"></script>
-    <script type="text/javascript" src="assets/peaks.json"></script>
 
 </html>
