@@ -440,7 +440,7 @@ function writePeaksToJSON(peaks) {
 
 }
 
-function drawPeaks (peaks_unvisited, peaks_visited) {
+function drawPeaks (peaks_unvisited, peaks_visited, reset_zoom=false) {
 
     // Clears all previous markers before drawing peaks
     if (unvisitedMarkers != undefined) {
@@ -451,6 +451,10 @@ function drawPeaks (peaks_unvisited, peaks_visited) {
     unvisitedMarkers = plotPeaks(peaks_unvisited);
     visitedMarkers = plotPeaks(peaks_visited, "peaks-visited");
 
+    if (reset_zoom) {
+        map.setView([65, 14], 5);
+    }
+
     peaksDrawn = true;
 
 }
@@ -459,6 +463,7 @@ function updatePeakCounts () {
     document.getElementById("numVisitedPeaks").innerHTML = "Peaks ascended: " + peaks_visited.length + " (" + peaks_unvisited.length + " left)";
 }
 
+// Import existing peakbase
 // document.getElementById('import-existing-database').onclick = function () {
 document.getElementById('file-selector').addEventListener('change', function(e) {
     var files = document.getElementById('file-selector').files;
@@ -485,7 +490,7 @@ document.getElementById('file-selector').addEventListener('change', function(e) 
             peaks_visited = peaks[1];
 
             updatePeakCounts();
-            drawPeaks(peaks_unvisited, peaks_visited);
+            drawPeaks(peaks_unvisited, peaks_visited, reset_zoom=true);
 
         } else if (ext === "json") {
 
@@ -501,7 +506,7 @@ document.getElementById('file-selector').addEventListener('change', function(e) 
                 }
             }
             updatePeakCounts();
-            drawPeaks(peaks_unvisited, peaks_visited);
+            drawPeaks(peaks_unvisited, peaks_visited, reset_zoom=true);
         } else {
             window.alert("File most be .gpx or .json.");
         }
