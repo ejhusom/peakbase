@@ -70,6 +70,10 @@ nav {
     cursor: pointer;
 }
 
+#backToApp {
+    padding: 0.4em;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -166,9 +170,8 @@ div.form-popup h3 {
 }
 
 #peakInfoContainer {
-    /* padding: 0.5em; */
-    /* margin: 0.5em; */
     margin-left: 0.8em;
+    margin-right: 0.8em;
     background-color: white;
 }
 

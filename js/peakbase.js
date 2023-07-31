@@ -838,12 +838,15 @@ window.onclick = function(event) {
   }
 }
 
+// Show instruction modal
+document.addEventListener("DOMContentLoaded", function() {
+  modal.style.display = "block";
+});
+
 window.onload = function() {
   // Connects the button for "Upload peak database" to the hidden file selector
   document.getElementById('upload-file-button').addEventListener('click', function() {
     document.getElementById('file-selector').click();
   });
 
-  // Show instruction modal
-  modal.style.display = "block";
 }
