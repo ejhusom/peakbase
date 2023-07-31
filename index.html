@@ -39,17 +39,17 @@
 
             <nav>
                 <div class="dropdown">
-                  <button class="dropbtn">Start</button>
+                  <button class="dropbtn button import">Start &#9660;</button>
                   <div class="dropdown-content">
                     <button class="button import" id="upload-file-button" title="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> <input type="file" id="file-selector" hidden>
                     <button class="button import" id="start-new-database" title="Start a new peak database with a default set of unvisited peaks.">New</button>
                   </div>
                 </div>
                 <div class="dropdown">
-                  <button class="dropbtn">Save</button>
+                  <button class="dropbtn button download">Save &#9660;</button>
                   <div class="dropdown-content">
-                    <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" title="Save your current peak database as a JSON file, which includes ascent dates."> Save as JSON </button>
-                    <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" title="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button>
+                    <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" title="Save your current peak database as a JSON file, which includes ascent dates.">JSON</button>
+                    <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" title="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">GPX</button>
                   </div>
                 </div>
                 <img id="showInstructions" title="Help" src="assets/question_mark.svg" alt="How it works"/>
