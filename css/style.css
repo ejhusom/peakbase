@@ -33,7 +33,7 @@ html, body {
 /*Header{{{*/
 header {
     /* padding: 0.3em; */
-    padding-top: 0.5em;
+    padding-top: 0.6em;
     padding-left: 0.5em;
     border-bottom: 2px solid rgb(233, 233, 233);
     /* width: 100%; */
@@ -47,6 +47,7 @@ header {
 
 header h1 {
     display: inline;
+    font-size: 1.2em;
 }
 
 .subheading {
@@ -58,7 +59,7 @@ header h1 {
 
 /*Nav{{{*/
 nav {
-    display: inline;
+    /* display: inline; */
     /* padding: 1em; */
 }
 
@@ -67,6 +68,25 @@ nav {
     vertical-align: middle;
     margin: 0.6em;
     cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /*#menuToggle*/

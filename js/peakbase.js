@@ -68,7 +68,7 @@ const drawControl = new L.Control.Draw({
         polyline : false,
         rectangle: true,
         circle   : {
-            metric: 'metric'
+            metric: 'metric',
         }
     },
     edit: false,
