@@ -18,6 +18,7 @@ var peaks_visited = [];
 var unvisitedMarkers;
 var visitedMarkers;
 
+var markerRadius = 6;
 var peaksDrawn = false;
 
 const fileSelector = document.getElementById("file-selector");
@@ -239,7 +240,6 @@ function plotPeaks(peaks, className="peaks") {
 
     for (let i = 0; i < peaks.length; i++) {
         var peak = peaks[i];
-        var markerRadius = 6;
 
         var marker = L.circleMarker(
             [peak.lat, peak.lon], {
@@ -574,10 +574,20 @@ function onMapDblClick(e) {
     changeFormDisplay("newAscentForm", "none");
     emptySelectedPeakInfo();
 
+    // Opens pop-up with coordinates. Not needed anymore.
     // L.popup()
     //     .setLatLng(e.latlng)
     //     .setContent("Coordinates: " + e.latlng.toString())
     //     .openOn(map);
+
+    // var marker = L.circleMarker(
+    //     [peak.lat, peak.lon], {
+    //         radius: markerRadius,
+    //         color: markerColor,
+    //     }
+    // ).bindTooltip(
+    //     peak.name + ', ' + peak.ele + ' masl'
+    // );
 
     changeFormDisplay("newPeakForm", "block");
 
