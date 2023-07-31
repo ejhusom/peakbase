@@ -11,15 +11,11 @@
         <link rel="stylesheet" href="js/leaflet/leaflet.css" />
         <link rel="stylesheet" href="js/markercluster/MarkerCluster.css" />
         <link rel="stylesheet" href="js/markercluster/MarkerCluster.Default.css" />
-        <!-- <link rel="stylesheet" href="js/leaflet.draw.css" /> -->
+        <link rel="stylesheet" href="js/leaflet.draw.css" />
 
         <script src="js/leaflet/leaflet.js"></script>
         <script src="js/markercluster/leaflet.markercluster.js"></script>
-        <!-- <script src="js/leaflet.draw.js"></script> -->
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
-
+        <script src="js/leaflet.draw.js"></script>
     </head>
 
     <body>
@@ -113,6 +109,15 @@
                 <!-- </div> -->
             </div>
             <hr>
+
+            <div class="form-popup" id="editPeakForm">
+                <h3>Edit peak</h3>
+                <button id="markPeakAsVisitedButton" class="btn" onclick="markPeakAsVisited2()">Mark peak as visited</button>
+                <button id="markPeakAsUnvisitedButton" class="btn" onclick="markPeakAsUnvisited()">Mark peak as unvisited</button>
+                <button class="btn" id="deletePeak" onclick="deletePeak()">Delete peak</button>
+                <button class="btn-cancel" onclick="changeDisplay('editPeakForm', 'none')">Cancel</button>
+            </div>
+
             <div class="form-popup" id="newAscentForm">
                 <h3>New ascent</h3>
 
@@ -121,9 +126,9 @@
 
                 <button class="btn" onclick="saveNewAscent()">Save</button>
 
-                <button class="btn-cancel" onclick="changeFormDisplay('newAscentForm',
-                                               'none')">Cancel</button>
+                <button class="btn-cancel" onclick="changeDisplay('newAscentForm', 'none')">Cancel</button>
             </div>
+
             <div class="form-popup" id="newPeakForm">
                 <h3>New peak</h3>
                 <label for="newPeakName">Name of peak</label>
@@ -139,7 +144,7 @@
 
                 <button class="btn" onclick="saveNewPeak()">Save</button>
                 <button class="btn-cancel"
-                                      onclick="changeFormDisplay('newPeakForm',
+                                      onclick="changeDisplay('newPeakForm',
                                                'none')">Cancel</button>
             </div>
         </div>

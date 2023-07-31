@@ -9,8 +9,8 @@
  * har visited
  */
 
-var L = L || require('leaflet')
-// var L = L || require('leaflet') || require("Leaflet.draw")
+// var L = L || require('leaflet')
+var L = L || require('leaflet') || require("Leaflet.draw")
 
 var peaks_unvisited = [];
 var peaks_visited = [];
@@ -39,7 +39,7 @@ var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.ope
 });
 
 var map = L.map('map', {
-    // drawControl: true,
+    drawControl: false,
     center: [65, 14],
     zoom: 5,
     layers: [norgeskart, opentopomap],
@@ -65,10 +65,19 @@ const drawControl = new L.Control.Draw({
         marker   : false,
         polygon  : false,
         polyline : false,
-        rectangle: true,
+        // rectangle: true,
+        rectangle: {
+            title: "Mark"
+        },
         circle   : {
             metric: 'metric',
-        }
+        },
+        toolbar: {
+            buttons: {
+                rectangle: "Mark multiple peaks as visited",
+                circle: "Mark multiple peaks as visited",
+            },
+        },
     },
     edit: false,
 });
@@ -91,6 +100,10 @@ L.Circle.include({
 });
 
 map.on(L.Draw.Event.CREATED, function (e) {
+    
+    // if (e.layerType === "polyline"){
+    //     console.log(e);
+    // } else {
     var selectedMarkers = [];
     var markerList = "";
     unvisitedMarkers.eachLayer(function (marker) {
@@ -254,7 +267,7 @@ function plotPeaks(peaks, className="peaks") {
         marker.on("click", function (e) {
             // Check if the peak clicked on is unvisited
             console.log(e.target);
-            changeFormDisplay("newPeakForm", "none");
+            changeDisplay("newPeakForm", "none");
             
             // If a tempMarker already exists, remove it from the map
             if (tempMarker) {
@@ -272,32 +285,30 @@ function plotPeaks(peaks, className="peaks") {
             ).addTo(map);
 
             if (e.target.options.color === unvisitedColor) {
-                changeFormDisplay("newAscentForm", "none");
+                changeDisplay("newAscentForm", "none");
+                changeDisplay("editPeakForm", "block");
+                changeDisplay("markPeakAsVisitedButton", "inline");
+                changeDisplay("markPeakAsUnvisitedButton", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
                 updateSelectedPeakInfo(peak);
-                console.log("Updated peak info");
-                var visited = confirm("Mark " + peak.name + " (" + peak.ele + " masl) as visited?");
-                // If user confirms that the peak is visited, move it to the
-                // visited peaks list
-                if (visited === true) {
+                // console.log("Updated peak info");
+                // var visited = confirm("Mark '" + peak.name + " (" + peak.ele + " masl)' as visited?");
+                // // If user confirms that the peak is visited, move it to the
+                // // visited peaks list
+                // if (visited === true) {
+                //     markPeakAsVisited(peak);
 
-                    // // Add peak to peaks_visited
-                    // peak.cmt = "visited";
-                    // peaks_visited.push(peak);
-                    // // Remove peak for peaks unvisited
-                    // var idx = peaks_unvisited.indexOf(peak);
-                    // peaks_unvisited.splice(idx, 1);
-                    markPeakAsVisited(peak);
-
-                    // Update plot and count
-                    drawPeaks(peaks_unvisited, peaks_visited);
-                    updatePeakCounts();
-                }
+                //     // Update plot and count
+                //     drawPeaks(peaks_unvisited, peaks_visited);
+                //     updatePeakCounts();
+                // }
             } else {
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_visited);
                 updateSelectedPeakInfo(peak);
-                changeFormDisplay("newAscentForm", "block");
-
+                changeDisplay("newAscentForm", "block");
+                changeDisplay("editPeakForm", "block");
+                changeDisplay("markPeakAsVisitedButton", "none");
+                changeDisplay("markPeakAsUnvisitedButton", "inline");
             }
         });
 
@@ -318,6 +329,69 @@ function markPeakAsVisited (peak) {
     var idx = peaks_unvisited.indexOf(peak);
     peaks_unvisited.splice(idx, 1);
 
+}
+
+function markPeakAsVisited2() {
+    var lat = parseFloat(document.getElementById("selectedPeakLat").innerHTML);
+    var lon = parseFloat(document.getElementById("selectedPeakLon").innerHTML);
+    var peak = findPeak(lat, lon, peaks_unvisited);
+    var idx = peaks_unvisited.indexOf(peak);
+
+    peak.cmt = "visited"
+    peaks_visited.push(peak);
+
+    peaks_unvisited.splice(idx, 1);
+
+    drawPeaks(peaks_unvisited, peaks_visited);
+    updatePeakCounts();
+
+    alert("Peak marked as visited!");
+
+    changeDisplay("markPeakAsVisitedButton", "none");
+    changeDisplay("markPeakAsUnvisitedButton", "inline");
+    changeDisplay("newAscentForm", "block");
+}
+
+function markPeakAsUnvisited() {
+    var lat = parseFloat(document.getElementById("selectedPeakLat").innerHTML);
+    var lon = parseFloat(document.getElementById("selectedPeakLon").innerHTML);
+    var peak = findPeak(lat, lon, peaks_visited);
+    console.log(peak);
+    var idx = peaks_visited.indexOf(peak);
+
+    peak.cmt = ""
+    peaks_unvisited.push(peak);
+
+    peaks_visited.splice(idx, 1);
+
+    drawPeaks(peaks_unvisited, peaks_visited);
+    updatePeakCounts();
+
+    alert("Peak marked as unvisited!");
+
+    changeDisplay("newAscentForm", "none");
+    changeDisplay("editPeakForm", "none");
+}
+
+function deletePeak() {
+    var lat = parseFloat(document.getElementById("selectedPeakLat").innerHTML);
+    var lon = parseFloat(document.getElementById("selectedPeakLon").innerHTML);
+
+    var peak = findPeak(lat, lon, peaks_visited);
+
+    if (peak) {
+        var idx = peaks_visited.indexOf(peak);
+        peaks_visited.splice(idx, 1);
+    } else {
+        var peak = findPeak(lat, lon, peaks_unvisited);
+        var idx = peaks_unvisited.indexOf(peak);
+        peaks_unvisited.splice(idx, 1);
+    }
+    alert("Peak deleted!");
+    drawPeaks(peaks_unvisited, peaks_visited);
+    updatePeakCounts();
+    changeDisplay("newAscentForm", "none");
+    changeDisplay("editPeakForm", "none");
 }
 
 function findPeak (lat, lon, peakArray) {
@@ -589,7 +663,7 @@ document.getElementById("start-new-database").onclick = function () {
 
 function onMapDblClick(e) {
     
-    changeFormDisplay("newAscentForm", "none");
+    changeDisplay("newAscentForm", "none");
     emptySelectedPeakInfo();
 
     // If a tempMarker already exists, remove it from the map
@@ -613,7 +687,7 @@ function onMapDblClick(e) {
     //     .setContent("Coordinates: " + e.latlng.toString())
     //     .openOn(map);
 
-    changeFormDisplay("newPeakForm", "block");
+    changeDisplay("newPeakForm", "block");
 
     document.getElementById("newPeakLat").value = e.latlng.lat;
     document.getElementById("newPeakLon").value = e.latlng.lng;
@@ -681,7 +755,7 @@ function onMapDblClick(e) {
 
 }
 
-function changeFormDisplay(formId, display) {
+function changeDisplay(formId, display) {
     document.getElementById(formId).style.display = display;
 }
 
@@ -738,7 +812,7 @@ function saveNewPeak() {
     peaks_unvisited.push(peak);
     updatePeakCounts();
     drawPeaks(peaks_unvisited, peaks_visited);
-    changeFormDisplay("newPeakForm", "none");
+    changeDisplay("newPeakForm", "none");
     alert("New peak created successfully!");
 }
 
@@ -762,7 +836,7 @@ function saveNewAscent() {
 
     console.log(peaks_visited[idx]);
 
-    // changeFormDisplay("newAscentForm", "none");
+    // changeDisplay("newAscentForm", "none");
     updateSelectedPeakInfo(peak);
     alert("Ascent recorded successfully!");
 }
