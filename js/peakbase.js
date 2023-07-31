@@ -44,8 +44,8 @@ var map = L.map('map', {
 });
 
 var baseMaps = {
-    "OpenTopoMap": opentopomap,
-    "Norgeskart": norgeskart,
+    "OpenTopoMap (global)": opentopomap,
+    "Norgeskart (Norway)": norgeskart,
 }
 
 var drawnItems = new L.FeatureGroup();
@@ -289,7 +289,6 @@ function plotPeaks(peaks, className="peaks") {
 
     map.addLayer(markers);
 
-    // TODO: Add loading indicator whilst plotting
     console.log("Peaks plotted!");
     return markers;
 }
@@ -773,8 +772,33 @@ var date = new Date();
 field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
     '-' + date.getDate().toString().padStart(2, 0);
 
+// Connects the button for "Upload peak database" to the hidden file selector
 window.onload = function() {
   document.getElementById('upload-file-button').addEventListener('click', function() {
     document.getElementById('file-selector').click();
   });
 }
+
+// Instruction modal
+var modal = document.getElementById("instructionModal");
+var span = document.getElementsByClassName("close")[0];
+var showInstructionsButton = document.getElementById("showInstructions");
+
+window.onload = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+showInstructionsButton.onclick = function() {
+  modal.style.display = "block";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+

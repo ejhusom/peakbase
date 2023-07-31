@@ -16,6 +16,7 @@
     --button-border-color: black;
     --button-hover-bg-color: #ddd;
     --button-hover-text-color: black;
+    --border-radius: 0.5rem;
 }
 
 /*Body{{{*/
@@ -51,17 +52,17 @@ header h1 {
 /*Nav{{{*/
 nav {
     display: inline;
-    color: var(--secondary-font-color);
     padding: 1em;
-    vertical-align: middle;
-    /* float: right; */
+}
+
+nav a {
+
 }
 
 #info_symbol {
     width: 1.5em;
     vertical-align: middle;
     margin: 0.6em;
-    /* margin-left: 0.6em; */
 }
 /*}}}*/
 
@@ -78,7 +79,7 @@ ul {
 }
 
 li {
-    padding-top: 0.1rem;
+    /* padding-top: 0.1rem; */
 }
 /*}}}*/
 
@@ -164,35 +165,33 @@ input.block {
 label {
     display: block;
 }
+
+.coordinateInfo {
+    display: None;
+}
+
+#statusbar {
+    padding-left: 0.5em;
+    margin-top: 0.5em;
+}
 /* }}} */
 
+/* Info site{{{ */
 article {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5em;
-    line-height: 1.2
-}
-
-#bugreport {
-    width: 60%;
+    max-width: 70ch;
+    padding: 3em 1em;
     margin: auto;
-    padding: 1em;
-    text-align: center;
-    border: 1px solid;
-    background-color: #FFBF00;
+    line-height: 1.5;
+    font-size: 1.25em;
 }
+/* }}} */
 
 /* Buttons{{{ */
-/* label.button { */
-/*     width: 20ch; */
-/* } */
-
 .button, .button.download, .button.import {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: 1px solid var(--button-border-color);
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1em;
     padding: 0.5rem;
@@ -223,17 +222,7 @@ article {
     background-color: var(--button-import-hover-color);
     color: var(--button-import-color);
 }
-
 /* }}} */
-
-.coordinateInfo {
-    display: None;
-}
-
-#statusbar {
-    padding-left: 0.5em;
-    margin-top: 0.5em;
-}
 
 /* Tooltips{{{ */
 .tooltip {
@@ -345,5 +334,42 @@ article {
     100% {
         transform: rotate(360deg);
     }
+}
+/* }}} */
+
+/* Tutorial{{{ */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: var(--border-radius);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 /* }}} */

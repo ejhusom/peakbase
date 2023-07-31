@@ -31,7 +31,6 @@
             <nav>
                 <!-- <a href="info.html">How it works</a> -->
                 <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
-                <!-- <button class="button import tooltip" for="file-selector" data-tooltip="Choose an existing peak database in JSON or GPX format from your local storage.">Upload peak database </button> -->
                 <button class="button import tooltip" id="upload-file-button" data-tooltip="Choose an existing peak database in JSON or GPX format from your local storage.">Upload peak database</button>
 
                 <input type="file" id="file-selector" hidden>
@@ -42,14 +41,27 @@
                 <button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">
                     Download GPX (ascent dates not included)
                 </button>
-                <a href="info.html" target="_blank" class="tooltip" data-tooltip="Help"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
+                <!-- <a href="info.html" target="_blank" class="tooltip" data-tooltip="Help"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a> -->
+                <button id="showInstructions" class="button">Show instructions</button>
+
             </nav>
         </header>
 
         <div id="loading-background"></div>
         <div id="loading-spinner" class="spinner"></div>
 
-
+        <div id="instructionModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Getting Started</h2>
+            <p>You can start using Peakbase in one of three ways:</p>
+            <ol>
+              <li>Upload an existing peak database in JSON or GPX format from your local storage.</li>
+              <li>Create a new peak database with a default set of unvisited peaks.</li>
+              <li>Double-click on the map to create new peaks and start from scratch.</li>
+            </ol>
+          </div>
+        </div>
 
         <!-- <div id="instructionsContainer"> -->
         <!--     1. Load your peakbase (blue buttons), or double-click on map to create new peaks. 2. Register peak ascents by clicking on red markers. 3. Save your peakbase (green buttons). -->

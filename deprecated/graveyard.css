@@ -17,6 +17,16 @@
     margin-left: 0.3em;
 }
 
+#bugreport {
+    width: 60%;
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+    border: 1px solid;
+    background-color: #FFBF00;
+}
+
+
 /*Headers{{{*/
 h2 {
     padding-top: 1.0em;
