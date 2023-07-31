@@ -26,23 +26,24 @@
         <header>
             <div id="title">
                 <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1>
-                <span class="subheading">A minimalistic tool for peak baggers</span>
+                <span class="subheading">peakbagging made simple</span>
+                <!-- <span class="subheading">A minimalistic tool for peak baggers</span> -->
             </div>
             <nav>
                 <!-- <a href="info.html">How it works</a> -->
                 <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
-                <button class="button import tooltip" id="upload-file-button" data-tooltip="Choose an existing peak database in JSON or GPX format from your local storage.">Upload peak database</button>
+                <button class="button import tooltip" id="upload-file-button" data-tooltip="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button>
 
                 <input type="file" id="file-selector" hidden>
-                <button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">Create new peak database</button>
+                <button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">New</button>
                 <button class="button download tooltip" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a JSON file, which includes ascent dates.">
-                    Download JSON
+                    Save as JSON
                 </button>
-                <button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">
-                    Download GPX (ascent dates not included)
-                </button>
+                <button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button>
                 <!-- <a href="info.html" target="_blank" class="tooltip" data-tooltip="Help"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a> -->
-                <button id="showInstructions" class="button">Show instructions</button>
+                <!-- <button id="showInstructions" class="button">Show instructions</button> -->
+                <img id="showInstructions" src="assets/question_mark.svg" alt="How it works"/>
+                <!-- <button id="showInstructions" class="button"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></button> -->
 
             </nav>
         </header>

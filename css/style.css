@@ -62,10 +62,11 @@ nav a {
 
 }
 
-#info_symbol {
+#showInstructions {
     width: 1.5em;
     vertical-align: middle;
     margin: 0.6em;
+    cursor: pointer;
 }
 /*}}}*/
 
