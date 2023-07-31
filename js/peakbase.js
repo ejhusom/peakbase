@@ -465,6 +465,9 @@ function updatePeakCounts () {
 // Import existing peakbase
 // document.getElementById('import-existing-database').onclick = function () {
 document.getElementById('file-selector').addEventListener('change', function(e) {
+
+    startLoading();
+
     var files = document.getElementById('file-selector').files;
     var importedFileName = files[0].name;
     console.log(importedFileName);
@@ -506,6 +509,7 @@ document.getElementById('file-selector').addEventListener('change', function(e) 
             }
             updatePeakCounts();
             drawPeaks(peaks_unvisited, peaks_visited, reset_zoom=true);
+            stopLoading();
         } else {
             window.alert("File most be .gpx or .json.");
         }
@@ -540,9 +544,12 @@ document.getElementById('file-selector').addEventListener('change', function(e) 
 
 document.getElementById("start-new-database").onclick = function () {
 
+    // setTimeout(donothing,3000)
+
     var startNewDatabase = confirm("Do you want to start from scratch using the default peakbase? This will wipe the current map for registered ascents.");
 
     if (startNewDatabase === true) {
+        startLoading();
 
         fetch("https://peakbase.app/assets/peaks.json")
           .then(function (response) {
@@ -558,6 +565,7 @@ document.getElementById("start-new-database").onclick = function () {
             }
             updatePeakCounts();
             drawPeaks(peaks_unvisited, peaks_visited, reset_zoom=true);
+            stopLoading();
           })
     }
 }
@@ -744,6 +752,15 @@ function checkDuplicates(peaks_array) {
     return peaks_array;
 }
 
+function startLoading() {
+    document.getElementById("loading-spinner").style.display = "block";
+    document.getElementById("loading-background").style.display = "block";
+}
+
+function stopLoading() {
+    document.getElementById("loading-spinner").style.display = "none";
+    document.getElementById("loading-background").style.display = "none";
+}
 
 map.on("dblclick", onMapDblClick);
 
