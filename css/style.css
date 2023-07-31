@@ -30,8 +30,7 @@ body {
 
 /*Header{{{*/
 header {
-    margin-top: 0.6rem;
-    margin-bottom: 0.8em;
+    margin: 0.8em;
 }
 
 #title {
@@ -69,17 +68,6 @@ nav a {
 /*Hr (line){{{*/
 hr {
   border: 0.1rem solid rgb(233, 233, 233);
-}
-/*}}}*/
-
-/*Lists{{{*/
-ul {
-  /* list-style-type: none; */
-  /* padding-left: 0; */
-}
-
-li {
-    /* padding-top: 0.1rem; */
 }
 /*}}}*/
 

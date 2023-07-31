@@ -772,13 +772,6 @@ var date = new Date();
 field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
     '-' + date.getDate().toString().padStart(2, 0);
 
-// Connects the button for "Upload peak database" to the hidden file selector
-window.onload = function() {
-  document.getElementById('upload-file-button').addEventListener('click', function() {
-    document.getElementById('file-selector').click();
-  });
-}
-
 // Instruction modal
 var modal = document.getElementById("instructionModal");
 var span = document.getElementsByClassName("close")[0];
@@ -802,3 +795,9 @@ window.onclick = function(event) {
   }
 }
 
+// Connects the button for "Upload peak database" to the hidden file selector
+window.onload = function() {
+  document.getElementById('upload-file-button').addEventListener('click', function() {
+    document.getElementById('file-selector').click();
+  });
+}
