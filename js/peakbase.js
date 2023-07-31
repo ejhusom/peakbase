@@ -671,10 +671,11 @@ function changeFormDisplay(formId, display) {
 }
 
 function updateSelectedPeakInfo(peak) {
-    document.getElementById("selectedPeakName").innerHTML = peak.name;
-    document.getElementById("selectedPeakEle").innerHTML = peak.ele;
-    document.getElementById("selectedPeakLat").innerHTML = peak.lat;
-    document.getElementById("selectedPeakLon").innerHTML = peak.lon;
+    document.getElementById("selectedPeakInfo").innerHTML = peak.name + " (" + peak.ele + " masl)";
+    // document.getElementById("selectedPeakName").innerHTML = peak.name;
+    // document.getElementById("selectedPeakEle").innerHTML = peak.ele;
+    // document.getElementById("selectedPeakLat").innerHTML = peak.lat;
+    // document.getElementById("selectedPeakLon").innerHTML = peak.lon;
 
     if (peak.ascents !== undefined) {
         
@@ -690,11 +691,12 @@ function updateSelectedPeakInfo(peak) {
 }
 
 function emptySelectedPeakInfo() {
-    document.getElementById("selectedPeakName").innerHTML = "";
-    document.getElementById("selectedPeakEle").innerHTML = "";
-    document.getElementById("selectedPeakLat").innerHTML = "";
-    document.getElementById("selectedPeakLon").innerHTML = "";
-    document.getElementById("selectedPeakAscents").innerHTML = "";
+    document.getElementById("selectedPeakInfo").innerHTML = "";
+    // document.getElementById("selectedPeakName").innerHTML = "";
+    // document.getElementById("selectedPeakEle").innerHTML = "";
+    // document.getElementById("selectedPeakLat").innerHTML = "";
+    // document.getElementById("selectedPeakLon").innerHTML = "";
+    // document.getElementById("selectedPeakAscents").innerHTML = "";
 }
 
 function saveNewPeak() {
