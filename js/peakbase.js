@@ -18,7 +18,7 @@ var peaks_visited = [];
 var unvisitedMarkers;
 var visitedMarkers;
 
-// let tempMarker;
+let tempMarker;
 
 var markerRadius = 6;
 var peaksDrawn = false;
@@ -26,7 +26,6 @@ var peaksDrawn = false;
 const fileSelector = document.getElementById("file-selector");
 fileSelector.addEventListener("change", (event) => {
     const fileList = event.target.files;
-    console.log(fileList);
 });
 
 var opentopomap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -100,8 +99,8 @@ map.on(L.Draw.Event.CREATED, function (e) {
             selectedMarkers.push(marker);
             markerList = markerList + marker._tooltip._content + "\n";
         }
-        console.log(selectedMarkers);
-        console.log(markerList);
+        // console.log(selectedMarkers);
+        // console.log(markerList);
 
     });
     var visited = confirm("Mark these peaks as visited?\n" + markerList);
@@ -256,6 +255,22 @@ function plotPeaks(peaks, className="peaks") {
             // Check if the peak clicked on is unvisited
             console.log(e.target);
             changeFormDisplay("newPeakForm", "none");
+            
+            // If a tempMarker already exists, remove it from the map
+            if (tempMarker) {
+                map.removeLayer(tempMarker);
+            }
+
+            /* Create marker at location of double-click */
+            tempMarker = L.marker(
+                [e.latlng.lat, e.latlng.lng], {
+                    // radius: markerRadius,
+                    color: "#000000",
+                }
+            ).bindTooltip(
+                "Selected peak"
+            ).addTo(map);
+
             if (e.target.options.color === unvisitedColor) {
                 changeFormDisplay("newAscentForm", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
@@ -577,20 +592,20 @@ function onMapDblClick(e) {
     changeFormDisplay("newAscentForm", "none");
     emptySelectedPeakInfo();
 
-    // // If a tempMarker already exists, remove it from the map
-    // if (tempMarker) {
-    //     map.removeLayer(tempMarker);
-    // }
+    // If a tempMarker already exists, remove it from the map
+    if (tempMarker) {
+        map.removeLayer(tempMarker);
+    }
 
-    // /* Create marker at location of double-click */
-    // tempMarker = L.circleMarker(
-    //     [e.latlng.lat, e.latlng.lng], {
-    //         radius: markerRadius,
-    //         color: "#000000",
-    //     }
-    // ).bindTooltip(
-    //     "New peak"
-    // ).addTo(map);
+    /* Create marker at location of double-click */
+    tempMarker = L.marker(
+        [e.latlng.lat, e.latlng.lng], {
+            // radius: markerRadius,
+            color: "#000000",
+        }
+    ).bindTooltip(
+        "New peak"
+    ).addTo(map);
 
     // Opens pop-up with coordinates. Not needed anymore.
     // L.popup()
@@ -672,18 +687,29 @@ function changeFormDisplay(formId, display) {
 
 function updateSelectedPeakInfo(peak) {
     document.getElementById("selectedPeakInfo").innerHTML = peak.name + " (" + peak.ele + " masl)";
-    // document.getElementById("selectedPeakName").innerHTML = peak.name;
-    // document.getElementById("selectedPeakEle").innerHTML = peak.ele;
-    // document.getElementById("selectedPeakLat").innerHTML = peak.lat;
-    // document.getElementById("selectedPeakLon").innerHTML = peak.lon;
+    document.getElementById("selectedPeakName").innerHTML = peak.name;
+    document.getElementById("selectedPeakEle").innerHTML = peak.ele;
+    document.getElementById("selectedPeakLat").innerHTML = peak.lat;
+    document.getElementById("selectedPeakLon").innerHTML = peak.lon;
 
     if (peak.ascents !== undefined) {
         
-        var ascentsString = "<ol>";
+        /* Old way of showing ascents: */
+        // var ascentsString = "<ol>";
+        // for (let i=0; i<peak.ascents.length; i++) {
+        //     ascentsString += "<li>" + peak.ascents[i] + "</li>";
+        // }
+        // ascentsString += "</ol>";
+        // document.getElementById("selectedPeakAscents").innerHTML = ascentsString;
+
+        var ascentsString = "<details>";
+        ascentsString += "<summary>" + peak.ascents.length + " ascents</summary>\n";
+        ascentsString += "<ol>";
         for (let i=0; i<peak.ascents.length; i++) {
             ascentsString += "<li>" + peak.ascents[i] + "</li>";
         }
         ascentsString += "</ol>";
+        ascentsString += "</details>";
         document.getElementById("selectedPeakAscents").innerHTML = ascentsString;
     } else {
         document.getElementById("selectedPeakAscents").innerHTML = "";
@@ -692,11 +718,11 @@ function updateSelectedPeakInfo(peak) {
 
 function emptySelectedPeakInfo() {
     document.getElementById("selectedPeakInfo").innerHTML = "";
-    // document.getElementById("selectedPeakName").innerHTML = "";
-    // document.getElementById("selectedPeakEle").innerHTML = "";
-    // document.getElementById("selectedPeakLat").innerHTML = "";
-    // document.getElementById("selectedPeakLon").innerHTML = "";
-    // document.getElementById("selectedPeakAscents").innerHTML = "";
+    document.getElementById("selectedPeakName").innerHTML = "";
+    document.getElementById("selectedPeakEle").innerHTML = "";
+    document.getElementById("selectedPeakLat").innerHTML = "";
+    document.getElementById("selectedPeakLon").innerHTML = "";
+    document.getElementById("selectedPeakAscents").innerHTML = "";
 }
 
 function saveNewPeak() {

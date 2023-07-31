@@ -30,18 +30,11 @@
                 <!-- <span class="subheading">A minimalistic tool for peak baggers</span> -->
             </div>
             <nav>
-                <!-- <button class="button import" id="upload-file-button" title="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> <input type="file" id="file-selector" hidden> -->
-                <!-- <button class="button import" id="start-new-database" title="Start a new peak database with a default set of unvisited peaks.">New</button> -->
-                <!-- <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" title="Save your current peak database as a JSON file, which includes ascent dates."> Save as JSON </button> -->
-                <!-- <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" title="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button> -->
-                <!-- <img id="showInstructions" title="Help" src="assets/question_mark.svg" alt="How it works"/> -->
-            </nav>
-
-            <nav>
                 <div class="dropdown">
                   <button class="dropbtn button import">Start &#9660;</button>
                   <div class="dropdown-content">
-                    <button class="button import" id="upload-file-button" title="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> <input type="file" id="file-selector" hidden>
+                    <button class="button import" id="upload-file-button" title="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> 
+                    <input type="file" id="file-selector" hidden>
                     <button class="button import" id="start-new-database" title="Start a new peak database with a default set of unvisited peaks.">New</button>
                   </div>
                 </div>
@@ -54,46 +47,31 @@
                 </div>
                 <img id="showInstructions" title="Help" src="assets/question_mark.svg" alt="How it works"/>
             </nav>
-
-            <!-- <nav role="navigation"> -->
-            <!--     <div id="menuToggle"> -->
-            <!--     <input type="checkbox" id="check"> -->
-            <!--     <span></span> -->
-            <!--     <span></span> -->
-            <!--     <span></span> -->
-            <!--     <ul id="menu"> -->
-            <!--         <li><button class="button import tooltip" id="upload-file-button" data-tooltip="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> <input type="file" id="file-selector" hidden></li> -->
-            <!--         <li><button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">New</button></li> -->
-            <!--         <li><button class="button download tooltip" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a JSON file, which includes ascent dates."> Save as JSON </button></li> -->
-            <!--         <li><button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button></li> -->
-            <!--         <li><img id="showInstructions" src="assets/question_mark.svg" alt="How it works"/></li> -->
-            <!--     </ul> -->
-            <!--     </div> -->
-            <!-- </nav> -->
         </header>
 
         <div id="loading-background"></div>
         <div id="loading-spinner" class="spinner"></div>
 
-        <!-- <div id="instructionModal" class="modal"> -->
-        <!--   <div class="modal-content"> -->
-        <!--     <span class="close">&times;</span> -->
-        <!--     <h2>Getting Started</h2> -->
-        <!--     <p>You can start using Peakbase in one of three ways:</p> -->
-        <!--     <ol> -->
-        <!--       <li>Upload an existing peak database in JSON or GPX format from your local storage.</li> -->
-        <!--       <li>Create a new peak database with a default set of unvisited peaks.</li> -->
-        <!--       <li>Double-click on the map to create new peaks and start from scratch.</li> -->
-        <!--     </ol> -->
+        <div id="instructionModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Getting Started</h2>
+            <p>You can start using Peakbase in one of three ways:</p>
+            <ol>
+              <li>Upload an existing peak database in JSON or GPX format from your local storage.</li>
+              <li>Create a new peak database with a default set of unvisited peaks.</li>
+              <li>Double-click on the map to create new peaks and start from scratch.</li>
+            </ol>
 
-        <!--     <h3>Legend:</h3> -->
-        <!--     <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak -->
-        <!--     <img src="assets/marker_visited.svg" class="legend"/>Visited peak -->
-        <!--     <1!-- <img src="assets/marker_new.svg" class="legend"/>New peak --1> -->
+            <h3>Legend:</h3>
+            <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak
+            <img src="assets/marker_visited.svg" class="legend"/>Visited peak
+            <img src="js/leaflet/images/marker-icon.png" class="legend"/>Selected peak
+            <!-- <img src="assets/marker_new.svg" class="legend"/>New peak -->
 
-        <!--     <h3><a href="info.html" target="_blank">More info</a></h3> -->
-        <!--   </div> -->
-        <!-- </div> -->
+            <h3><a href="info.html" target="_blank">More info</a></h3>
+          </div>
+        </div>
 
         <!-- <div id="instructionsContainer"> -->
         <!--     1. Load your peakbase (blue buttons), or double-click on map to create new peaks. 2. Register peak ascents by clicking on red markers. 3. Save your peakbase (green buttons). -->
@@ -101,41 +79,42 @@
 
         <div id="container">
         <div id="editContainer">
-            <div id="statusbar">
-                <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
-            <hr>
-            </div>
+            <!-- <div id="statusbar"> -->
+            <!--     <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p> -->
+            <!-- <hr> -->
+            <!-- </div> -->
             <div id="peakInfoContainer">
-                <!-- <h3>Last clicked peak</h3> -->
+                <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
                 <div class="peakInfoItem">
                     <span class="peakInfoLabel">Last clicked peak:</span>
                     <span class="peakInfoValue" id="selectedPeakInfo"></span>
+                    <span class="peakInfoValue" id="selectedPeakAscents"></span>
                 </div>
-
-                <!-- <div class="peakInfoItem"> -->
-                <!--     <span class="peakInfoLabel">Name:</span> -->
-                <!--     <span class="peakInfoValue" id="selectedPeakName"></span> -->
-                <!-- </div> -->
-
-                <!-- <div class="peakInfoItem"> -->
-                <!--     <span class="peakInfoLabel">Elevation:</span> -->
-                <!--     <span class="peakInfoValue" id="selectedPeakEle"></span> -->
-                <!-- </div> -->
-
-                <!-- <div class="peakInfoItem"> -->
-                <!--     <span class="peakInfoLabel coordinateInfo">Lat:</span> -->
-                <!--     <span class="peakInfoValue coordinateInfo" id="selectedPeakLat"></span> -->
-                <!-- </div> -->
-
-                <!-- <div class="peakInfoItem"> -->
-                <!--     <span class="peakInfoLabel coordinateInfo">Lon:</span> -->
-                <!--     <span class="peakInfoValue coordinateInfo" id="selectedPeakLon"></span> -->
-                <!-- </div> -->
 
                 <div class="peakInfoItem">
-                    <span class="peakInfoLabel">Ascents:</span>
-                    <div id="selectedPeakAscents"></div>
+                    <span class="peakInfoLabel hidden">Name:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakName"></span>
                 </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Elevation:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakEle"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Lat:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakLat"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Lon:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakLon"></span>
+                </div>
+
+                <!-- <div class="peakInfoItem"> -->
+                <!--     <span class="peakInfoLabel">Ascents:</span> -->
+                <!--     <div id="selectedPeakAscents"></div> -->
+                <!-- </div> -->
             </div>
             <hr>
             <div class="form-popup" id="newAscentForm">
@@ -152,16 +131,15 @@
             <div class="form-popup" id="newPeakForm">
                 <h3>New peak</h3>
                 <label for="newPeakName">Name of peak</label>
-                <input class="block" type="text" placeholder="Enter peak
-                              name" id="newPeakName"
+                <input class="block" type="text" placeholder="Enter peak name" id="newPeakName"
                                     required>
                 <label for="newPeakEle">Elevation of peak</label>
-                <input class="block" type="text" placeholder="Enter peak elevation in meters"
+                <input class="block" type="text" placeholder="Enter peak elevation"
                                    id="newPeakEle" required>
-                <label for="newPeakLat">Lat</label>
-                <input class="block" id="newPeakLat" required>
-                <label for="newPeakLon">Lon</label>
-                <input class="block" id="newPeakLon" required>
+                <label class="" for="newPeakLat">Lat</label>
+                <input class="" class="block" id="newPeakLat" required disabled>
+                <label class="" for="newPeakLon">Lon</label>
+                <input class="" class="block" id="newPeakLon" required disabled>
 
                 <button class="btn" onclick="saveNewPeak()">Save</button>
                 <button class="btn-cancel"
