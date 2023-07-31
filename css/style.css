@@ -7,7 +7,6 @@
     --main-font-color: rgb(57, 56, 56);
     --secondary-font-color: rgb(142, 142, 142);
     --tertiary-font-color: rgb(70, 70, 70);
-    --max-body-width: 120em;
     --button-download-color: #4caf50;
     --button-download-hover-color: white;
     --button-import-color: #3377ff;
@@ -21,7 +20,7 @@
 
 /*Body{{{*/
 body {
-    font-family: "Arial", sans-serif;
+    font-family: "Helvetica", "Arial", sans-serif;
     color: var(--main-font-color);
     padding-left: 5%;
     padding-right: 5%;
@@ -185,51 +184,12 @@ article {
 }
 
 /* Buttons{{{ */
-/* .button { */
-/*   background-color: #f0f0f0; */
-/*   padding: 0.5rem; */
-/*   font-family: sans-serif; */
-/*   border: 1px solid black; */
-/*   border-radius: 0.3rem; */
-/*   cursor: pointer; */
-/*   display: inline; */
-/*   font-size: 1em; */
-/*   margin: 0.3em; */
-/* } */
-
 label.button {
-    /* background-color: var(--button-import-color); */
-    /* color: white; */
-    display: inline;
     width: 20ch;
 }
 
-/* label.button:hover { */
-/*     background-color: white; */
-/*     color: #3377ff; */
-/* } */
-
-/* button.download { */
-/*     background-color: #4caf50; */
-/*     color: white; */
-/* } */
-
-/* button.download:hover { */
-/*     background-color: white; */
-/*     color: #4caf50; */
-/* } */
-
-/* button.import { */
-/*     background-color: #3377ff; */
-/*     color: white; */
-/* } */
-
-/* button.import:hover { */
-/*     background-color: white; */
-/*     color: #3377ff; */
-/* } */
-
 .button, .button.download, .button.import {
+    display: inline;
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: 1px solid var(--button-border-color);

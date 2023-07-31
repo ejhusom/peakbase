@@ -33,7 +33,6 @@
                 <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
                 <label class="button import tooltip" for="file-selector" data-tooltip="Choose an existing peak database in JSON or GPX format from your local storage.">Upload peak database </label>
                 <input type="file" id="file-selector" hidden>
-                <!-- <button class="import" id="import-existing-database">Import existing peakbase</button> -->
                 <button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">Create new peak database</button>
                 <button class="button download tooltip" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a JSON file, which includes ascent dates.">
                     Download JSON
@@ -41,7 +40,7 @@
                 <button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">
                     Download GPX (ascent dates not included)
                 </button>
-                <a href="info.html" target="_blank"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
+                <a href="info.html" target="_blank" class="tooltip" data-tooltip="Help"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a>
             </nav>
         </header>
 
