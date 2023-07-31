@@ -184,12 +184,11 @@ article {
 }
 
 /* Buttons{{{ */
-label.button {
-    width: 20ch;
-}
+/* label.button { */
+/*     width: 20ch; */
+/* } */
 
 .button, .button.download, .button.import {
-    display: inline;
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: 1px solid var(--button-border-color);
@@ -215,12 +214,12 @@ label.button {
     color: var(--button-download-color);
 }
 
-.button.import, label.button.import {
+.button.import {
     background-color: var(--button-import-color);
     color: white;
 }
 
-.button.import:hover, label.button.import:hover {
+.button.import:hover {
     background-color: var(--button-import-hover-color);
     color: var(--button-import-color);
 }
