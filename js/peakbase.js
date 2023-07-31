@@ -18,6 +18,8 @@ var peaks_visited = [];
 var unvisitedMarkers;
 var visitedMarkers;
 
+// let tempMarker;
+
 var markerRadius = 6;
 var peaksDrawn = false;
 
@@ -258,7 +260,8 @@ function plotPeaks(peaks, className="peaks") {
                 changeFormDisplay("newAscentForm", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
                 updateSelectedPeakInfo(peak);
-                var visited = confirm("Visited?");
+                console.log("Updated peak info");
+                var visited = confirm("Mark " + peak.name + " (" + peak.ele + " masl) as visited?");
                 // If user confirms that the peak is visited, move it to the
                 // visited peaks list
                 if (visited === true) {
@@ -574,20 +577,26 @@ function onMapDblClick(e) {
     changeFormDisplay("newAscentForm", "none");
     emptySelectedPeakInfo();
 
+    // // If a tempMarker already exists, remove it from the map
+    // if (tempMarker) {
+    //     map.removeLayer(tempMarker);
+    // }
+
+    // /* Create marker at location of double-click */
+    // tempMarker = L.circleMarker(
+    //     [e.latlng.lat, e.latlng.lng], {
+    //         radius: markerRadius,
+    //         color: "#000000",
+    //     }
+    // ).bindTooltip(
+    //     "New peak"
+    // ).addTo(map);
+
     // Opens pop-up with coordinates. Not needed anymore.
     // L.popup()
     //     .setLatLng(e.latlng)
     //     .setContent("Coordinates: " + e.latlng.toString())
     //     .openOn(map);
-
-    // var marker = L.circleMarker(
-    //     [peak.lat, peak.lon], {
-    //         radius: markerRadius,
-    //         color: markerColor,
-    //     }
-    // ).bindTooltip(
-    //     peak.name + ', ' + peak.ele + ' masl'
-    // );
 
     changeFormDisplay("newPeakForm", "block");
 
@@ -787,10 +796,6 @@ var modal = document.getElementById("instructionModal");
 var span = document.getElementsByClassName("close")[0];
 var showInstructionsButton = document.getElementById("showInstructions");
 
-window.onload = function() {
-  modal.style.display = "block";
-}
-
 span.onclick = function() {
   modal.style.display = "none";
 }
@@ -805,9 +810,12 @@ window.onclick = function(event) {
   }
 }
 
-// Connects the button for "Upload peak database" to the hidden file selector
 window.onload = function() {
+  // Connects the button for "Upload peak database" to the hidden file selector
   document.getElementById('upload-file-button').addEventListener('click', function() {
     document.getElementById('file-selector').click();
   });
+
+  // Show instruction modal
+  modal.style.display = "block";
 }

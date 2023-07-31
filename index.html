@@ -60,7 +60,15 @@
               <li>Create a new peak database with a default set of unvisited peaks.</li>
               <li>Double-click on the map to create new peaks and start from scratch.</li>
             </ol>
-            <p><a href="info.html" target="_blank">More info</a></p>
+
+            <h3>Legend:</h3>
+            <!-- <p><img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak</p> -->
+            <!-- <p><img src="assets/marker_visited.svg" class="legend"/>Visited peak</p> -->
+            <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak
+            <img src="assets/marker_visited.svg" class="legend"/>Visited peak
+            <!-- <img src="assets/marker_new.svg" class="legend"/>New peak -->
+
+            <h3><a href="info.html" target="_blank">More info</a></h3>
           </div>
         </div>
 
@@ -77,23 +85,33 @@
                     <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
                 </div>
                 <hr>
-                <div id="peakInfo">
-                    <h3>Selected peak</h3>
+                <div id="peakInfoContainer">
+                    <h3>Last clicked peak</h3>
 
-                    <h4>Name:</h4>
-                    <div id="selectedPeakName"></div>
+                    <div class="peakInfoItem">
+                        <span class="peakInfoLabel">Name:</span>
+                        <span class="peakInfoValue" id="selectedPeakName"></span>
+                    </div>
 
-                    <h4>Elevation:</h4>
-                    <div id="selectedPeakEle"></div>
+                    <div class="peakInfoItem">
+                        <span class="peakInfoLabel">Elevation:</span>
+                        <span class="peakInfoValue" id="selectedPeakEle"></span>
+                    </div>
 
-                    <h4 class="coordinateInfo">Lat:</h4>
-                    <div class="coordinateInfo" id="selectedPeakLat"></div>
+                    <div class="peakInfoItem">
+                        <span class="peakInfoLabel coordinateInfo">Lat:</span>
+                        <span class="peakInfoValue coordinateInfo" id="selectedPeakLat"></span>
+                    </div>
 
-                    <h4 class="coordinateInfo">Lon:</h4>
-                    <div class="coordinateInfo" id="selectedPeakLon"></div>
+                    <div class="peakInfoItem">
+                        <span class="peakInfoLabel coordinateInfo">Lon:</span>
+                        <span class="peakInfoValue coordinateInfo" id="selectedPeakLon"></span>
+                    </div>
 
-                    <h4>Ascents:</h4>
-                    <div id="selectedPeakAscents"></div>
+                    <div class="peakInfoItem">
+                        <span class="peakInfoLabel">Ascents:</span>
+                        <div id="selectedPeakAscents"></div>
+                    </div>
                 </div>
                 <hr>
                 <div class="form-popup" id="newAscentForm">
