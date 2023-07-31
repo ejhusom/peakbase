@@ -26,50 +26,60 @@
         <header>
             <div id="title">
                 <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1>
-                <span class="subheading">peakbagging made simple</span>
+                <!-- <span class="subheading">peakbagging made simple</span> -->
                 <!-- <span class="subheading">A minimalistic tool for peak baggers</span> -->
             </div>
             <nav>
-                <!-- <a href="info.html">How it works</a> -->
-                <!-- <a href="https://github.com/ejhusom/peakbase">Source code</a> -->
-                <button class="button import tooltip" id="upload-file-button" data-tooltip="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button>
+                <button class="button import" id="upload-file-button" title="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button>
 
                 <input type="file" id="file-selector" hidden>
-                <button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">New</button>
-                <button class="button download tooltip" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a JSON file, which includes ascent dates.">
+                <button class="button import" id="start-new-database" title="Start a new peak database with a default set of unvisited peaks.">New</button>
+                <button class="button download" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" title="Save your current peak database as a JSON file, which includes ascent dates.">
                     Save as JSON
                 </button>
-                <button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button>
-                <!-- <a href="info.html" target="_blank" class="tooltip" data-tooltip="Help"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></a> -->
-                <!-- <button id="showInstructions" class="button">Show instructions</button> -->
+                <button class="button download" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" title="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button>
                 <img id="showInstructions" src="assets/question_mark.svg" alt="How it works"/>
-                <!-- <button id="showInstructions" class="button"><img id="info_symbol" src="assets/question_mark.svg" alt="How it works"/></button> -->
 
             </nav>
+            <!-- <nav role="navigation"> -->
+            <!--     <div id="menuToggle"> -->
+            <!--     <input type="checkbox" id="check"> -->
+            <!--     <span></span> -->
+            <!--     <span></span> -->
+            <!--     <span></span> -->
+            <!--     <ul id="menu"> -->
+            <!--         <li><button class="button import tooltip" id="upload-file-button" data-tooltip="Upload an existing peak database in JSON or GPX format from your local storage.">Upload</button> <input type="file" id="file-selector" hidden></li> -->
+            <!--         <li><button class="button import tooltip" id="start-new-database" data-tooltip="Start a new peak database with a default set of unvisited peaks.">New</button></li> -->
+            <!--         <li><button class="button download tooltip" onclick="writePeaksToJSON([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a JSON file, which includes ascent dates."> Save as JSON </button></li> -->
+            <!--         <li><button class="button download tooltip" onclick="writePeaksToGPX([peaks_unvisited, peaks_visited])" data-tooltip="Save your current peak database as a GPX file, compatible with other map tools. Ascent dates are not included.">Save as GPX</button></li> -->
+            <!--         <li><img id="showInstructions" src="assets/question_mark.svg" alt="How it works"/></li> -->
+            <!--     </ul> -->
+            <!--     </div> -->
+            <!-- </nav> -->
         </header>
 
         <div id="loading-background"></div>
         <div id="loading-spinner" class="spinner"></div>
 
-        <div id="instructionModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Getting Started</h2>
-            <p>You can start using Peakbase in one of three ways:</p>
-            <ol>
-              <li>Upload an existing peak database in JSON or GPX format from your local storage.</li>
-              <li>Create a new peak database with a default set of unvisited peaks.</li>
-              <li>Double-click on the map to create new peaks and start from scratch.</li>
-            </ol>
+        <!-- <div id="instructionModal" class="modal"> -->
+        <!--   <div class="modal-content"> -->
+        <!--     <span class="close">&times;</span> -->
+        <!--     <h2>Getting Started</h2> -->
+        <!--     <p>You can start using Peakbase in one of three ways:</p> -->
+        <!--     <ol> -->
+        <!--       <li>Upload an existing peak database in JSON or GPX format from your local storage.</li> -->
+        <!--       <li>Create a new peak database with a default set of unvisited peaks.</li> -->
+        <!--       <li>Double-click on the map to create new peaks and start from scratch.</li> -->
+        <!--     </ol> -->
 
-            <h3>Legend:</h3>
-            <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak
-            <img src="assets/marker_visited.svg" class="legend"/>Visited peak
-            <!-- <img src="assets/marker_new.svg" class="legend"/>New peak -->
+        <!--     <h3>Legend:</h3> -->
+        <!--     <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak -->
+        <!--     <img src="assets/marker_visited.svg" class="legend"/>Visited peak -->
+        <!--     <1!-- <img src="assets/marker_new.svg" class="legend"/>New peak --1> -->
 
-            <h3><a href="info.html" target="_blank">More info</a></h3>
-          </div>
-        </div>
+        <!--     <h3><a href="info.html" target="_blank">More info</a></h3> -->
+        <!--   </div> -->
+        <!-- </div> -->
 
         <!-- <div id="instructionsContainer"> -->
         <!--     1. Load your peakbase (blue buttons), or double-click on map to create new peaks. 2. Register peak ascents by clicking on red markers. 3. Save your peakbase (green buttons). -->
@@ -79,8 +89,8 @@
         <div id="editContainer">
             <div id="statusbar">
                 <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
-            </div>
             <hr>
+            </div>
             <div id="peakInfoContainer">
                 <!-- <h3>Last clicked peak</h3> -->
                 <div class="peakInfoItem">
