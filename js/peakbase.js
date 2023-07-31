@@ -693,6 +693,7 @@ function saveNewPeak() {
     updatePeakCounts();
     drawPeaks(peaks_unvisited, peaks_visited);
     changeFormDisplay("newPeakForm", "none");
+    alert("New peak created successfully!");
 }
 
 function saveNewAscent() {
@@ -717,6 +718,7 @@ function saveNewAscent() {
 
     // changeFormDisplay("newAscentForm", "none");
     updateSelectedPeakInfo(peak);
+    alert("Ascent recorded successfully!");
 }
 
 function dynamicSort(property) {
