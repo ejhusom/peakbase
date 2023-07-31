@@ -43,6 +43,7 @@ var map = L.map('map', {
     // drawControl: true,
     center: [65, 14],
     zoom: 5,
+    zoomControl: false,
     layers: [norgeskart, opentopomap],
 });
 
@@ -50,6 +51,12 @@ var baseMaps = {
     "OpenTopoMap (global)": opentopomap,
     "Norgeskart (Norway)": norgeskart,
 }
+
+L.control.layers(null, baseMaps, {position: 'bottomleft'}).addTo(map);
+
+L.control.zoom({
+    position: 'bottomleft'
+}).addTo(map);
 
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
@@ -69,13 +76,12 @@ const drawControl = new L.Control.Draw({
             metric: 'metric'
         }
     },
-    edit: false
+    edit: false,
+    position: 'bottomleft',
 });
 
 map.addControl(drawControl);
 
-
-L.control.layers(baseMaps).addTo(map);
 
 var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
 

@@ -17,20 +17,30 @@
     --button-hover-bg-color: #ddd;
     --button-hover-text-color: black;
     --border-radius: 0.5rem;
+    /* --header-height: 80px; */
 }
 
-/*Body{{{*/
-body {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: "Helvetica", "Arial", sans-serif;
     color: var(--main-font-color);
-    padding-left: 5%;
-    padding-right: 5%;
+    /* position: relative; */
 }
-/*}}}*/
 
 /*Header{{{*/
 header {
-    margin: 0.8em;
+    /* padding: 0.8em; */
+    /* height: var(--header-height); */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    float: left;
+    z-index: 1000; /* To ensure header is always on top */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid;
 }
 
 #title {
@@ -99,16 +109,25 @@ footer {
 /*}}}*/
 
 /* Map and edit container{{{ */
-.mapEditContainer {
-    border: 1px solid;
-    /* border-radius: var(--border-radius); */
-    /* height: 650px; */
+#map {
+    width: 75%;
+    height: 100%;
+    /* position: absolute; */
+    float: left;
+    /* height: calc(100% - var(--header-height)); */
 }
 
-#map {
-    height: 650px;
-    /* width: 75%; */
-    /* flex: 3; */
+#editContainer {
+    /* border: 1px solid; */
+    /* display: block; */
+    position: absolute;
+    /* height: calc(100% - var(--header-height)); */
+    /* margin-top: var(--header-height); */
+    width: 25%;
+    float: right;
+    /* overflow-y: auto; */
+    /* background-color: #f0f0f0;  /1* Choose a color that fits your design *1/ */
+    /* padding: 10px; */
 }
 
 .peaks {
@@ -126,17 +145,9 @@ footer {
     vertical-align: middle;
 }
 
-#editContainer {
-    border: 1px solid;
-    /* border-radius: var(--border-radius); */
-    display: block;
-    /* flex: 1; */
-}
-
 #peakInfoContainer {
     padding: 0.5em;
     margin: 0.5em;
-    /* border: 1px solid; */
     background-color: white;
 }
 
@@ -152,7 +163,6 @@ footer {
     display: none;
     padding: 0.5em;
     margin: 0.5em;
-    /* border: 1px solid; */
     background-color: white;
 }
 
@@ -173,8 +183,6 @@ label {
 }
 
 .peaksStatistics {
-    /* padding-left: 0.5em; */
-    /* padding-top: 0.5em; */
     margin: 0.5em 0.0em 0.0em 0.5em;
 }
 /* }}} */
@@ -261,16 +269,16 @@ article {
 /*Tablets and mobile devices{{{*/
 @media screen and (max-width: 992px) {
     body {
-      max-width: none;
+      /* max-width: none; */
     }
     .mapEditContainer {
-        display: block;
+        /* display: block; */
     }
     #editContainer {
     }
     #map {
-      width: 100%;
-      height: 70vh;
+      /* width: 100%; */
+      /* height: 70vh; */
     }
     article {
         width: 100%;
@@ -287,14 +295,14 @@ article {
 /*Laptops and large screens{{{*/
 @media screen and (min-width: 992px) {
     .mapEditContainer {
-        display: flex;
+        /* display: flex; */
     }
     #editContainer {
-        flex: 1;
+        /* flex: 1; */
     }
     #map {
-        width: 75%;
-        flex: 3;
+        /* width: 75%; */
+        /* flex: 3; */
     }
 }
 /*}}}*/
