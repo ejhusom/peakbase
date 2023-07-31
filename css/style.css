@@ -237,6 +237,37 @@ button.import:hover {
     margin-top: 0.5em;
 }
 
+/* Tooltips{{{ */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px; /* Adjust this to move the tooltip further down */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.tooltip:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* }}} */
+
 /*Tablets and mobile devices{{{*/
 @media screen and (max-width: 992px) {
     body {
