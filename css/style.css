@@ -17,7 +17,7 @@
     --button-hover-bg-color: #ddd;
     --button-hover-text-color: black;
     --border-radius: 0.5rem;
-    /* --header-height: 80px; */
+    --header-height: 80px;
 }
 
 html, body {
@@ -27,20 +27,25 @@ html, body {
     font-family: "Helvetica", "Arial", sans-serif;
     color: var(--main-font-color);
     /* position: relative; */
+
+    display: flex;
+    flex-direction: column;
 }
 
 /*Header{{{*/
 header {
-    /* padding: 0.8em; */
-    /* height: var(--header-height); */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 75%;
-    float: left;
-    z-index: 1000; /* To ensure header is always on top */
-    background-color: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid;
+    padding: 1.0em;
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 75%; */
+    /* float: left; */
+    /* z-index: 1000; /1* To ensure header is always on top *1/ */
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    border-bottom: 2px solid rgb(233, 233, 233);
+
+    height: var(--header-height);
+    width: 100%;
 }
 
 #title {
@@ -110,24 +115,31 @@ footer {
 
 /* Map and edit container{{{ */
 #map {
-    width: 75%;
+    width: 80%;
     height: 100%;
+    /* float: left; */
+
     /* position: absolute; */
-    float: left;
-    /* height: calc(100% - var(--header-height)); */
 }
 
 #editContainer {
     /* border: 1px solid; */
     /* display: block; */
-    position: absolute;
+    /* position: absolute; */
     /* height: calc(100% - var(--header-height)); */
     /* margin-top: var(--header-height); */
-    width: 25%;
-    float: right;
-    /* overflow-y: auto; */
+    width: 20%;
+    /* float: right; */
     /* background-color: #f0f0f0;  /1* Choose a color that fits your design *1/ */
     /* padding: 10px; */
+
+    height: 100%;
+    overflow-y: auto;
+}
+
+#container {
+    display: flex;
+    flex: 1;
 }
 
 .peaks {
