@@ -176,6 +176,10 @@ div.form-popup h3 {
     display: inline;
 }
 
+.newPeakInput {
+    display: inline;
+}
+
 /* #editPeakForm { */
 /*     display: inline; */
 /* } */
@@ -186,6 +190,7 @@ div.form-popup h3 {
 
 .peakInfoLabel {
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .peakInfoItem {
@@ -228,7 +233,7 @@ details ol {
     position: absolute;
     z-index: 1000;
     background: #ffffff;
-    margin: none;
+    margin: 0;
     padding: 0.2em;
     border: 1px solid;
     border-radius: var(--border-radius);
