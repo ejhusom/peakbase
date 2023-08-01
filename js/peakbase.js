@@ -711,24 +711,27 @@ function onMapDblClick(e) {
     // updatePeakCounts();
     // drawPeaks(peaks_unvisited, peaks_visited);
 
-    /* TODO: Getting elevation automatically, does not work yet */
-    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
-        + e.latlng.lat + "," + e.latlng.lng;
-    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
+    /* TODO: Getting elevation automatically. Does work with open-meteo, but it
+     * has very low resolution, so I think it is better to enter manually. */
+    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
+    //     + e.latlng.lat + "," + e.latlng.lng;
+    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
+    // var eleUrl = "https://api.open-meteo.com/v1/elevation?latitude=" + e.latlng.lat + "&longitude=" + e.latlng.lng;
 
-    const request = new Request(eleUrl);
-    console.log("Trying to get elevation...");
+    // const request = new Request(eleUrl);
+    // console.log("Trying to get elevation...");
 
-    fetch(eleUrl, {
-        // headers: {
-        //     "Access-Control-Allow-Origin"
-        // }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => {
-        console.log("Could not fetch elevation.")
-    });
+    // fetch(eleUrl, {
+    //     mode: "cors",
+    //     // headers: {
+    //     //     "Access-Control-Allow-Origin"
+    //     // }
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .catch(err => {
+    //     console.log("Could not fetch elevation.")
+    // });
 }
 
 function changeDisplay(formId, display) {
