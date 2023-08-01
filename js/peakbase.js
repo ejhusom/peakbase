@@ -262,7 +262,7 @@ function plotPeaks(peaks, className="peaks") {
 
             if (e.target.options.color === unvisitedColor) {
                 changeDisplay("newAscentForm", "none");
-                changeDisplay("peakInfo", "inline");
+                changeDisplay("peakInfoContainer", "inline");
                 changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "inline");
                 changeDisplay("markPeakAsUnvisitedButton", "none");
@@ -283,7 +283,7 @@ function plotPeaks(peaks, className="peaks") {
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_visited);
                 updateSelectedPeakInfo(peak);
                 changeDisplay("newAscentForm", "block");
-                changeDisplay("peakInfo", "inline");
+                changeDisplay("peakInfoContainer", "inline");
                 changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "none");
                 changeDisplay("markPeakAsUnvisitedButton", "inline");
@@ -348,7 +348,7 @@ function markPeakAsUnvisited() {
     alert("Peak marked as unvisited!");
 
     changeDisplay("newAscentForm", "none");
-    changeDisplay("peakInfo", "none");
+    changeDisplay("peakInfoContainer", "none");
     changeDisplay("editPeakForm", "none");
 }
 
@@ -371,7 +371,7 @@ function deletePeak() {
     updatePeakCounts();
     emptySelectedPeakInfo();
     changeDisplay("newAscentForm", "none");
-    changeDisplay("peakInfo", "none");
+    changeDisplay("peakInfoContainer", "none");
     changeDisplay("editPeakForm", "none");
 }
 
@@ -669,7 +669,7 @@ function onMapDblClick(e) {
     //     .openOn(map);
 
     changeDisplay("editPeakForm", "none");
-    changeDisplay("peakInfo", "none");
+    changeDisplay("peakInfoContainer", "none");
     changeDisplay("newPeakForm", "inline");
 
     document.getElementById("newPeakLat").value = e.latlng.lat;
