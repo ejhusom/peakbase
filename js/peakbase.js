@@ -231,8 +231,6 @@ function plotPeaks(peaks, className="peaks") {
         }
     });
 
-
-
     for (let i = 0; i < peaks.length; i++) {
         var peak = peaks[i];
 
