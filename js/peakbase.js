@@ -9,19 +9,14 @@
  * har visited
  */
 
-// var L = L || require('leaflet')
 var L = L || require('leaflet') || require("Leaflet.draw")
-
 var peaks_unvisited = [];
 var peaks_visited = [];
-
 var unvisitedMarkers;
 var visitedMarkers;
-
-let tempMarker;
-
 var markerRadius = 6;
 var peaksDrawn = false;
+let tempMarker;
 
 const fileSelector = document.getElementById("file-selector");
 fileSelector.addEventListener("change", (event) => {
@@ -54,12 +49,6 @@ L.control.layers(baseMaps).addTo(map);
 
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
-// var drawControl = new L.Control.Draw({
-//     edit: {
-//         featureGroup: drawnItems
-//     }
-// });
-
 const drawControl = new L.Control.Draw({
     draw: {
         marker   : false,
@@ -84,9 +73,6 @@ const drawControl = new L.Control.Draw({
 
 map.addControl(drawControl);
 
-
-var colors = ["red", "blue", "green", "yellow", "brown", "black", "white", "purple"];
-
 L.Rectangle.include({
     contains: function(latLng) {
         return this.getBounds().contains(latLng);
@@ -100,7 +86,6 @@ L.Circle.include({
 });
 
 map.on(L.Draw.Event.CREATED, function (e) {
-    
     // if (e.layerType === "polyline"){
     //     console.log(e);
     // } else {
@@ -108,13 +93,9 @@ map.on(L.Draw.Event.CREATED, function (e) {
     var markerList = "";
     unvisitedMarkers.eachLayer(function (marker) {
         if (e.layer.contains(marker.getLatLng())) {
-            // marker.remove();
             selectedMarkers.push(marker);
             markerList = markerList + marker._tooltip._content + "\n";
         }
-        // console.log(selectedMarkers);
-        // console.log(markerList);
-
     });
     var visited = confirm("Mark these peaks as visited?\n" + markerList);
 
@@ -180,7 +161,6 @@ function extractPeaks(xmlDoc) {
         } catch {
             peak.sym = null;
         }
-
 
         // Try to find the "cmt"-tag for the waypoint, otherwise set attribute
         // to zero.
@@ -749,8 +729,6 @@ function onMapDblClick(e) {
     // .catch(err => {
     //     console.log("Could not fetch elevation.")
     // });
-
-
 }
 
 function changeDisplay(formId, display) {
