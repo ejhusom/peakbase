@@ -226,13 +226,14 @@ details {
 
 details ol {
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     background: #ffffff;
     margin: none;
     padding: 0.2em;
     border: 1px solid;
     border-radius: var(--border-radius);
     list-style: none;
+    cursor: pointer;
 }
 /* }}} */
 

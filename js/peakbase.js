@@ -35,8 +35,9 @@ var norgeskart = L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.ope
 
 var map = L.map('map', {
     drawControl: false,
-    center: [65, 14],
-    zoom: 5,
+    center: [30, 10],
+    // center: [65, 14],
+    zoom: 2,
     layers: [norgeskart, opentopomap],
 });
 
@@ -134,7 +135,7 @@ function extractPeaks(xmlDoc) {
         var peak = new Object();
         var wpt = wpts[i];
 
-        // Save infor about peak.
+        // Save info about peak.
         try {
             peak.ele = parseInt(
                 wpt.getElementsByTagName("ele")[0].firstChild.nodeValue
