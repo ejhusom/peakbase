@@ -521,7 +521,7 @@ function drawPeaks (peaks_unvisited, peaks_visited, reset_zoom=false) {
     visitedMarkers = plotPeaks(peaks_visited, "peaks-visited");
 
     if (reset_zoom) {
-        map.setView([65, 14], 5);
+        map.setView([30, 10], 3);
     }
 
     peaksDrawn = true;
