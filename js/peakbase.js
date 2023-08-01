@@ -712,23 +712,23 @@ function onMapDblClick(e) {
     // drawPeaks(peaks_unvisited, peaks_visited);
 
     /* TODO: Getting elevation automatically, does not work yet */
-    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
-    //     + peak.lat + "," + peak.lon;
-    // var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
+    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|" 
+        + e.latlng.lat + "," + e.latlng.lng;
+    var eleUrl = "https://api.open-elevation.com/api/v1/lookup\?locations\=10,10\|20,20\|41.161758,-8.583933"
 
-    // const request = new Request(eleUrl);
-    // console.log("Trying to get elevation...");
+    const request = new Request(eleUrl);
+    console.log("Trying to get elevation...");
 
-    // fetch(eleUrl, {
-    //     // headers: {
-    //     //     "Access-Control-Allow-Origin"
-    //     // }
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    // .catch(err => {
-    //     console.log("Could not fetch elevation.")
-    // });
+    fetch(eleUrl, {
+        // headers: {
+        //     "Access-Control-Allow-Origin"
+        // }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => {
+        console.log("Could not fetch elevation.")
+    });
 }
 
 function changeDisplay(formId, display) {
