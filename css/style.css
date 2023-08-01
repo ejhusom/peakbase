@@ -176,6 +176,10 @@ div.form-popup h3 {
     display: inline;
 }
 
+/* #editPeakForm { */
+/*     display: inline; */
+/* } */
+
 #newPeakEle {
     width: 12ch;
 }
@@ -187,6 +191,10 @@ div.form-popup h3 {
 .peakInfoItem {
     margin-bottom: 1em;
     display: inline;
+}
+
+.header-form {
+    display: none;
 }
 
 .form-popup {

@@ -75,6 +75,13 @@
                 <!--     <div id="selectedPeakAscents"></div> -->
                 <!-- </div> -->
             </div>
+            <div class="header-form" id="editPeakForm">
+                <!-- <h3>Edit peak</h3> -->
+                <button id="markPeakAsVisitedButton" class="btn" onclick="markPeakAsVisited2()">Mark peak as visited</button>
+                <button id="markPeakAsUnvisitedButton" class="btn" onclick="markPeakAsUnvisited()">Mark peak as unvisited</button>
+                <button class="btn" id="deletePeak" onclick="deletePeak()">Delete peak</button>
+                <!-- <button class="btn-cancel" onclick="changeDisplay('editPeakForm', 'none')">Cancel</button> -->
+            </div>
         </header>
 
         <div id="loading-background"></div>
@@ -91,7 +98,7 @@
               <li>Double-click on the map to create new peaks and start from scratch.</li>
             </ol>
 
-            <h3>Legend:</h3>
+            <h3>Legend</h3>
             <img src="assets/marker_unvisited.svg" class="legend"/>Unvisited peak
             <img src="assets/marker_visited.svg" class="legend"/>Visited peak
             <img src="js/leaflet/images/marker-icon.png" class="legend"/>Selected peak
@@ -106,46 +113,35 @@
         <!-- </div> -->
 
         <div id="container">
-        <div id="editContainer">
+            <div id="editContainer">
+                <div class="form-popup" id="newAscentForm">
+                    <h3>New ascent</h3>
 
-            <div class="form-popup" id="editPeakForm">
-                <!-- <h3>Edit peak</h3> -->
-                <button id="markPeakAsVisitedButton" class="btn" onclick="markPeakAsVisited2()">Mark peak as visited</button>
-                <button id="markPeakAsUnvisitedButton" class="btn" onclick="markPeakAsUnvisited()">Mark peak as unvisited</button>
-                <button class="btn" id="deletePeak" onclick="deletePeak()">Delete peak</button>
-                <button class="btn-cancel" onclick="changeDisplay('editPeakForm', 'none')">Cancel</button>
+                    <!-- <label for="ascentDate">Date of ascent</label> -->
+                    <input class="" type="date" id="ascentDate" placeholder="dd-mm-yyyy" required>
+
+                    <button class="btn" onclick="saveNewAscent()">Save</button>
+
+                    <button class="btn-cancel" onclick="changeDisplay('newAscentForm', 'none')">Cancel</button>
+                </div>
+
+                <div class="form-popup" id="newPeakForm">
+                    <h3>New peak</h3>
+                    <label for="newPeakName">Name</label>
+                    <input class="" type="text" placeholder="Enter peak name" id="newPeakName"
+                                        required>
+                    <label for="newPeakEle">Elevation</label>
+                    <input class="" type="text" placeholder="Enter elevation" id="newPeakEle" required>
+                    <label class="hidden" for="newPeakLat">Lat</label>
+                    <input class="hidden" class="block" id="newPeakLat" required disabled>
+                    <label class="hidden" for="newPeakLon">Lon</label>
+                    <input class="hidden" class="block" id="newPeakLon" required disabled>
+
+                    <button class="btn" onclick="saveNewPeak()">Save</button>
+                    <button class="btn-cancel" onclick="changeDisplay('newPeakForm', 'none')">Cancel</button>
+                </div>
             </div>
-
-            <div class="form-popup" id="newAscentForm">
-                <h3>New ascent</h3>
-
-                <!-- <label for="ascentDate">Date of ascent</label> -->
-                <input class="" type="date" id="ascentDate" placeholder="dd-mm-yyyy" required>
-
-                <button class="btn" onclick="saveNewAscent()">Save</button>
-
-                <button class="btn-cancel" onclick="changeDisplay('newAscentForm', 'none')">Cancel</button>
-            </div>
-
-            <div class="form-popup" id="newPeakForm">
-                <h3>New peak</h3>
-                <label for="newPeakName">Name</label>
-                <input class="" type="text" placeholder="Enter peak name" id="newPeakName"
-                                    required>
-                <label for="newPeakEle">Elevation</label>
-                <input class="" type="text" placeholder="Enter elevation" id="newPeakEle" required>
-                <label class="hidden" for="newPeakLat">Lat</label>
-                <input class="hidden" class="block" id="newPeakLat" required disabled>
-                <label class="hidden" for="newPeakLon">Lon</label>
-                <input class="hidden" class="block" id="newPeakLon" required disabled>
-
-                <button class="btn" onclick="saveNewPeak()">Save</button>
-                <button class="btn-cancel"
-                                      onclick="changeDisplay('newPeakForm',
-                                               'none')">Cancel</button>
-            </div>
-        </div>
-        <div id="map"></div>
+            <div id="map"></div>
         </div>
 
     </body>

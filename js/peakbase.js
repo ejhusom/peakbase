@@ -263,7 +263,7 @@ function plotPeaks(peaks, className="peaks") {
 
             if (e.target.options.color === unvisitedColor) {
                 changeDisplay("newAscentForm", "none");
-                changeDisplay("editPeakForm", "block");
+                changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "inline");
                 changeDisplay("markPeakAsUnvisitedButton", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
@@ -283,7 +283,7 @@ function plotPeaks(peaks, className="peaks") {
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_visited);
                 updateSelectedPeakInfo(peak);
                 changeDisplay("newAscentForm", "block");
-                changeDisplay("editPeakForm", "block");
+                changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "none");
                 changeDisplay("markPeakAsUnvisitedButton", "inline");
             }
