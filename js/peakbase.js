@@ -665,6 +665,7 @@ function onMapDblClick(e) {
     //     .setContent("Coordinates: " + e.latlng.toString())
     //     .openOn(map);
 
+    changeDisplay("editPeakForm", "none");
     changeDisplay("newPeakForm", "block");
 
     document.getElementById("newPeakLat").value = e.latlng.lat;
