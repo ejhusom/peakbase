@@ -172,7 +172,12 @@ div.form-popup h3 {
 #peakInfoContainer {
     margin-left: 0.8em;
     margin-right: 0.8em;
-    background-color: white;
+    /* background-color: white; */
+    display: inline;
+}
+
+#newPeakEle {
+    width: 12ch;
 }
 
 .peakInfoLabel {
@@ -181,6 +186,7 @@ div.form-popup h3 {
 
 .peakInfoItem {
     margin-bottom: 1em;
+    display: inline;
 }
 
 .form-popup {
@@ -200,6 +206,25 @@ label {
 
 .hidden {
     display: none;
+}
+
+.peaksStatistics {
+    display: inline;
+}
+
+details {
+    display: inline;
+}
+
+details ol {
+    position: absolute;
+    z-index: 100;
+    background: #ffffff;
+    margin: none;
+    padding: 0.2em;
+    border: 1px solid;
+    border-radius: var(--border-radius);
+    list-style: none;
 }
 /* }}} */
 

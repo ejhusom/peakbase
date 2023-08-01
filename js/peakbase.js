@@ -276,10 +276,7 @@ function plotPeaks(peaks, className="peaks") {
 
             /* Create marker at location of double-click */
             tempMarker = L.marker(
-                [e.latlng.lat, e.latlng.lng], {
-                    // radius: markerRadius,
-                    color: "#000000",
-                }
+                [e.latlng.lat, e.latlng.lng]
             ).bindTooltip(
                 "Selected peak"
             ).addTo(map);
@@ -390,6 +387,7 @@ function deletePeak() {
     alert("Peak deleted!");
     drawPeaks(peaks_unvisited, peaks_visited);
     updatePeakCounts();
+    emptySelectedPeakInfo();
     changeDisplay("newAscentForm", "none");
     changeDisplay("editPeakForm", "none");
 }

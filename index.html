@@ -22,7 +22,6 @@
         <header>
             <div id="title">
                 <h1><a href="https://peakbase.app" class=ghost>Peakbase</a></h1>
-                <!-- <span class="subheading">peakbagging made simple</span> -->
                 <span class="subheading">A minimalistic tool for peak baggers</span>
             </div>
             <nav>
@@ -43,6 +42,39 @@
                 </div>
                 <img id="showInstructions" title="Help" src="assets/question_mark.svg" alt="How it works"/>
             </nav>
+            <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
+            <div id="peakInfoContainer">
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel">Selected peak:</span>
+                    <span class="peakInfoValue" id="selectedPeakInfo"></span>
+                    <span class="peakInfoValue" id="selectedPeakAscents"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Name:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakName"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Elevation:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakEle"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Lat:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakLat"></span>
+                </div>
+
+                <div class="peakInfoItem">
+                    <span class="peakInfoLabel hidden">Lon:</span>
+                    <span class="peakInfoValue hidden" id="selectedPeakLon"></span>
+                </div>
+
+                <!-- <div class="peakInfoItem"> -->
+                <!--     <span class="peakInfoLabel">Ascents:</span> -->
+                <!--     <div id="selectedPeakAscents"></div> -->
+                <!-- </div> -->
+            </div>
         </header>
 
         <div id="loading-background"></div>
@@ -75,43 +107,9 @@
 
         <div id="container">
         <div id="editContainer">
-            <div id="peakInfoContainer">
-                <p class="peaksStatistics" id="numVisitedPeaks"> Peaks ascended: None</p>
-                <div class="peakInfoItem">
-                    <span class="peakInfoLabel">Last clicked peak:</span>
-                    <span class="peakInfoValue" id="selectedPeakInfo"></span>
-                    <span class="peakInfoValue" id="selectedPeakAscents"></span>
-                </div>
-
-                <div class="peakInfoItem">
-                    <span class="peakInfoLabel hidden">Name:</span>
-                    <span class="peakInfoValue hidden" id="selectedPeakName"></span>
-                </div>
-
-                <div class="peakInfoItem">
-                    <span class="peakInfoLabel hidden">Elevation:</span>
-                    <span class="peakInfoValue hidden" id="selectedPeakEle"></span>
-                </div>
-
-                <div class="peakInfoItem">
-                    <span class="peakInfoLabel hidden">Lat:</span>
-                    <span class="peakInfoValue hidden" id="selectedPeakLat"></span>
-                </div>
-
-                <div class="peakInfoItem">
-                    <span class="peakInfoLabel hidden">Lon:</span>
-                    <span class="peakInfoValue hidden" id="selectedPeakLon"></span>
-                </div>
-
-                <!-- <div class="peakInfoItem"> -->
-                <!--     <span class="peakInfoLabel">Ascents:</span> -->
-                <!--     <div id="selectedPeakAscents"></div> -->
-                <!-- </div> -->
-            </div>
-            <hr>
 
             <div class="form-popup" id="editPeakForm">
-                <h3>Edit peak</h3>
+                <!-- <h3>Edit peak</h3> -->
                 <button id="markPeakAsVisitedButton" class="btn" onclick="markPeakAsVisited2()">Mark peak as visited</button>
                 <button id="markPeakAsUnvisitedButton" class="btn" onclick="markPeakAsUnvisited()">Mark peak as unvisited</button>
                 <button class="btn" id="deletePeak" onclick="deletePeak()">Delete peak</button>
@@ -121,8 +119,8 @@
             <div class="form-popup" id="newAscentForm">
                 <h3>New ascent</h3>
 
-                <label for="ascentDate">Date of ascent</label>
-                <input class="block" type="date" id="ascentDate" placeholder="dd-mm-yyyy" required>
+                <!-- <label for="ascentDate">Date of ascent</label> -->
+                <input class="" type="date" id="ascentDate" placeholder="dd-mm-yyyy" required>
 
                 <button class="btn" onclick="saveNewAscent()">Save</button>
 
@@ -131,16 +129,15 @@
 
             <div class="form-popup" id="newPeakForm">
                 <h3>New peak</h3>
-                <label for="newPeakName">Name of peak</label>
-                <input class="block" type="text" placeholder="Enter peak name" id="newPeakName"
+                <label for="newPeakName">Name</label>
+                <input class="" type="text" placeholder="Enter peak name" id="newPeakName"
                                     required>
-                <label for="newPeakEle">Elevation of peak</label>
-                <input class="block" type="text" placeholder="Enter peak elevation"
-                                   id="newPeakEle" required>
-                <label class="" for="newPeakLat">Lat</label>
-                <input class="" class="block" id="newPeakLat" required disabled>
-                <label class="" for="newPeakLon">Lon</label>
-                <input class="" class="block" id="newPeakLon" required disabled>
+                <label for="newPeakEle">Elevation</label>
+                <input class="" type="text" placeholder="Enter elevation" id="newPeakEle" required>
+                <label class="hidden" for="newPeakLat">Lat</label>
+                <input class="hidden" class="block" id="newPeakLat" required disabled>
+                <label class="hidden" for="newPeakLon">Lon</label>
+                <input class="hidden" class="block" id="newPeakLon" required disabled>
 
                 <button class="btn" onclick="saveNewPeak()">Save</button>
                 <button class="btn-cancel"
