@@ -63,11 +63,11 @@
                 <label class="menuItem" for="newPeakName">Name:</label>
                 <input class="menuItem" type="text" placeholder="Enter peak name" id="newPeakName" required>
                 <label class="menuItem" for="newPeakEle">Elevation:</label>
-                <input class="menuItem" type="text" placeholder="Enter elevation" id="newPeakEle" required>
+                <input class="menuItem" type="text" placeholder="Enter elevation" id="newPeakEle" required minlength="1" maxlength="8">
                 <label class="hidden" for="newPeakLat">Lat</label>
-                <input class="hidden" id="newPeakLat" required disabled>
+                <input class="hidden" id="newPeakLat" required disabled/>
                 <label class="hidden" for="newPeakLon">Lon</label>
-                <input class="hidden" id="newPeakLon" required disabled>
+                <input class="hidden" id="newPeakLon" required disabled/>
                 <button class="menuItem" onclick="saveNewPeak()">Save</button>
                 <button class="menuItem" onclick="changeDisplay('newPeakForm', 'none')">Cancel</button>
             </div>
