@@ -262,8 +262,8 @@ function plotPeaks(peaks, className="peaks") {
 
             if (e.target.options.color === unvisitedColor) {
                 changeDisplay("newAscentForm", "none");
-                changeDisplay("peakInfo", "inline");
-                changeDisplay("editPeakForm", "inline");
+                changeDisplay("peakInfoContainer", "inline-flex");
+                // changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "inline");
                 changeDisplay("markPeakAsUnvisitedButton", "none");
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_unvisited);
@@ -282,9 +282,9 @@ function plotPeaks(peaks, className="peaks") {
             } else {
                 var peak = findPeak(e.target._latlng.lat, e.target._latlng.lng, peaks_visited);
                 updateSelectedPeakInfo(peak);
-                changeDisplay("newAscentForm", "block");
-                changeDisplay("peakInfo", "inline");
-                changeDisplay("editPeakForm", "inline");
+                changeDisplay("newAscentForm", "inline-flex");
+                changeDisplay("peakInfoContainer", "inline-flex");
+                // changeDisplay("editPeakForm", "inline");
                 changeDisplay("markPeakAsVisitedButton", "none");
                 changeDisplay("markPeakAsUnvisitedButton", "inline");
             }
@@ -327,7 +327,7 @@ function markPeakAsVisited2() {
 
     changeDisplay("markPeakAsVisitedButton", "none");
     changeDisplay("markPeakAsUnvisitedButton", "inline");
-    changeDisplay("newAscentForm", "block");
+    changeDisplay("newAscentForm", "inline-flex");
 }
 
 function markPeakAsUnvisited() {
@@ -348,8 +348,8 @@ function markPeakAsUnvisited() {
     alert("Peak marked as unvisited!");
 
     changeDisplay("newAscentForm", "none");
-    changeDisplay("peakInfo", "none");
-    changeDisplay("editPeakForm", "none");
+    changeDisplay("peakInfoContainer", "none");
+    // changeDisplay("editPeakForm", "none");
 }
 
 function deletePeak() {
@@ -371,8 +371,8 @@ function deletePeak() {
     updatePeakCounts();
     emptySelectedPeakInfo();
     changeDisplay("newAscentForm", "none");
-    changeDisplay("peakInfo", "none");
-    changeDisplay("editPeakForm", "none");
+    changeDisplay("peakInfoContainer", "none");
+    // changeDisplay("editPeakForm", "none");
 }
 
 function findPeak (lat, lon, peakArray) {
@@ -668,9 +668,9 @@ function onMapDblClick(e) {
     //     .setContent("Coordinates: " + e.latlng.toString())
     //     .openOn(map);
 
-    changeDisplay("editPeakForm", "none");
-    changeDisplay("peakInfo", "none");
-    changeDisplay("newPeakForm", "inline");
+    // changeDisplay("editPeakForm", "none");
+    changeDisplay("peakInfoContainer", "none");
+    changeDisplay("newPeakForm", "inline-flex");
 
     document.getElementById("newPeakLat").value = e.latlng.lat;
     document.getElementById("newPeakLon").value = e.latlng.lng;
